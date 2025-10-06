@@ -31,6 +31,8 @@ export class AwsDashboardComponent implements OnInit {
   selectedCategory: string = 'all';
   expandedService: string | null = null;
   activeTab: { [key: string]: string } = {};
+  selectedService: AwsService | null = null;
+  isModalOpen: boolean = false;
 
   categories = [
     'all',
@@ -1088,4 +1090,20 @@ DescribeAlarmsResponse response =
   getActiveTab(serviceName: string): string {
     return this.activeTab[serviceName] || 'cli';
   }
+
+  openModal(service: AwsService) {
+    this.selectedService = service;
+    this.isModalOpen = true;
+    if (!this.activeTab[service.name]) {
+      this.activeTab[service.name] = 'cli';
+    }
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    setTimeout(() => {
+      this.selectedService = null;
+    }, 300);
+  }
+
 }

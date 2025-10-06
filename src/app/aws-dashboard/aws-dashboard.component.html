@@ -115,10 +115,10 @@
           <!-- Action Buttons -->
           <div class="flex gap-2">
             <button
-              (click)="toggleService(service.name)"
+              (click)="openModal(service)"
               class="flex-1 px-4 py-2 bg-aws-orange text-white rounded-lg hover:bg-opacity-90 transition-all duration-200 text-sm font-semibold"
             >
-              {{ isExpanded(service.name) ? 'Hide Examples' : 'View Examples' }}
+              View Examples
             </button>
             <a
               [href]="service.docUrl"
@@ -129,22 +129,67 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Expandable Section -->
-        <div
-          *ngIf="isExpanded(service.name)"
-          class="border-t border-gray-200 bg-gray-50 p-6 animate-fadeIn"
-        >
+  <!-- Modal -->
+  <div
+    *ngIf="isModalOpen && selectedService"
+    class="fixed inset-0 z-50 overflow-y-auto"
+    (click)="closeModal()"
+  >
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+      <!-- Background overlay -->
+      <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
+
+      <!-- Center modal -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+      <!-- Modal panel -->
+      <div
+        (click)="$event.stopPropagation()"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+      >
+        <!-- Modal Header -->
+        <div class="bg-aws-dark px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-aws-orange rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                {{ selectedService.name.charAt(0) }}
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">{{ selectedService.name }}</h3>
+                <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-aws-orange text-white">
+                  {{ selectedService.category }}
+                </span>
+              </div>
+            </div>
+            <button
+              (click)="closeModal()"
+              title="Close modal"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <p class="text-gray-300 text-sm mt-2">{{ selectedService.description }}</p>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="bg-white px-6 py-6 max-h-[70vh] overflow-y-auto">
           <!-- Best Practices -->
           <div class="mb-6">
-            <h4 class="font-semibold text-gray-700 mb-3 flex items-center">
+            <h4 class="font-semibold text-gray-700 mb-3 flex items-center text-lg">
               <svg class="w-5 h-5 mr-2 text-aws-orange" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
               </svg>
               Best Practices
             </h4>
             <ul class="space-y-2">
-              <li *ngFor="let practice of service.bestPractices" class="flex items-start text-sm text-gray-700">
+              <li *ngFor="let practice of selectedService.bestPractices" class="flex items-start text-sm text-gray-700">
                 <svg class="w-4 h-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
@@ -153,79 +198,90 @@
             </ul>
           </div>
 
-          <!-- Tabs -->
-          <div class="mb-4">
-            <div class="flex border-b border-gray-300">
+          <!-- Code Examples Tabs -->
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-700 mb-3 text-lg">Code Examples</h4>
+
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200 mb-4">
               <button
-                (click)="setActiveTab(service.name, 'cli')"
-                [class.border-aws-orange]="getActiveTab(service.name) === 'cli'"
-                [class.text-aws-orange]="getActiveTab(service.name) === 'cli'"
-                class="px-4 py-2 font-semibold border-b-2 border-transparent hover:text-aws-orange transition-colors"
+                (click)="setActiveTab(selectedService.name, 'cli')"
+                [class.border-aws-orange]="getActiveTab(selectedService.name) === 'cli'"
+                [class.text-aws-orange]="getActiveTab(selectedService.name) === 'cli'"
+                class="px-4 py-2 font-medium text-sm border-b-2 transition-colors"
               >
-                CLI Examples
+                AWS CLI
               </button>
               <button
-                (click)="setActiveTab(service.name, 'node')"
-                [class.border-aws-orange]="getActiveTab(service.name) === 'node'"
-                [class.text-aws-orange]="getActiveTab(service.name) === 'node'"
-                class="px-4 py-2 font-semibold border-b-2 border-transparent hover:text-aws-orange transition-colors"
+                (click)="setActiveTab(selectedService.name, 'node')"
+                [class.border-aws-orange]="getActiveTab(selectedService.name) === 'node'"
+                [class.text-aws-orange]="getActiveTab(selectedService.name) === 'node'"
+                class="px-4 py-2 font-medium text-sm border-b-2 border-transparent transition-colors"
               >
-                Node.js
+                Node.js SDK
               </button>
               <button
-                (click)="setActiveTab(service.name, 'python')"
-                [class.border-aws-orange]="getActiveTab(service.name) === 'python'"
-                [class.text-aws-orange]="getActiveTab(service.name) === 'python'"
-                class="px-4 py-2 font-semibold border-b-2 border-transparent hover:text-aws-orange transition-colors"
+                (click)="setActiveTab(selectedService.name, 'python')"
+                [class.border-aws-orange]="getActiveTab(selectedService.name) === 'python'"
+                [class.text-aws-orange]="getActiveTab(selectedService.name) === 'python'"
+                class="px-4 py-2 font-medium text-sm border-b-2 border-transparent transition-colors"
               >
-                Python
+                Python SDK
               </button>
               <button
-                (click)="setActiveTab(service.name, 'java')"
-                [class.border-aws-orange]="getActiveTab(service.name) === 'java'"
-                [class.text-aws-orange]="getActiveTab(service.name) === 'java'"
-                class="px-4 py-2 font-semibold border-b-2 border-transparent hover:text-aws-orange transition-colors"
+                (click)="setActiveTab(selectedService.name, 'java')"
+                [class.border-aws-orange]="getActiveTab(selectedService.name) === 'java'"
+                [class.text-aws-orange]="getActiveTab(selectedService.name) === 'java'"
+                class="px-4 py-2 font-medium text-sm border-b-2 border-transparent transition-colors"
               >
-                Java
+                Java SDK
               </button>
             </div>
-          </div>
 
-          <!-- Tab Content -->
-          <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-            <!-- CLI Examples -->
-            <div *ngIf="getActiveTab(service.name) === 'cli'">
-              <div *ngFor="let example of service.cliExamples" class="mb-4 last:mb-0">
-                <pre class="text-green-400 text-sm font-mono whitespace-pre-wrap">{{ example }}</pre>
+            <!-- Tab Content -->
+            <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+              <!-- CLI Examples -->
+              <div *ngIf="getActiveTab(selectedService.name) === 'cli'">
+                <pre class="text-green-400 text-sm"><code *ngFor="let cmd of selectedService.cliExamples">{{ cmd }}
+
+</code></pre>
               </div>
-            </div>
 
-            <!-- Node.js SDK -->
-            <div *ngIf="getActiveTab(service.name) === 'node'">
-              <pre class="text-green-400 text-sm font-mono whitespace-pre-wrap">{{ service.sdkExamples.node }}</pre>
-            </div>
+              <!-- Node.js SDK -->
+              <div *ngIf="getActiveTab(selectedService.name) === 'node' && selectedService.sdkExamples.node">
+                <pre class="text-blue-300 text-sm"><code>{{ selectedService.sdkExamples.node }}</code></pre>
+              </div>
 
-            <!-- Python SDK -->
-            <div *ngIf="getActiveTab(service.name) === 'python'">
-              <pre class="text-green-400 text-sm font-mono whitespace-pre-wrap">{{ service.sdkExamples.python }}</pre>
-            </div>
+              <!-- Python SDK -->
+              <div *ngIf="getActiveTab(selectedService.name) === 'python' && selectedService.sdkExamples.python">
+                <pre class="text-yellow-300 text-sm"><code>{{ selectedService.sdkExamples.python }}</code></pre>
+              </div>
 
-            <!-- Java SDK -->
-            <div *ngIf="getActiveTab(service.name) === 'java'">
-              <pre class="text-green-400 text-sm font-mono whitespace-pre-wrap">{{ service.sdkExamples.java }}</pre>
+              <!-- Java SDK -->
+              <div *ngIf="getActiveTab(selectedService.name) === 'java' && selectedService.sdkExamples.java">
+                <pre class="text-orange-300 text-sm"><code>{{ selectedService.sdkExamples.java }}</code></pre>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Empty State -->
-    <div *ngIf="filteredServices.length === 0" class="text-center py-12">
-      <svg class="mx-auto w-24 h-24 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-      </svg>
-      <h3 class="text-xl font-semibold text-gray-600 mb-2">No services found</h3>
-      <p class="text-gray-500">Try adjusting your search or filter criteria</p>
+        <!-- Modal Footer -->
+        <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3">
+          <a
+            [href]="selectedService.docUrl"
+            target="_blank"
+            class="px-6 py-2 bg-aws-orange text-white rounded-lg hover:bg-opacity-90 transition-all duration-200 font-semibold"
+          >
+            View Documentation
+          </a>
+          <button
+            (click)="closeModal()"
+            class="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all duration-200 font-semibold"
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
