@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { translations, categoryTranslations } from './translations';
 
 interface AwsService {
   name: string;
@@ -33,6 +34,23 @@ export class AwsDashboardComponent implements OnInit {
   activeTab: { [key: string]: string } = {};
   selectedService: AwsService | null = null;
   isModalOpen: boolean = false;
+  currentLang: 'en' | 'es' = 'en';
+
+  get t() {
+    return translations[this.currentLang];
+  }
+
+  get ct() {
+    return categoryTranslations[this.currentLang];
+  }
+
+  toggleLanguage() {
+    this.currentLang = this.currentLang === 'en' ? 'es' : 'en';
+  }
+
+  getCategoryTranslation(category: string): string {
+    return this.ct[category as keyof typeof this.ct] || category;
+  }
 
   categories = [
     'all',
