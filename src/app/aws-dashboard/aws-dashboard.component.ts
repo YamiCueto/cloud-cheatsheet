@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { translations, categoryTranslations } from './translations';
+import { serviceTranslations } from './service-translations';
 
 interface AwsService {
   name: string;
@@ -50,6 +51,34 @@ export class AwsDashboardComponent implements OnInit {
 
   getCategoryTranslation(category: string): string {
     return this.ct[category as keyof typeof this.ct] || category;
+  }
+
+  getServiceDescription(service: AwsService): string {
+    if (this.currentLang === 'es' && serviceTranslations[service.name]?.es) {
+      return serviceTranslations[service.name].es.description;
+    }
+    return service.description;
+  }
+
+  getServiceUseCases(service: AwsService): string[] {
+    if (this.currentLang === 'es' && serviceTranslations[service.name]?.es) {
+      return serviceTranslations[service.name].es.useCases;
+    }
+    return service.useCases;
+  }
+
+  getServiceBestPractices(service: AwsService): string[] {
+    if (this.currentLang === 'es' && serviceTranslations[service.name]?.es) {
+      return serviceTranslations[service.name].es.bestPractices;
+    }
+    return service.bestPractices;
+  }
+
+  getServicePricing(service: AwsService): string {
+    if (this.currentLang === 'es' && serviceTranslations[service.name]?.es) {
+      return serviceTranslations[service.name].es.pricing;
+    }
+    return service.pricing;
   }
 
   categories = [
