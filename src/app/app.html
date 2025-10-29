@@ -1,1 +1,13 @@
-<app-aws-dashboard></app-aws-dashboard>
+<header class="p-4 bg-gray-800 text-white flex items-center justify-between">
+	<div class="container flex items-center gap-4">
+		<a routerLink="/" class="text-xl font-bold">Cloud Cheatsheet</a>
+		<nav class="ml-4">
+			<a routerLink="/" class="mr-4 hover:underline">Dashboard</a>
+			<a routerLink="/aws-roadmap" class="hover:underline">AWS Roadmap</a>
+		</nav>
+	</div>
+</header>
+
+<main class="p-4 container">
+	<router-outlet></router-outlet>
+</main>

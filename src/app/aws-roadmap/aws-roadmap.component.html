@@ -1,0 +1,91 @@
+<section id="aws-roadmap" class="min-h-screen p-6">
+  <div class="container mx-auto">
+    <header class="mb-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold">AWS Cloud Practitioner Roadmap (CLF-C02)</h1>
+        <p class="text-sm text-gray-600 mt-1">Plan de estudio de 8 semanas para la certificación Cloud Practitioner</p>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="text-xs text-gray-600">Progreso</div>
+        <div class="ml-2 mr-2 flex items-center gap-2">
+          <input type="range" class="progress-input w-32" [value]="progressPercent" min="0" max="100" disabled
+            aria-label="Progreso del roadmap" [attr.aria-valuenow]="progressPercent"
+            title="Progreso: {{progressPercent}}%" style="accent-color: #FF9900;" />
+        </div>
+        <div class="text-sm font-semibold">{{ progressPercent }}%</div>
+      </div>
+    </header>
+
+    <!-- Exam info card (summary) -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h3 class="font-semibold">Información del Examen</h3>
+          <ul class="text-sm text-gray-700 mt-2 space-y-1">
+            <li><strong>Duración:</strong> 90 minutos</li>
+            <li><strong>Preguntas:</strong> 65 (múltiple opción)</li>
+            <li><strong>Puntaje mínimo:</strong> 700/1000</li>
+            <li><strong>Costo:</strong> $100 USD</li>
+            <li><strong>Validez:</strong> 3 años</li>
+            <li><strong>Versión:</strong> CLF-C02 (desde Sept 2023)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold">Dominios (porcentaje)</h3>
+          <ul class="text-sm text-gray-700 mt-2 space-y-1">
+            <li>Cloud Concepts — 24%</li>
+            <li>Security & Compliance — 30%</li>
+            <li>Cloud Technology & Services — 34%</li>
+            <li>Billing, Pricing & Support — 12%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline / Weeks -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h3 class="font-semibold mb-3">Timeline: 8 Semanas</h3>
+      <div class="space-y-3">
+        <div *ngFor="let w of weeks" class="flex items-start gap-3 p-3 border rounded">
+          <input type="checkbox" [checked]="w.completed" (change)="toggleWeek(w)"
+            aria-label="Marcar {{ w.title }} como completado" />
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">{{ w.title }}</div>
+              <div class="text-xs text-gray-500">{{ w.topics.length }} temas</div>
+            </div>
+            <div class="text-sm text-gray-600 mt-2">
+              <ul class="list-disc pl-5">
+                <li *ngFor="let t of w.topics">{{ t }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 flex gap-2 justify-end">
+        <button (click)="resetProgress()" class="px-4 py-2 border rounded text-sm">Reset</button>
+      </div>
+    </div>
+
+    <!-- Resources -->
+    <div class="bg-white rounded-lg shadow p-4">
+      <h3 class="font-semibold mb-3">Recursos Recomendados</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-semibold">Gratuitos</h4>
+          <ul class="mt-2 space-y-2">
+            <li *ngFor="let r of resources.free"><a class="text-aws-orange hover:underline" [href]="r.url"
+                target="_blank">{{ r.label }}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Pagos (recomendados)</h4>
+          <ul class="mt-2 space-y-2">
+            <li *ngFor="let r of resources.paid"><a class="text-aws-orange hover:underline" [href]="r.url"
+                target="_blank">{{ r.label }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

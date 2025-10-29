@@ -1,0 +1,167 @@
+:root {
+  --aws-orange: #FF9900;
+  --aws-dark: #232F3E;
+  --aws-light-gray: #F2F3F3;
+}
+
+#aws-roadmap {
+  background: var(--aws-light-gray);
+}
+
+.bg-aws-orange {
+  background-color: var(--aws-orange);
+}
+
+.text-aws-orange {
+  color: var(--aws-orange);
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+/* ===== PROGRESS BAR STYLES ===== */
+
+/* Styles for <input type="range"> used as progress indicator */
+.progress-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12rem;
+  height: 0.75rem;
+  /* 12px */
+  border-radius: 9999px;
+  background: #e5e7eb;
+  /* gray-200 fallback */
+  outline: none;
+  border: none;
+  cursor: not-allowed;
+  position: relative;
+}
+
+/* WebKit (Chrome, Safari, Edge) - Track */
+.progress-input::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: transparent;
+}
+
+/* WebKit - Thumb (oculto) */
+.progress-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: not-allowed;
+}
+
+/* Firefox - Track */
+.progress-input::-moz-range-track {
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+}
+
+/* Firefox - Progress fill */
+.progress-input::-moz-range-progress {
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--aws-orange);
+}
+
+/* Firefox - Thumb (oculto) */
+.progress-input::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  border: none;
+  background: transparent;
+  cursor: not-allowed;
+}
+
+/* Gradiente dinámico para WebKit browsers */
+.progress-input {
+  background: linear-gradient(to right,
+      var(--aws-orange) 0%,
+      var(--aws-orange) var(--progress-value, 0%),
+      #e5e7eb var(--progress-value, 0%),
+      #e5e7eb 100%);
+}
+
+/* Mantener opacidad completa cuando está disabled */
+.progress-input:disabled {
+  opacity: 1;
+}
+
+/* Focus state (aunque esté disabled, por accesibilidad) */
+.progress-input:focus {
+  outline: 2px solid var(--aws-orange);
+  outline-offset: 2px;
+}
+
+/* ===== LEGACY PROGRESS ELEMENT STYLES ===== */
+/* (Mantener por si se necesita volver atrás) */
+
+.progress-native {
+  width: 12rem;
+  height: 0.75rem;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 9999px;
+  overflow: hidden;
+  background-color: #e5e7eb;
+  border: none;
+}
+
+/* WebKit */
+.progress-native::-webkit-progress-bar {
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+}
+
+.progress-native::-webkit-progress-value {
+  background-color: var(--aws-orange);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Firefox */
+.progress-native::-moz-progress-bar {
+  background-color: var(--aws-orange);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 640px) {
+
+  .progress-input,
+  .progress-native {
+    width: 9rem;
+  }
+}
+
+/* ===== UTILITIES ===== */
+
+.progress-track {
+  display: block;
+  width: 12rem;
+}
+
+.progress-fill {
+  transition: width 0.3s ease;
+  display: block;
+  height: 100%;
+  min-width: 0;
+  background-color: var(--aws-orange);
+  border-radius: 9999px;
+}
