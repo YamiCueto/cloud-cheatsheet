@@ -83,7 +83,7 @@ export class StudyPlanComponent {
         startY: yPosition,
         head: [['Usuario Casual', 'Prompt Engineer Profesional']],
         body: [
-          ['Prompt amplio y generico:\n"Hazme casos de prueba"', 'Prompt estructurado:\n"Actua como QA senior en banca. Sistema de prestamos..."'],
+          ['Prompt amplio y generico:\n"Hazme casos de prueba"', 'Prompt estructurado:\n"Actua como QA senior en banca. Sistema de Prestamos Bancarios..."'],
           ['Acepta primera respuesta', 'Itera y refina hasta resultado optimo'],
           ['No analiza la necesidad', 'Analiza HU/requerimiento ANTES de escribir prompt'],
           ['Copia/pega sin validar', 'Valida, ajusta y adapta al contexto'],
@@ -188,7 +188,7 @@ export class StudyPlanComponent {
       const modulo2Days = [
         { title: 'Dia 4: Anatomia de una Historia de Usuario', items: ['Como/Quiero/Para que', 'Criterios de aceptacion', 'Definicion de Done'] },
         { title: 'Dia 5: Extraer informacion clave', items: ['Actores involucrados', 'Acciones/verbos (CRUD, validaciones, flujos)', 'Datos entrada/salida', 'Reglas de negocio'] },
-        { title: 'Dia 6: De HU a Casos de Prueba', items: ['Path feliz vs alternos', 'Edge cases y validaciones', 'Taller: analizar HU real Banistmo'] },
+        { title: 'Dia 6: De HU a Casos de Prueba', items: ['Path feliz vs alternos', 'Edge cases y validaciones', 'Taller: analizar HU real de sistema bancario'] },
         { title: 'Dia 7: De HU a Requerimientos Tecnicos', items: ['Identificar endpoints necesarios', 'Modelos de datos', 'Dependencias entre servicios'] },
         { title: 'Dia 8: Taller intensivo', items: ['3 HU reales > descomponer en tareas Dev/QA', 'Trabajo en equipos'] }
       ];

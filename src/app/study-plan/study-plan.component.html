@@ -20,22 +20,22 @@
     <div id="study-plan-content" class="bg-white rounded-lg shadow-xl p-8">
       <h1>IA Generativa para Equipos QA y Desarrollo</h1>
       <p><strong>Plan de Capacitación - 1 Mes (20 días hábiles)</strong></p>
-      
+
       <hr>
-      
+
       <p><strong>Enfoque:</strong> De Usuario Casual a Prompt Engineer Profesional<br>
       <strong>Duración:</strong> 1 hora diaria<br>
       <strong>Modalidad:</strong> Teórico-Práctica<br>
       <strong>Dirigido a:</strong> Equipos QA y Desarrollo</p>
-      
+
       <hr>
-      
+
       <h2>⚠️ IMPORTANTE: No es solo "chatear con ChatGPT"</h2>
-      
+
       <h3>El Mito del Chat Casual</h3>
-      
+
       <p>Muchas personas creen que usar IA Generativa es simplemente conversar con ChatGPT de manera amplia y esperar respuestas. <strong>Esta es la diferencia entre un usuario casual y un profesional:</strong></p>
-      
+
       <table>
         <thead>
           <tr>
@@ -46,7 +46,7 @@
         <tbody>
           <tr>
             <td><strong>Prompt amplio y genérico:</strong><br>"Hazme casos de prueba"</td>
-            <td><strong>Prompt estructurado:</strong><br>"Actúa como QA senior en banca. Sistema de préstamos para oficiales. Genera 10 casos de prueba incluyendo validaciones CIFIN, formato tabla con ID, descripción, pasos, resultado esperado"</td>
+            <td><strong>Prompt estructurado:</strong><br>"Actúa como QA senior en banca. Sistema de Préstamos Bancarios. Genera 10 casos de prueba incluyendo validaciones de Bureau de Crédito, formato tabla con ID, descripción, pasos, resultado esperado"</td>
           </tr>
           <tr>
             <td>Acepta primera respuesta</td>
@@ -66,51 +66,51 @@
           </tr>
         </tbody>
       </table>
-      
+
       <blockquote>
         <p><strong>⚡ CLAVE:</strong> El poder de la IA no está en la herramienta, está en tu capacidad de ANALIZAR la necesidad y ESTRUCTURAR el prompt correctamente.</p>
       </blockquote>
-      
+
       <hr>
-      
+
       <h2>Ejemplo Práctico: Historia de Usuario Real</h2>
-      
+
       <h3>Historia de Usuario:</h3>
-      <p><em>Como oficial de crédito, quiero consultar el historial crediticio del cliente en CIFIN para evaluar su capacidad de pago antes de aprobar el préstamo.</em></p>
-      
+      <p><em>Como oficial de crédito, quiero consultar el historial crediticio del cliente en el Bureau de Crédito para evaluar su capacidad de pago antes de aprobar el préstamo.</em></p>
+
       <h3>❌ Prompt Casual (MAL):</h3>
-      <pre><code>"Hazme casos de prueba para consultar CIFIN"</code></pre>
-      
+      <pre><code>"Hazme casos de prueba para consultar Bureau de Crédito"</code></pre>
+
       <p><strong>Problema:</strong> Respuesta genérica, sin contexto de banca, sin validaciones específicas, casos incompletos.</p>
-      
+
       <h3>✅ Prompt Profesional (BIEN):</h3>
       <pre><code>[ROL] Actúa como QA senior especializado en sistemas bancarios
 
 [CONTEXTO]
-- Sistema: Préstamos Banistmo Panamá
+- Sistema: Préstamos Bancarios
 - Usuario: Oficial de crédito
-- Integración: API CIFIN (externa)
+- Integración: API Bureau de Crédito (externa)
 - Criticidad: Alta (decisión crediticia)
 
 [TAREA]
-Genera 15 casos de prueba para consulta CIFIN incluyendo:
+Genera 15 casos de prueba para consulta Bureau de Crédito incluyendo:
 1. Path feliz (cliente con buen historial)
 2. Cliente con deudas activas
-3. Cliente en lista Clinton
-4. Validaciones: cédula formato Panamá, timeout 5seg
+3. Cliente en lista de riesgo
+4. Validaciones: documento de identidad válido, timeout 5seg
 5. Manejo errores: servicio caído, timeout, respuesta inválida
 
 [FORMATO]
 Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperado | Prioridad</code></pre>
-      
+
       <blockquote>
         <p><strong>💡 Resultado:</strong> Casos de prueba completos, específicos, con validaciones de negocio, edge cases identificados, y priorizados por criticidad.</p>
       </blockquote>
-      
+
       <hr>
-      
+
       <h2>🎯 Proceso Crítico: Del Requerimiento al Prompt</h2>
-      
+
       <table>
         <thead>
           <tr>
@@ -131,47 +131,47 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
           <tr><td>9</td><td>Iterar si necesario</td><td>Refinar hasta óptimo</td></tr>
         </tbody>
       </table>
-      
+
       <hr>
-      
+
       <h2>📚 Plan de Estudios - 4 Módulos en 20 Días</h2>
-      
+
       <h3>Módulo 1: Fundamentos (3 días)</h3>
-      
+
       <p><strong>Día 1: ¿Qué es IA, ML y GenIA?</strong></p>
       <ul>
         <li>Diferencias clave y evolución</li>
         <li>LLMs: tokens, contexto, temperatura</li>
       </ul>
-      
+
       <p><strong>Día 2: Herramientas disponibles</strong></p>
       <ul>
         <li>ChatGPT, Claude, Gemini (demo comparativa)</li>
         <li>GitHub Copilot, Cursor, Codeium</li>
       </ul>
-      
+
       <p><strong>Día 3: Beneficios y limitaciones</strong></p>
       <ul>
         <li>Casos reales en Dev/QA</li>
         <li>Alucinaciones, sesgos, verificación</li>
         <li>Ética y responsabilidad</li>
       </ul>
-      
+
       <hr>
-      
+
       <h3>Módulo 2: Análisis y Entendimiento de Necesidades (5 días) ⭐</h3>
-      
+
       <blockquote>
         <p><strong>Este es el módulo MÁS CRÍTICO del curso</strong></p>
       </blockquote>
-      
+
       <p><strong>Día 4: Anatomía de una Historia de Usuario</strong></p>
       <ul>
         <li>Como/Quiero/Para qué</li>
         <li>Criterios de aceptación</li>
         <li>Definición de Done</li>
       </ul>
-      
+
       <p><strong>Día 5: Extraer información clave</strong></p>
       <ul>
         <li>Actores involucrados</li>
@@ -179,33 +179,33 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
         <li>Datos entrada/salida</li>
         <li>Reglas de negocio</li>
       </ul>
-      
+
       <p><strong>Día 6: De HU a Casos de Prueba</strong></p>
       <ul>
         <li>Path feliz vs alternos</li>
         <li>Edge cases y validaciones</li>
-        <li>Taller: analizar HU real Banistmo</li>
+        <li>Taller: analizar HU real de sistema bancario</li>
       </ul>
-      
+
       <p><strong>Día 7: De HU a Requerimientos Técnicos</strong></p>
       <ul>
         <li>Identificar endpoints necesarios</li>
         <li>Modelos de datos</li>
         <li>Dependencias entre servicios</li>
       </ul>
-      
+
       <p><strong>Día 8: Taller intensivo</strong></p>
       <ul>
         <li>3 HU reales → descomponer en tareas Dev/QA</li>
         <li>Trabajo en equipos</li>
       </ul>
-      
+
       <hr>
-      
+
       <h3>Módulo 3: Prompt Engineering Aplicado (7 días) ⭐⭐</h3>
-      
+
       <h4>Fundamentos de Prompts (Días 9-10)</h4>
-      
+
       <p><strong>Día 9: Estructura del prompt perfecto</strong></p>
       <ul>
         <li>[ROL] Identidad del asistente</li>
@@ -214,139 +214,139 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
         <li>[RESTRICCIONES] Límites y validaciones</li>
         <li>[FORMATO] Cómo entregar resultado</li>
       </ul>
-      
+
       <p><strong>Día 10: Técnicas avanzadas</strong></p>
       <ul>
         <li>Zero-shot vs Few-shot (con ejemplos)</li>
         <li>Chain-of-thought: "Piensa paso a paso"</li>
         <li>Iteración: prompt → resultado → refinamiento</li>
       </ul>
-      
+
       <h4>Aplicación para QA (Días 11-13)</h4>
-      
+
       <p><strong>Día 11: Prompt para Test Cases</strong></p>
       <ul>
         <li>HU → casos de prueba completos</li>
         <li>Ejercicio: "Consulta de saldo" → 10 test cases</li>
       </ul>
-      
+
       <p><strong>Día 12: Prompt para Test Data</strong></p>
       <ul>
         <li>Generar datos sintéticos realistas</li>
         <li>JSON, SQL inserts, CSV para carga masiva</li>
       </ul>
-      
+
       <p><strong>Día 13: Prompt para Scripts Automatización</strong></p>
       <ul>
         <li>Selenium/Cypress desde casos de prueba</li>
         <li>Mantener locators, assertions</li>
       </ul>
-      
+
       <h4>Aplicación para Dev (Días 14-15)</h4>
-      
+
       <p><strong>Día 14: Prompt para Code Generation</strong></p>
       <ul>
         <li>HU → controller Spring Boot</li>
         <li>Validaciones, manejo errores, DTOs</li>
       </ul>
-      
+
       <p><strong>Día 15: Prompt para Refactoring y Debug</strong></p>
       <ul>
         <li>VB6 → Java (caso real migración)</li>
         <li>"Explica este código legacy y mígralo"</li>
       </ul>
-      
+
       <hr>
-      
+
       <h3>Módulo 4: Integración Dev-QA (5 días) ⭐</h3>
-      
+
       <p><strong>Día 16: Flujo completo con IA</strong></p>
       <ul>
         <li>HU → Análisis → Prompt Dev → Código → Prompt QA → Tests → Ejecución</li>
       </ul>
-      
+
       <p><strong>Día 17: Code Review con IA</strong></p>
       <ul>
         <li>Detectar bugs, code smells</li>
         <li>Sugerencias de mejora</li>
         <li>Validar estándares de código</li>
       </ul>
-      
+
       <p><strong>Día 18: Documentación automática</strong></p>
       <ul>
         <li>Swagger desde código</li>
         <li>README, diagramas de arquitectura</li>
         <li>Comentarios y JavaDoc</li>
       </ul>
-      
+
       <p><strong>Día 19: Caso real: Migración VB6</strong></p>
       <ul>
         <li>Analizar módulo legacy</li>
         <li>Prompts para migración + testing</li>
         <li>Validación funcional</li>
       </ul>
-      
+
       <p><strong>Día 20: Proyecto Final</strong></p>
       <ul>
-        <li>HU real de Banistmo</li>
+        <li>HU real de sistema bancario</li>
         <li>Equipo Dev: genera código con IA</li>
         <li>Equipo QA: genera suite completa con IA</li>
         <li>Presentación: prompt + resultado + lecciones</li>
       </ul>
-      
+
       <hr>
-      
+
       <h2>✨ Mejores Prácticas</h2>
-      
+
       <h3>Siempre analiza ANTES de escribir el prompt</h3>
       <p>Dedica 5 minutos a entender la HU/requerimiento antes de usar la IA</p>
-      
+
       <h3>Sé específico, no genérico</h3>
       <p>En vez de "genera tests", di "genera 10 tests para login incluyendo 2FA y bloqueo por intentos"</p>
-      
+
       <h3>Proporciona contexto de negocio</h3>
       <p>La IA no sabe que trabajas en banca, que hay regulaciones, límites, etc. Díselo.</p>
-      
+
       <h3>Define el formato de salida</h3>
       <p>Tabla, JSON, código con tests, Gherkin... especifica cómo quieres el resultado</p>
-      
+
       <h3>Itera, no te conformes</h3>
       <p>Si el resultado no es óptimo, refina el prompt. Promedio: 2-3 iteraciones.</p>
-      
+
       <h3>Valida SIEMPRE los resultados</h3>
       <p>La IA puede alucinar. Revisa código, ejecuta tests, verifica lógica de negocio.</p>
-      
+
       <h3>Construye tu biblioteca de prompts</h3>
       <p>Guarda los prompts que funcionan bien para reutilizarlos y mejorarlos.</p>
-      
+
       <h3>Combina IA con tu experiencia</h3>
       <p>La IA es una herramienta, no un reemplazo. Tu criterio profesional es irreemplazable.</p>
-      
+
       <hr>
-      
+
       <h2>🎯 Conclusión</h2>
-      
+
       <p>La IA Generativa no es magia, es una herramienta poderosa que amplifica tu conocimiento y experiencia cuando se usa correctamente.</p>
-      
+
       <p><strong>La diferencia entre un usuario casual y un profesional está en:</strong></p>
-      
+
       <ol>
         <li><strong>Entender profundamente la necesidad</strong> antes de escribir cualquier prompt</li>
         <li><strong>Estructurar prompts</strong> con Rol, Contexto, Tarea y Formato específicos</li>
         <li><strong>Iterar y refinar</strong> hasta obtener el resultado óptimo</li>
         <li><strong>Validar siempre</strong> los resultados con tu criterio profesional</li>
       </ol>
-      
+
       <p>Este curso te dará las herramientas para pasar de usuario casual a Prompt Engineer profesional, multiplicando tu productividad sin sacrificar calidad.</p>
-      
+
       <blockquote>
         <p><strong>Recuerda:</strong> La IA es tu copiloto, no tu piloto. Tú sigues siendo el experto que toma las decisiones.</p>
       </blockquote>
-      
+
       <hr>
-      
+
       <h2>💡 ¡Éxito en tu jornada de aprendizaje!</h2>
-      
+
       <p>Cualquier duda, estamos para apoyarte en este proceso de transformación digital.</p>
     </div>
   </div>

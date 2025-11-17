@@ -32,11 +32,11 @@ Muchas personas creen que usar IA Generativa es simplemente conversar con ChatGP
 ## Ejemplo Práctico: Historia de Usuario Real
 
 ### Historia de Usuario:
-*Como oficial de crédito, quiero consultar el historial crediticio del cliente en CIFIN para evaluar su capacidad de pago antes de aprobar el préstamo.*
+*Como oficial de crédito, quiero consultar el historial crediticio del cliente en el Bureau de Crédito para evaluar su capacidad de pago antes de aprobar el préstamo.*
 
 ### ❌ Prompt Casual (MAL):
 ```
-"Hazme casos de prueba para consultar CIFIN"
+"Hazme casos de prueba para consultar Bureau de Crédito"
 ```
 
 **Problema:** Respuesta genérica, sin contexto de banca, sin validaciones específicas, casos incompletos.
@@ -46,17 +46,17 @@ Muchas personas creen que usar IA Generativa es simplemente conversar con ChatGP
 [ROL] Actúa como QA senior especializado en sistemas bancarios
 
 [CONTEXTO]
-- Sistema: Préstamos Banistmo Panamá
+- Sistema: Préstamos Bancarios
 - Usuario: Oficial de crédito
-- Integración: API CIFIN (externa)
+- Integración: API Bureau de Crédito (externa)
 - Criticidad: Alta (decisión crediticia)
 
 [TAREA]
-Genera 15 casos de prueba para consulta CIFIN incluyendo:
+Genera 15 casos de prueba para consulta Bureau de Crédito incluyendo:
 1. Path feliz (cliente con buen historial)
 2. Cliente con deudas activas
-3. Cliente en lista Clinton
-4. Validaciones: cédula formato Panamá, timeout 5seg
+3. Cliente en lista de riesgo
+4. Validaciones: documento de identidad válido, timeout 5seg
 5. Manejo errores: servicio caído, timeout, respuesta inválida
 
 [FORMATO]
@@ -120,7 +120,7 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
 **Día 6: De HU a Casos de Prueba**
 - Path feliz vs alternos
 - Edge cases y validaciones
-- Taller: analizar HU real Banistmo
+- Taller: analizar HU real de sistema bancario
 
 **Día 7: De HU a Requerimientos Técnicos**
 - Identificar endpoints necesarios
@@ -196,7 +196,7 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
 - Validación funcional
 
 **Día 20: Proyecto Final**
-- HU real de Banistmo
+- HU real de sistema bancario
 - Equipo Dev: genera código con IA
 - Equipo QA: genera suite completa con IA
 - Presentación: prompt + resultado + lecciones
@@ -229,13 +229,13 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
 [Pegar HU original]
 
 ## Análisis
-**Actores:** [ej: Oficial de crédito, sistema CIFIN]
+**Actores:** [ej: Oficial de crédito, sistema Bureau de Crédito]
 **Acción principal:** [ej: Consultar historial crediticio]
-**Entradas:** [ej: cédula, tipo consulta]
+**Entradas:** [ej: documento de identidad, tipo consulta]
 **Salidas:** [ej: score, deudas activas]
-**Reglas de negocio:** [ej: validar lista Clinton, timeout 5seg]
-**Edge cases:** [ej: cédula inválida, servicio caído]
-**Dependencias:** [ej: API CIFIN, BD clientes]
+**Reglas de negocio:** [ej: validar lista de riesgo, timeout 5seg]
+**Edge cases:** [ej: documento inválido, servicio caído]
+**Dependencias:** [ej: API Bureau de Crédito, BD clientes]
 ```
 
 ### Plantilla 2: Prompt para Casos de Prueba
