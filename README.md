@@ -1,107 +1,331 @@
-# AWS Cloud Cheatsheet 🚀
+# AWS Cloud Cheatsheet 🚀☁️
 
-Un dashboard interactivo de Angular que sirve como cuaderno de aprendizaje visual de los principales servicios de AWS.
+<div align="center">
 
-![AWS Cheatsheet](https://img.shields.io/badge/AWS-Services-orange?style=for-the-badge&logo=amazon-aws)
-![Angular](https://img.shields.io/badge/Angular-20-red?style=for-the-badge&logo=angular)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-blue?style=for-the-badge&logo=tailwind-css)
+![AWS Cheatsheet](https://img.shields.io/badge/AWS-Services-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## ✨ Características
+**Tu compañero visual e interactivo para dominar AWS | Perfect for AWS Certification Prep**
 
-- **Dashboard Interactivo**: Visualización categorizada de servicios AWS
-- **Búsqueda en Tiempo Real**: Filtrado rápido por nombre de servicio
-- **Filtros por Categoría**: Compute, Storage, Database, Networking, Security, DevOps
-- **Ejemplos de Código**: CLI, Node.js, Python y Java SDK
-- **Best Practices**: Mejores prácticas para cada servicio
-- **Información de Precios**: Costos aproximados de cada servicio
-- **Diseño Responsivo**: Optimizado para desktop y mobile
+[Demo en Vivo](https://yamicueto.github.io/cloud-cheatsheet/) | [Reportar Bug](https://github.com/YamiCueto/cloud-cheatsheet/issues) | [Solicitar Feature](https://github.com/YamiCueto/cloud-cheatsheet/issues)
 
-## 📂 Servicios Incluidos
+</div>
 
-### Compute
-- **EC2** - Elastic Compute Cloud
-- **Lambda** - Serverless Functions
-- **ECS** - Elastic Container Service
-- **EKS** - Elastic Kubernetes Service
+---
 
-### Storage
-- **S3** - Simple Storage Service
-- **EFS** - Elastic File System
-- **Glacier** - Archive Storage
+## 🎯 ¿Por qué otro AWS Cheatsheet?
 
-### Database
-- **RDS** - Relational Database Service
-- **DynamoDB** - NoSQL Database
-- **Aurora** - MySQL/PostgreSQL Compatible Database
+La documentación oficial de AWS es **completa pero abrumadora**. Los cheatsheets estáticos son **útiles pero aburridos**. 
 
-### Networking
-- **VPC** - Virtual Private Cloud
-- **CloudFront** - Content Delivery Network
-- **Route 53** - DNS Service
-- **API Gateway** - API Management
+Este proyecto nace de una necesidad real: **aprender AWS de forma visual, interactiva y práctica** mientras te preparas para certificaciones.
 
-### Security
-- **IAM** - Identity and Access Management
-- **KMS** - Key Management Service
-- **Cognito** - User Authentication
+### 🌟 Lo que hace diferente a Cloud Cheatsheet:
 
-### DevOps
-- **CloudFormation** - Infrastructure as Code
-- **CodePipeline** - CI/CD Service
-- **CloudWatch** - Monitoring and Logging
+| Característica | Docs Oficiales | Cheatsheets PDF | Cloud Cheatsheet ✨ |
+|---------------|----------------|-----------------|---------------------|
+| Búsqueda instantánea | ✅ | ❌ | ✅ |
+| Ejemplos de código | ✅ | ⚠️ | ✅ (4 lenguajes) |
+| Interfaz visual | ⚠️ | ❌ | ✅ |
+| Filtros por categoría | ⚠️ | ❌ | ✅ |
+| Roadmaps de certificación | ❌ | ❌ | ✅ (CLF, SAA, DVA, SOA) |
+| Plan de estudio IA | ❌ | ❌ | ✅ |
+| Tracking de progreso | ❌ | ❌ | ✅ (localStorage) |
+| Actualizado constantemente | ✅ | ❌ | ✅ |
+| Gratis y Open Source | ✅ | ⚠️ | ✅ |
+
+---
+
+## ✨ Características Principales
+
+### 📊 Dashboard Interactivo
+- **60+ servicios AWS** organizados por categorías
+- **Búsqueda en tiempo real** - Encuentra servicios al instante
+- **Filtros inteligentes** - Compute, Storage, Database, Networking, Security, ML, Analytics, DevOps
+- **Cards visuales** con iconos oficiales de AWS
+
+### 🗺️ Roadmaps de Certificación AWS
+Planes de estudio estructurados con tracking de progreso:
+- **CLF-C02** - AWS Cloud Practitioner (8 semanas)
+- **SAA-C03** - Solutions Architect Associate (12 semanas)
+- **DVA-C02** - Developer Associate (10 semanas)
+- **SOA-C02** - SysOps Administrator Associate (10 semanas)
+
+Cada roadmap incluye:
+- ✅ Timeline semanal con temas específicos
+- ✅ Progreso persistente (localStorage)
+- ✅ Recursos gratuitos y de pago recomendados
+- ✅ Información detallada del examen
+
+### 🤖 Plan de Estudio: IA Generativa para QA y Desarrollo
+Curso completo de **Prompt Engineering** aplicado a equipos técnicos:
+- 📚 **4 módulos en 20 días** (1 hora diaria)
+- 🎯 De usuario casual a **Prompt Engineer Profesional**
+- 💡 Casos prácticos reales de QA y desarrollo
+- 📥 **Descarga en PDF** con texto vectorial de alta calidad
+
+### 💻 Ejemplos de Código Multi-lenguaje
+Para cada servicio AWS:
+- **AWS CLI** - Comandos directos
+- **Node.js** - SDK de JavaScript/TypeScript
+- **Python** - Boto3
+- **Java** - SDK oficial
+
+### 🎨 Diseño Moderno y Responsivo
+- **Tailwind CSS 3** - Diseño profesional
+- **Dark Mode Ready** - Interfaz amigable
+- **Mobile First** - Funciona en cualquier dispositivo
+
+---
 
 ## 🚀 Inicio Rápido
 
-To start a local development server, run:
+### Prerrequisitos
+- Node.js 18+ 
+- npm o yarn
+- Angular CLI 20+
+
+### Instalación
 
 ```bash
-ng serve
+# Clonar el repositorio
+git clone https://github.com/YamiCueto/cloud-cheatsheet.git
+
+# Navegar al directorio
+cd cloud-cheatsheet
+
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abre tu navegador en `http://localhost:4200/`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Build para Producción
 
 ```bash
-ng generate component component-name
+# Build optimizado
+npm run build
+
+# Los archivos se generan en /docs para GitHub Pages
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📚 Servicios AWS Incluidos
 
-## Building
+### ☁️ Compute
+- **EC2** - Elastic Compute Cloud (Virtual Servers)
+- **Lambda** - Serverless Functions
+- **ECS** - Elastic Container Service
+- **EKS** - Elastic Kubernetes Service
+- **Elastic Beanstalk** - PaaS for Web Apps
+- **Lightsail** - Simple Virtual Servers
 
-To build the project run:
+### 💾 Storage
+- **S3** - Simple Storage Service (Object Storage)
+- **EBS** - Elastic Block Store (Block Storage)
+- **EFS** - Elastic File System (NFS)
+- **Glacier** - Archive Storage
+- **Storage Gateway** - Hybrid Cloud Storage
+- **FSx** - Managed File Systems
 
-```bash
-ng build
-```
+### 🗄️ Database
+- **RDS** - Relational Database Service
+- **DynamoDB** - NoSQL Database
+- **Aurora** - MySQL/PostgreSQL Compatible
+- **ElastiCache** - In-Memory Cache (Redis/Memcached)
+- **DocumentDB** - MongoDB Compatible
+- **Neptune** - Graph Database
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 🌐 Networking & Content Delivery
+- **VPC** - Virtual Private Cloud
+- **CloudFront** - CDN (Content Delivery Network)
+- **Route 53** - DNS Service
+- **API Gateway** - API Management
+- **Direct Connect** - Dedicated Network Connection
+- **Global Accelerator** - Network Performance
 
-## Running unit tests
+### 🔒 Security, Identity & Compliance
+- **IAM** - Identity and Access Management
+- **KMS** - Key Management Service
+- **Cognito** - User Authentication
+- **Secrets Manager** - Credentials Storage
+- **GuardDuty** - Threat Detection
+- **WAF** - Web Application Firewall
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 🤖 Machine Learning & AI
+- **SageMaker** - ML Platform
+- **Rekognition** - Image/Video Analysis
+- **Comprehend** - NLP Service
+- **Lex** - Conversational AI
+- **Polly** - Text-to-Speech
+- **Transcribe** - Speech-to-Text
 
-```bash
-ng test
-```
+### 📊 Analytics
+- **Athena** - SQL Queries on S3
+- **Redshift** - Data Warehouse
+- **Kinesis** - Real-time Data Streaming
+- **EMR** - Big Data Processing (Hadoop/Spark)
+- **QuickSight** - BI and Visualization
+- **Glue** - ETL Service
 
-## Running end-to-end tests
+### 🔧 Developer Tools & DevOps
+- **CloudFormation** - Infrastructure as Code
+- **CodePipeline** - CI/CD Service
+- **CodeBuild** - Build Service
+- **CodeDeploy** - Deployment Automation
+- **CloudWatch** - Monitoring and Logging
+- **X-Ray** - Distributed Tracing
+- **Systems Manager** - Operations Management
 
-For end-to-end (e2e) testing, run:
+### 🔔 Application Integration
+- **SQS** - Message Queue
+- **SNS** - Pub/Sub Messaging
+- **EventBridge** - Event Bus
+- **Step Functions** - Workflow Orchestration
+- **AppSync** - GraphQL API
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📖 Cómo Usar para Certificaciones AWS
 
-## Additional Resources
+### 1️⃣ Selecciona tu Certificación
+Navega a **AWS Roadmaps** y elige:
+- **CLF-C02** para comenzar (recomendado para principiantes)
+- **SAA-C03** para arquitectura (más popular)
+- **DVA-C02** para desarrollo
+- **SOA-C02** para operaciones
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 2️⃣ Sigue el Timeline Semanal
+Cada roadmap tiene un plan estructurado:
+- Semana 1-2: Fundamentos
+- Semana 3-4: Servicios principales
+- Semana 5-6: Seguridad y networking
+- Semana 7-8: Práctica intensiva
+
+### 3️⃣ Marca tu Progreso
+- ✅ Click en cada semana al completarla
+- Tu progreso se guarda automáticamente
+- Visualiza tu avance con la barra de progreso
+
+### 4️⃣ Explora los Servicios
+- Usa el **Dashboard** para entender cada servicio
+- Revisa **ejemplos de código** en tu lenguaje favorito
+- Lee **best practices** y casos de uso
+
+### 5️⃣ Practica con Recursos Recomendados
+Cada roadmap incluye links a:
+- ✅ AWS Skill Builder (gratis)
+- ✅ Whitepapers oficiales
+- ✅ Practice exams (Tutorials Dojo)
+- ✅ Cursos Udemy recomendados
+
+---
+
+## 🗺️ Roadmap del Proyecto
+
+### ✅ Completado (v1.0)
+- [x] Dashboard con 60+ servicios AWS
+- [x] Búsqueda y filtros
+- [x] Ejemplos de código multi-lenguaje
+- [x] 4 Roadmaps de certificación (CLF, SAA, DVA, SOA)
+- [x] Plan de estudio IA Generativa
+- [x] Sistema de tracking de progreso
+- [x] Diseño responsivo con Tailwind
+
+### 🚧 En Desarrollo (v1.1)
+- [ ] Modo oscuro (Dark Mode)
+- [ ] Comparador de servicios lado a lado
+- [ ] Quiz mode para certificaciones
+- [ ] Flashcards de servicios
+- [ ] Traducción completa español/inglés
+- [ ] Más roadmaps (Professional, Specialty)
+
+### 🔮 Futuro (v2.0)
+- [ ] Backend con Firebase/Supabase
+- [ ] Autenticación de usuarios
+- [ ] Sincronización de progreso en la nube
+- [ ] Comunidad y foro de preguntas
+- [ ] Sistema de badges y logros
+- [ ] Generador de diagramas de arquitectura
+- [ ] Calculadora de costos AWS
+- [ ] Integración con AWS Free Tier tracking
+
+---
+
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas! Este es un proyecto de la comunidad para la comunidad.
+
+### Cómo Contribuir
+
+1. **Fork** el repositorio
+2. **Crea** una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** a la rama (`git push origin feature/AmazingFeature`)
+5. **Abre** un Pull Request
+
+### Ideas para Contribuir
+- 📝 Agregar más servicios AWS
+- 🌍 Mejorar traducciones ES/EN
+- 🎨 Mejorar diseño UI/UX
+- 🐛 Reportar y corregir bugs
+- 📚 Agregar más ejemplos de código
+- 🗺️ Crear roadmaps para certificaciones Specialty
+- ✨ Implementar features del roadmap
+
+---
+
+## 🌍 Comunidad y Soporte
+
+### Para la Comunidad Hispana 🇪🇸🇲🇽🇨🇴🇦🇷
+Este proyecto está diseñado especialmente para **desarrolladores de habla hispana** que están aprendiendo AWS. Aunque incluye contenido en inglés (términos técnicos), el enfoque educativo y los roadmaps están en español.
+
+### Soporte
+- 💬 [Discussions](https://github.com/YamiCueto/cloud-cheatsheet/discussions) - Preguntas y respuestas
+- 🐛 [Issues](https://github.com/YamiCueto/cloud-cheatsheet/issues) - Reportar bugs
+- 🐦 Twitter: [@YamiCueto](https://twitter.com/YamiCueto) - Actualizaciones
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia **MIT**. Ver [LICENSE](LICENSE) para más detalles.
+
+---
+
+## 🙏 Agradecimientos
+
+- **AWS** por su increíble plataforma y documentación
+- **Angular Team** por el framework
+- **Tailwind CSS** por el sistema de diseño
+- **Comunidad Open Source** por el apoyo constante
+- **Todos los contributors** que hacen este proyecto posible
+
+---
+
+## 🌟 ¿Te ha ayudado este proyecto?
+
+Si Cloud Cheatsheet te ha sido útil:
+- ⭐ Dale una estrella al repositorio
+- 🔗 Compártelo con tus colegas
+- 🐛 Reporta bugs para mejorarlo
+- 🤝 Contribuye con código o contenido
+- 💬 Únete a las discusiones
+
+---
+
+<div align="center">
+
+**Construido con ❤️ por [Yamid Cueto](https://github.com/YamiCueto)**
+
+**Perfect for AWS Certification Prep | Perfecto para preparar certificaciones AWS**
+
+[⬆ Volver arriba](#aws-cloud-cheatsheet-️)
+
+</div>
