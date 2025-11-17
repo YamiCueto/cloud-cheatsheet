@@ -7,8 +7,33 @@ const routes: Routes = [
     loadComponent: () => import('./aws-dashboard/aws-dashboard.component').then(m => m.AwsDashboardComponent)
   },
   {
+    path: 'roadmaps',
+    loadComponent: () => import('./roadmaps-hub/roadmaps-hub.component').then(m => m.RoadmapsHubComponent)
+  },
+  {
+    path: 'roadmap/cloud-practitioner',
+    loadComponent: () => import('./roadmap-clf/roadmap-clf.component').then(m => m.RoadmapClfComponent)
+  },
+  {
+    path: 'roadmap/solutions-architect',
+    loadComponent: () => import('./roadmap-saa/roadmap-saa.component').then(m => m.RoadmapSaaComponent)
+  },
+  {
+    path: 'roadmap/developer',
+    loadComponent: () => import('./roadmap-dva/roadmap-dva.component').then(m => m.RoadmapDvaComponent)
+  },
+  {
+    path: 'roadmap/sysops',
+    loadComponent: () => import('./roadmap-soa/roadmap-soa.component').then(m => m.RoadmapSoaComponent)
+  },
+  {
     path: 'aws-roadmap',
-    loadComponent: () => import('./aws-roadmap/aws-roadmap.component').then(m => m.AwsRoadmapComponent)
+    redirectTo: 'roadmaps',
+    pathMatch: 'full'
+  },
+  {
+    path: 'study-plan',
+    loadComponent: () => import('./study-plan/study-plan.component').then(m => m.StudyPlanComponent)
   },
   { path: '**', redirectTo: '' }
 ];

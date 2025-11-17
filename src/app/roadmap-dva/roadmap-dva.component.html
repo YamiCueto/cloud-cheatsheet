@@ -1,14 +1,14 @@
-<section id="aws-roadmap" class="min-h-screen p-6">
+<section id="roadmap-dva" class="min-h-screen p-6">
   <div class="container mx-auto">
     <header class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold">AWS Cloud Practitioner Roadmap (CLF-C02)</h1>
-        <p class="text-sm text-gray-600 mt-1">Plan de estudio de 8 semanas para la certificación Cloud Practitioner</p>
+        <h1 class="text-2xl font-bold">AWS Developer Associate (DVA-C02)</h1>
+        <p class="text-sm text-gray-600 mt-1">Plan de estudio de 10 semanas para la certificacion Developer</p>
       </div>
       <div class="flex items-center space-x-3">
         <div class="text-xs text-gray-600">Progreso</div>
         <div class="ml-2 mr-2 flex items-center gap-2">
-          <input title="pro" type="range" class="progress-input w-32" [value]="progressPercent" min="0" max="100" disabled
+          <input title="progres" type="range" class="progress-input w-32" [value]="progressPercent" min="0" max="100" disabled
             aria-label="Progreso del roadmap" [attr.aria-valuenow]="progressPercent"
             title="Progreso: {{progressPercent}}%" style="accent-color: #FF9900;" />
         </div>
@@ -16,27 +16,28 @@
       </div>
     </header>
 
-    <!-- Exam info card (summary) -->
+    <!-- Exam info card -->
     <div class="bg-white rounded-lg shadow p-4 mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h3 class="font-semibold">Información del Examen</h3>
+          <h3 class="font-semibold">Informacion del Examen</h3>
           <ul class="text-sm text-gray-700 mt-2 space-y-1">
-            <li><strong>Duración:</strong> 90 minutos</li>
-            <li><strong>Preguntas:</strong> 65 (múltiple opción)</li>
-            <li><strong>Puntaje mínimo:</strong> 700/1000</li>
-            <li><strong>Costo:</strong> $100 USD</li>
+            <li><strong>Duracion:</strong> 130 minutos</li>
+            <li><strong>Preguntas:</strong> 65 (multiple opcion y multiple respuesta)</li>
+            <li><strong>Puntaje minimo:</strong> 720/1000</li>
+            <li><strong>Costo:</strong> $150 USD</li>
             <li><strong>Validez:</strong> 3 años</li>
-            <li><strong>Versión:</strong> CLF-C02 (desde Sept 2023)</li>
+            <li><strong>Version:</strong> DVA-C02 (desde Febrero 2023)</li>
+            <li><strong>Prerequisito:</strong> Recomendado 1+ año de desarrollo en AWS</li>
           </ul>
         </div>
         <div>
           <h3 class="font-semibold">Dominios (porcentaje)</h3>
           <ul class="text-sm text-gray-700 mt-2 space-y-1">
-            <li>Cloud Concepts — 24%</li>
-            <li>Security & Compliance — 30%</li>
-            <li>Cloud Technology & Services — 34%</li>
-            <li>Billing, Pricing & Support — 12%</li>
+            <li>Development with AWS Services — 32%</li>
+            <li>Security — 26%</li>
+            <li>Deployment — 24%</li>
+            <li>Troubleshooting and Optimization — 18%</li>
           </ul>
         </div>
       </div>
@@ -44,7 +45,7 @@
 
     <!-- Timeline / Weeks -->
     <div class="bg-white rounded-lg shadow p-4 mb-6">
-      <h3 class="font-semibold mb-3">Timeline: 8 Semanas</h3>
+      <h3 class="font-semibold mb-3">Timeline: 10 Semanas</h3>
       <div class="space-y-3">
         <div *ngFor="let w of weeks" class="flex items-start gap-3 p-3 border rounded">
           <input type="checkbox" [checked]="w.completed" (change)="toggleWeek(w)"
@@ -68,7 +69,7 @@
     </div>
 
     <!-- Resources -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
       <h3 class="font-semibold mb-3">Recursos Recomendados</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -86,6 +87,13 @@
           </ul>
         </div>
       </div>
+    </div>
+
+    <!-- Back button -->
+    <div class="text-center">
+      <a routerLink="/roadmaps" class="inline-block px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors duration-200">
+        Ver Todos los Roadmaps
+      </a>
     </div>
   </div>
 </section>
