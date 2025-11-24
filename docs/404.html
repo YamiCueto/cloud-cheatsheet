@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — Cloud Cheatsheet</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#FF9900;--muted:#9ca3af;--glass:rgba(255,255,255,0.04)}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#071028 0%, #071827 60%);color:#e6eef8}
+    .card{width:min(1000px,94%);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px);}
+    .row{display:flex;gap:20px;align-items:center}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:8px 0 18px;color:var(--muted)}
+    .left{flex:1}
+    .right{width:260px;display:flex;flex-direction:column;align-items:flex-end}
+    .badge{background:var(--glass);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600}
+    .hr{height:1px;background:rgba(255,255,255,0.04);margin:14px 0;border-radius:2px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--accent);color:#07212a}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    .muted{color:var(--muted);font-size:13px}
+    .spinner{width:38px;height:38px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .footer{display:flex;gap:10px;margin-top:14px;align-items:center}
+    a.link{color:var(--accent);text-decoration:none;font-weight:600}
+    .notice{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;color:var(--muted);margin-top:12px}
+    @media(max-width:720px){.row{flex-direction:column}.right{width:100%;align-items:stretch}}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="row">
+      <div class="left">
+        <div class="badge">Cloud Cheatsheet — SPA fallback</div>
+        <h1>404 — Página no encontrada</h1>
+        <p class="lead">Estás intentando abrir una ruta interna de la aplicación. Estoy reintentando cargar la aplicación para que el router la maneje automáticamente.</p>
+
+        <div class="hr" aria-hidden="true"></div>
+
+        <div class="muted">Acción en curso:</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <div class="spinner" aria-hidden="true"></div>
+          <div>
+            <div><strong id="status-text">Buscando el archivo <code>index.html</code>...</strong></div>
+            <div class="muted" id="status-desc">Intentando recuperar la aplicación para reensamblar la ruta actual.</div>
+          </div>
+        </div>
+
+        <div class="notice" id="fallback-note">Si esto tarda, puedes volver al inicio o abrir el proyecto en GitHub.</div>
+
+        <div class="footer">
+          <button id="open-home" class="btn btn-primary">Ir al inicio</button>
+          <button id="open-github" class="btn btn-ghost">Ver en GitHub</button>
+        </div>
+      </div>
+
+      <div class="right" aria-hidden="true">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Ruta solicitada</div>
+        <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;min-width:200px;text-align:right;font-weight:600"> <span id="req-path"></span></div>
+        <div style="margin-top:20px;color:var(--muted);font-size:13px;text-align:right">Si tu navegador llega aquí desde un enlace directo, el fallback recargará la app y preservará la ruta.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const repoHome = document.location.origin + document.location.pathname.split('/').slice(0, (document.location.pathname === '/' ? 0 : 2)).join('/');
+    const reqPathEl = document.getElementById('req-path');
+    reqPathEl.textContent = location.pathname + (location.search || '') + (location.hash || '');
+
+    // Buttons
+    document.getElementById('open-home').addEventListener('click', () => {
+      // Attempt to navigate to repo root
+      const root = location.pathname.split('/').slice(0, 2).join('/') + '/';
+      location.href = root;
+    });
+    document.getElementById('open-github').addEventListener('click', () => {
+      location.href = 'https://github.com/YamiCueto/cloud-cheatsheet';
+    });
+
+    const statusText = document.getElementById('status-text');
+    const statusDesc = document.getElementById('status-desc');
+
+    // Try to fetch index.html by walking up directories (max 10 levels)
+    (async function tryLoadIndex(){
+      const maxDepth = 10;
+      let depth = 0;
+      let found = false;
+      // Compute candidate relative paths like '../../../index.html'
+      function candidate(depth){
+        if(depth === 0) return './index.html';
+        return Array(depth).fill('..').join('/') + '/index.html';
+      }
+
+      for(depth = 0; depth <= maxDepth; depth++){
+        const path = candidate(depth);
+        try{
+          statusText.textContent = `Intentando cargar: ${path}`;
+          const res = await fetch(path, {cache: 'no-store'});
+          if(res.ok){
+            const html = await res.text();
+            statusText.textContent = 'Cargando aplicación...';
+            // Replace document with fetched index and preserve requested path
+            document.open();
+            document.write(html);
+            document.close();
+            try{
+              window.history.replaceState({}, '', location.pathname + location.search + location.hash);
+            }catch(e){/* ignore */}
+            found = true;
+            return;
+          }
+        }catch(e){
+          // network errors ignored, try next candidate
+        }
+      }
+
+      // If not found, show message and provide manual link
+      statusText.textContent = 'No se pudo cargar la aplicación automáticamente';
+      statusDesc.textContent = 'Puedes volver al inicio o abrir el repositorio en GitHub para ver el proyecto.';
+    })();
+  </script>
+
+</body>
+</html>
