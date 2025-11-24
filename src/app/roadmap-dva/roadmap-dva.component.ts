@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -78,25 +77,25 @@ export class RoadmapDvaComponent {
 
   finishStepper() { this.weeks.forEach(w => w.topics.forEach(t => t.completed = true)); this.save(); }
 
-  onFinish() {
+  async onFinish(): Promise<void> {
     const pct = (typeof (this as any).progressPercent === 'function') ? (this as any).progressPercent() : (this as any).progressPercent;
+    const Swal = (await import('sweetalert2')).default;
     if (pct < 100) {
-      Swal.fire({
+      const result = await Swal.fire({
         title: 'No completado',
         text: `Tu progreso es ${pct}%. ¿Marcar todo como completado de todas formas?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Marcar todo',
         cancelButtonText: 'Cancelar'
-      }).then(result => {
-        if (result.isConfirmed) {
-          this.finishStepper();
-          Swal.fire('Completado', 'El roadmap se ha marcado como completado.', 'success');
-        }
       });
+      if (result.isConfirmed) {
+        this.finishStepper();
+        await Swal.fire('Completado', 'El roadmap se ha marcado como completado.', 'success');
+      }
     } else {
       this.finishStepper();
-      Swal.fire('¡Listo!', 'Has completado el roadmap.', 'success');
+      await Swal.fire('¡Listo!', 'Has completado el roadmap.', 'success');
     }
   }
 }

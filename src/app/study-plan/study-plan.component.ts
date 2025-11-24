@@ -13,10 +13,15 @@ import autoTable from 'jspdf-autotable';
 export class StudyPlanComponent {
   isGeneratingPDF = false;
 
-  downloadPDF() {
+  async downloadPDF() {
     this.isGeneratingPDF = true;
 
     try {
+      const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+        import('jspdf'),
+        import('jspdf-autotable')
+      ]);
+
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pageWidth = pdf.internal.pageSize.getWidth();
       const margin = 15;
