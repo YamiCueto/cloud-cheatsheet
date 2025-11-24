@@ -45,3 +45,84 @@ app-root {
   width: 100%;
   overflow-x: hidden;
 }
+
+/* -----------------------------
+   Responsive: Mobile-first rules
+   ----------------------------- */
+
+/* Generic content container used by pages */
+.main-content {
+  padding: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Cards used across pages */
+.card, .panel {
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  margin-bottom: 16px;
+}
+
+/* Steppers and wide content should be scrollable on small screens */
+.mat-horizontal-stepper, .stepper-wrapper, .timeline {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Sidebar: mobile-first shows top compact header; on larger screens becomes vertical */
+.app-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 56px;
+  padding: 8px 12px;
+  background: transparent;
+}
+
+.app-sidebar .label { display: none; }
+
+/* Text / typography scale for small screens */
+h1 { font-size: 20px; margin: 0 0 6px 0; }
+h2 { font-size: 16px; margin: 0 0 6px 0; }
+p { font-size: 14px; color: rgba(230,238,248,0.92); }
+
+/* Medium and up: layout becomes two-column with fixed sidebar */
+@media (min-width: 768px) {
+  .app-root { }
+  .app-layout { display: flex; align-items: stretch; }
+
+  .app-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 220px;
+    flex-direction: column;
+    padding: 18px 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  }
+  .app-sidebar .label { display: inline-block; }
+
+  .main-content { padding: 24px; max-width: calc(100% - 220px); }
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 18px; }
+}
+
+/* Large screens: increase spacing and card sizes */
+@media (min-width: 1024px) {
+  .app-sidebar { width: 260px; }
+  .main-content { padding: 32px; max-width: calc(100% - 260px); }
+  .card { padding: 20px; }
+  h1 { font-size: 28px; }
+}
+
+/* Utility: center content for very narrow screens */
+@media (max-width: 420px) {
+  .main-content { padding-left: 12px; padding-right: 12px; }
+}
+
