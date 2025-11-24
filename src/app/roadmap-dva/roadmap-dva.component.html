@@ -43,30 +43,38 @@
       </div>
     </div>
 
-    <!-- Timeline / Weeks -->
-    <div class="bg-white rounded-lg shadow p-4 mb-6">
-      <h3 class="font-semibold mb-3">Timeline: 10 Semanas</h3>
-      <div class="space-y-3">
-        <div *ngFor="let w of weeks" class="flex items-start gap-3 p-3 border rounded">
-          <input type="checkbox" [checked]="w.completed" (change)="toggleWeek(w)"
-            aria-label="Marcar {{ w.title }} como completado" />
-          <div class="flex-1">
-            <div class="flex items-center justify-between">
-              <div class="font-semibold">{{ w.title }}</div>
-              <div class="text-xs text-gray-500">{{ w.topics.length }} temas</div>
-            </div>
-            <div class="text-sm text-gray-600 mt-2">
-              <ul class="list-disc pl-5">
-                <li *ngFor="let t of w.topics">{{ t }}</li>
-              </ul>
-            </div>
+    <!-- Material stepper -->
+    <mat-horizontal-stepper class="bg-white rounded-lg shadow p-4 mb-6" #stepper>
+      <mat-step *ngFor="let w of weeks; let i = index" [completed]="weekProgressPercent(w) === 100">
+        <ng-template matStepLabel>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold">Semana {{ i + 1 }}</span>
+            <span class="text-xs text-gray-500">{{ weekProgressPercent(w) }}%</span>
+          </div>
+        </ng-template>
+
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="font-semibold">{{ w.title }}</div>
+            <div class="text-xs text-gray-500">{{ w.topics.length }} temas</div>
+          </div>
+
+          <mat-progress-bar mode="determinate" [value]="weekProgressPercent(w)" color="accent"></mat-progress-bar>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
+          <div *ngFor="let t of w.topics" class="flex items-start gap-2">
+            <mat-checkbox [checked]="t.completed" (change)="toggleTopic(w, t)">{{ t.title }}</mat-checkbox>
           </div>
         </div>
-      </div>
-      <div class="mt-4 flex gap-2 justify-end">
-        <button (click)="resetProgress()" class="px-4 py-2 border rounded text-sm">Reset</button>
-      </div>
-    </div>
+
+        <div class="mt-4 flex justify-end gap-2">
+          <button mat-button (click)="stepper.previous()" [disabled]="i === 0">Atrás</button>
+          <button mat-raised-button color="primary" *ngIf="i < weeks.length - 1" (click)="stepper.next()">Siguiente</button>
+          <button mat-raised-button color="accent" *ngIf="i === weeks.length - 1" (click)="onFinish()">Finalizar</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
 
     <!-- Resources -->
     <div class="bg-white rounded-lg shadow p-4 mb-6">

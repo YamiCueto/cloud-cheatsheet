@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
-interface WeekProgress {
-  id: string;
-  title: string;
-  topics: string[];
-  completed: boolean;
-}
+interface Topic { title: string; completed?: boolean }
+interface WeekProgress { id: string; title: string; topics: Topic[] }
 
 @Component({
   selector: 'app-roadmap-soa',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatStepperModule, MatCheckboxModule, MatProgressBarModule, MatButtonModule],
   templateUrl: './roadmap-soa.component.html',
   styleUrls: ['./roadmap-soa.component.css']
 })
@@ -20,16 +21,16 @@ export class RoadmapSoaComponent {
   roadmapId = 'soaRoadmapProgress_v1';
 
   weeks: WeekProgress[] = [
-    { id: 'week1', title: 'Semana 1: Fundamentos de Operaciones', topics: ['AWS Organizations', 'Service Control Policies', 'Control Tower', 'Landing Zones'], completed: false },
-    { id: 'week2', title: 'Semana 2: Monitoring y Alertas', topics: ['CloudWatch profundo', 'Metricas custom', 'Dashboards', 'Alarms', 'SNS integration'], completed: false },
-    { id: 'week3', title: 'Semana 3: Auditoria y Compliance', topics: ['CloudTrail', 'Config Rules', 'AWS Audit Manager', 'Artifact'], completed: false },
-    { id: 'week4', title: 'Semana 4: Systems Manager', topics: ['Session Manager', 'Patch Manager', 'Parameter Store', 'Automation', 'OpsCenter'], completed: false },
-    { id: 'week5', title: 'Semana 5: Deployment y Provisionamiento', topics: ['CloudFormation profundo', 'Elastic Beanstalk', 'OpsWorks', 'Service Catalog'], completed: false },
-    { id: 'week6', title: 'Semana 6: Alta Disponibilidad', topics: ['Auto Scaling avanzado', 'ELB health checks', 'Multi-AZ deployments', 'Disaster Recovery'], completed: false },
-    { id: 'week7', title: 'Semana 7: Networking Operativo', topics: ['VPC troubleshooting', 'VPN', 'Direct Connect', 'Transit Gateway'], completed: false },
-    { id: 'week8', title: 'Semana 8: Data Management', topics: ['EBS snapshots', 'Lifecycle policies', 'Backup', 'Data recovery'], completed: false },
-    { id: 'week9', title: 'Semana 9: Optimizacion de Costos', topics: ['Cost optimization', 'Trusted Advisor', 'Compute Optimizer', 'Right-sizing'], completed: false },
-    { id: 'week10', title: 'Semana 10: Practica y Examen', topics: ['Troubleshooting scenarios', 'Practice exams', 'Laboratorios', 'Simulacros'], completed: false }
+    { id: 'week1', title: 'Semana 1: Fundamentos de Operaciones', topics: [{ title: 'AWS Organizations' }, { title: 'Service Control Policies' }, { title: 'Control Tower' }, { title: 'Landing Zones' }] },
+    { id: 'week2', title: 'Semana 2: Monitoring y Alertas', topics: [{ title: 'CloudWatch profundo' }, { title: 'Metricas custom' }, { title: 'Dashboards' }, { title: 'Alarms' }, { title: 'SNS integration' }] },
+    { id: 'week3', title: 'Semana 3: Auditoria y Compliance', topics: [{ title: 'CloudTrail' }, { title: 'Config Rules' }, { title: 'AWS Audit Manager' }, { title: 'Artifact' }] },
+    { id: 'week4', title: 'Semana 4: Systems Manager', topics: [{ title: 'Session Manager' }, { title: 'Patch Manager' }, { title: 'Parameter Store' }, { title: 'Automation' }, { title: 'OpsCenter' }] },
+    { id: 'week5', title: 'Semana 5: Deployment y Provisionamiento', topics: [{ title: 'CloudFormation profundo' }, { title: 'Elastic Beanstalk' }, { title: 'OpsWorks' }, { title: 'Service Catalog' }] },
+    { id: 'week6', title: 'Semana 6: Alta Disponibilidad', topics: [{ title: 'Auto Scaling avanzado' }, { title: 'ELB health checks' }, { title: 'Multi-AZ deployments' }, { title: 'Disaster Recovery' }] },
+    { id: 'week7', title: 'Semana 7: Networking Operativo', topics: [{ title: 'VPC troubleshooting' }, { title: 'VPN' }, { title: 'Direct Connect' }, { title: 'Transit Gateway' }] },
+    { id: 'week8', title: 'Semana 8: Data Management', topics: [{ title: 'EBS snapshots' }, { title: 'Lifecycle policies' }, { title: 'Backup' }, { title: 'Data recovery' }] },
+    { id: 'week9', title: 'Semana 9: Optimizacion de Costos', topics: [{ title: 'Cost optimization' }, { title: 'Trusted Advisor' }, { title: 'Compute Optimizer' }, { title: 'Right-sizing' }] },
+    { id: 'week10', title: 'Semana 10: Practica y Examen', topics: [{ title: 'Troubleshooting scenarios' }, { title: 'Practice exams' }, { title: 'Laboratorios' }, { title: 'Simulacros' }] }
   ];
 
   resources = {
@@ -49,13 +50,25 @@ export class RoadmapSoaComponent {
     this.load();
   }
 
-  toggleWeek(w: WeekProgress) {
-    w.completed = !w.completed;
+  toggleTopic(w: WeekProgress, t: Topic) {
+    t.completed = !t.completed;
     this.save();
   }
 
+  weekProgressPercent(w: WeekProgress): number {
+    const total = w.topics.length;
+    const done = w.topics.filter(t => t.completed).length;
+    return total === 0 ? 0 : Math.round((done / total) * 100);
+  }
+
+  progressPercent(): number {
+    const totalTopics = this.weeks.reduce((acc, w) => acc + w.topics.length, 0);
+    const doneTopics = this.weeks.reduce((acc, w) => acc + w.topics.filter(t => t.completed).length, 0);
+    return totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
+  }
+
   save() {
-    const data = this.weeks.map(w => ({ id: w.id, completed: w.completed }));
+    const data = this.weeks.map(w => ({ id: w.id, topics: w.topics.map(t => ({ title: t.title, completed: !!t.completed })) }));
     try { localStorage.setItem(this.roadmapId, JSON.stringify(data)); } catch (e) { /* ignore */ }
   }
 
@@ -63,22 +76,49 @@ export class RoadmapSoaComponent {
     try {
       const raw = localStorage.getItem(this.roadmapId);
       if (raw) {
-        const parsed = JSON.parse(raw) as { id: string; completed: boolean }[];
+        const parsed = JSON.parse(raw) as { id: string; topics: { title: string; completed: boolean }[] }[];
         this.weeks.forEach(w => {
           const p = parsed.find(x => x.id === w.id);
-          if (p) w.completed = !!p.completed;
+          if (p && Array.isArray(p.topics)) {
+            w.topics.forEach(t => {
+              const pt = p.topics.find(x => x.title === t.title);
+              if (pt) t.completed = !!pt.completed;
+            });
+          }
         });
       }
     } catch (e) { /* ignore */ }
   }
 
   resetProgress() {
-    this.weeks.forEach(w => w.completed = false);
+    this.weeks.forEach(w => w.topics.forEach(t => t.completed = false));
     this.save();
   }
 
-  get progressPercent(): number {
-    const done = this.weeks.filter(w => w.completed).length;
-    return Math.round((done / this.weeks.length) * 100);
+  finishStepper() {
+    this.weeks.forEach(w => w.topics.forEach(t => t.completed = true));
+    this.save();
+  }
+
+  onFinish() {
+    const pct = (typeof (this as any).progressPercent === 'function') ? (this as any).progressPercent() : (this as any).progressPercent;
+    if (pct < 100) {
+      Swal.fire({
+        title: 'No completado',
+        text: `Tu progreso es ${pct}%. ¿Marcar todo como completado de todas formas?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Marcar todo',
+        cancelButtonText: 'Cancelar'
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.finishStepper();
+          Swal.fire('Completado', 'El roadmap se ha marcado como completado.', 'success');
+        }
+      });
+    } else {
+      this.finishStepper();
+      Swal.fire('¡Listo!', 'Has completado el roadmap.', 'success');
+    }
   }
 }
