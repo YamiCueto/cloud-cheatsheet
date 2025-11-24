@@ -34,6 +34,17 @@ jobs:
       - name: Build
         run: npm run build:gh-pages
 
+      - name: Add SPA 404 to built site
+        # Copy canonical 404 into the build output so Pages serves our SPA fallback
+        run: |
+          if [ -f .github/pages/404.html ]; then
+            mkdir -p ./docs/browser || true
+            cp .github/pages/404.html ./docs/browser/404.html
+            cp .github/pages/404.html ./docs/404.html || true
+          else
+            echo "No custom 404 found at .github/pages/404.html"
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
