@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>404 — Cloud Cheatsheet</title>
+  <style>
+    :root{--bg:#071827;--card:#071827;--accent:#FF9900;--muted:#9ca3af}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#041221 0%,#071827 80%);color:#e6eef8}
+    .card{width:min(980px,94%);background:rgba(255,255,255,0.02);border-radius:12px;padding:26px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:8px 0 14px;color:var(--muted)}
+    .row{display:flex;gap:20px;align-items:center}
+    .left{flex:1}
+    .right{width:260px;text-align:right}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--accent);color:#07212a}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    .muted{color:var(--muted);font-size:13px}
+    .spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:720px){.row{flex-direction:column}.right{width:100%;text-align:left}}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="row">
+      <div class="left">
+        <div style="font-weight:700;color:var(--muted);font-size:13px">Cloud Cheatsheet — SPA fallback</div>
+        <h1>404 — Página no encontrada</h1>
+        <p class="lead">Parece que abriste una ruta interna directamente. Estoy cargando la aplicación para que el router maneje la ruta correctamente.</p>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <div class="spinner" aria-hidden="true"></div>
+          <div>
+            <div><strong id="status-text">Buscando `index.html`...</strong></div>
+            <div class="muted" id="status-desc">Si no se encuentra, puedes volver al inicio o ver el repositorio.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px">
+          <button id="open-home" class="btn btn-primary">Ir al inicio</button>
+          <button id="open-github" class="btn btn-ghost">Ver en GitHub</button>
+        </div>
+      </div>
+      <div class="right" aria-hidden="true">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Ruta solicitada</div>
+        <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;min-width:200px;font-weight:600"> <span id="req-path"></span></div>
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">La app se cargará y preservará la ruta para que Angular la procese.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('req-path').textContent = location.pathname + (location.search || '') + (location.hash || '');
+    document.getElementById('open-home').addEventListener('click', () => { location.href = location.origin + location.pathname.split('/').slice(0,2).join('/') + '/'; });
+    document.getElementById('open-github').addEventListener('click', () => { location.href = 'https://github.com/YamiCueto/cloud-cheatsheet'; });
+
+    (async function(){
+      const statusText = document.getElementById('status-text');
+      try{
+        statusText.textContent = 'Cargando aplicación...';
+        const res = await fetch('./index.html', {cache: 'no-store'});
+        if (res.ok) {
+          const html = await res.text();
+          document.open(); document.write(html); document.close();
+          try{ window.history.replaceState({}, '', location.pathname + location.search + location.hash); }catch(e){}
+          return;
+        }
+        statusText.textContent = 'No se encontró index.html';
+      }catch(e){
+        statusText.textContent = 'Error cargando la aplicación';
+      }
+    })();
+  </script>
+</body>
+</html>
