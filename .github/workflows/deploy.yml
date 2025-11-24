@@ -29,10 +29,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # Use legacy-peer-deps to avoid ERESOLVE blocking CI for peer dependency mismatches
-        # Fallback to `npm install` if `npm ci --legacy-peer-deps` isn't supported in runner npm version
-        run: |
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Build
         run: npm run build:gh-pages
