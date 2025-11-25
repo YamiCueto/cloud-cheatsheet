@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'study-plan',
     loadComponent: () => import('./study-plan/study-plan.component').then(m => m.StudyPlanComponent)
   },
+  {
+    path: 'clase1-ia-generativa',
+    loadComponent: () => import('./clase1-ia-generativa/clase1-ia-generativa.component').then(m => m.Clase1IaGenerativaComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

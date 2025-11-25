@@ -1,0 +1,342 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">
+      ← Anterior
+    </button>
+    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">
+      Siguiente →
+    </button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- Title Slide (Slide 1) -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <h1>{{ slide.title }}</h1>
+        <h3 class="subtitle">{{ slide.data.subtitle }}</h3>
+        <div class="info-box">
+          <p>{{ slide.data.info }}</p>
+        </div>
+      </div>
+
+      <!-- Content Slide -->
+      <div *ngIf="slide.type === 'content'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+
+        <!-- Slide 2 - Objetivo -->
+        <div *ngIf="slide.id === 2">
+          <div class="highlight-box green">
+            <h3>{{ slide.data.highlight }}</h3>
+          </div>
+          <div class="accordion-list">
+            <div *ngFor="let bullet of slide2Bullets; let i = index"
+                 class="accordion-item"
+                 [class.expanded]="expandedBullet === i"
+                 (click)="toggleBullet(i)">
+              <div class="accordion-header">
+                <span class="accordion-icon">{{ expandedBullet === i ? '▼' : '▸' }}</span>
+                <span class="accordion-title">{{ bullet.title }}</span>
+              </div>
+              <div class="accordion-content" *ngIf="expandedBullet === i">
+                <p class="details-intro">{{ bullet.details }}</p>
+
+                <div *ngIf="bullet.keyPoints && bullet.keyPoints.length > 0" class="key-points">
+                  <h5>Puntos Clave:</h5>
+                  <ul>
+                    <li *ngFor="let point of bullet.keyPoints">{{ point }}</li>
+                  </ul>
+                </div>
+
+                <div *ngIf="bullet.examples && bullet.examples.length > 0" class="examples">
+                  <h5>Ejemplos Prácticos:</h5>
+                  <ul>
+                    <li *ngFor="let example of bullet.examples">{{ example }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="warning-box">
+            <p>{{ slide.data.warning }}</p>
+          </div>
+        </div>        <!-- Slide 3 - Evolución -->
+        <div *ngIf="slide.id === 3" class="timeline">
+          <div *ngFor="let item of slide3Timeline; let i = index"
+               class="timeline-item accordion-item"
+               [class.expanded]="expandedTimeline === i"
+               [ngClass]="item.color"
+               (click)="toggleTimeline(i)">
+            <h3>
+              <span class="accordion-icon">{{ expandedTimeline === i ? '▼' : '▸' }}</span>
+              {{ item.era }}
+            </h3>
+            <p>{{ item.description }}</p>
+            <pre *ngIf="item.code"><code>{{ item.code }}</code></pre>
+            <p *ngIf="item.example" class="example">{{ item.example }}</p>
+
+            <div *ngIf="expandedTimeline === i && item.expandedInfo" class="accordion-content">
+              <div class="details-intro">
+                <h4>🔍 Características</h4>
+                <ul class="key-points">
+                  <li *ngFor="let char of item.expandedInfo.characteristics">{{ char }}</li>
+                </ul>
+              </div>
+
+              <div class="examples-section">
+                <h4>💼 Casos de Uso</h4>
+                <ul class="examples-list">
+                  <li *ngFor="let useCase of item.expandedInfo.useCases">{{ useCase }}</li>
+                </ul>
+              </div>
+
+              <div class="evolution-section">
+                <h4>📈 Evolución</h4>
+                <p>{{ item.expandedInfo.evolution }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 9 - Ejercicio -->
+        <div *ngIf="slide.id === 9" class="exercise">
+          <div class="box blue">
+            <h4>{{ slide.data.userStory.title }}</h4>
+            <div class="user-story">
+              <p>{{ slide.data.userStory.content }}</p>
+            </div>
+          </div>
+          <div class="box orange">
+            <h4>{{ slide.data.instructions.title }}</h4>
+            <ol>
+              <li *ngFor="let item of slide.data.instructions.items">{{ item }}</li>
+            </ol>
+          </div>
+          <div class="box green center">
+            <p>{{ slide.data.objective }}</p>
+          </div>
+        </div>
+
+        <!-- Slide 10 - Resumen -->
+        <div *ngIf="slide.id === 10" class="summary">
+          <div class="box blue">
+            <h4>{{ slide.data.learned.title }}</h4>
+            <p *ngFor="let item of slide.data.learned.items">{{ item }}</p>
+          </div>
+          <div class="box orange">
+            <h4>{{ slide.data.nextClass.title }}</h4>
+            <p>{{ slide.data.nextClass.content }}</p>
+          </div>
+          <div class="box green center">
+            <p class="quote">{{ slide.data.quote }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two Column Slide -->
+      <div *ngIf="slide.type === 'two-column'" class="slide-two-column">
+        <h2>{{ slide.title }}</h2>
+
+        <!-- Slide 4 - LLMs -->
+        <div *ngIf="slide.id === 4">
+          <p class="subtitle">{{ slide.data.subtitle }}</p>
+          <div class="two-columns">
+            <div class="column">
+              <div class="box blue">
+                <h4>{{ slide.data.leftColumn.examples.title }}</h4>
+                <p *ngFor="let item of slide.data.leftColumn.examples.items">{{ item }}</p>
+              </div>
+              <div class="box orange">
+                <h4>{{ slide.data.leftColumn.capabilities.title }}</h4>
+                <p *ngFor="let item of slide.data.leftColumn.capabilities.items">{{ item }}</p>
+              </div>
+            </div>
+            <div class="column">
+              <h4>{{ slide.data.rightColumn.title }}</h4>
+              <div *ngFor="let concept of slide.data.rightColumn.concepts" class="concept">
+                <p class="concept-name">{{ concept.name }}</p>
+                <p class="concept-desc">{{ concept.description }}</p>
+                <code *ngIf="concept.example">{{ concept.example }}</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5 - Temperatura -->
+        <div *ngIf="slide.id === 5">
+          <div class="box green center">
+            <p>{{ slide.data.prompt }}</p>
+          </div>
+          <div class="two-columns">
+            <div *ngFor="let comp of slide.data.comparison" class="box comparison" [ngClass]="comp.color">
+              <h3>{{ comp.title }}</h3>
+              <p class="subtitle">{{ comp.subtitle }}</p>
+              <ul>
+                <li *ngFor="let point of comp.points">{{ point }}</li>
+              </ul>
+              <div class="result">
+                <p>{{ comp.result }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="box orange center">
+            <p>{{ slide.data.recommendation }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Slide -->
+      <div *ngIf="slide.type === 'table'" class="slide-table">
+        <h2>{{ slide.title }}</h2>
+
+        <!-- Slide 6 - Herramientas con expansión -->
+        <div *ngIf="slide.id === 6">
+          <div *ngFor="let tool of slide6Tools; let i = index"
+               class="tool-item accordion-item"
+               [class.expanded]="expandedTool === i"
+               (click)="toggleTool(i)">
+            <div class="tool-header">
+              <span class="accordion-icon">{{ expandedTool === i ? '▼' : '▸' }}</span>
+              <strong>{{ tool.name }}</strong>
+              <span class="tool-strength">{{ tool.strength }}</span>
+              <span class="tool-use">{{ tool.use }}</span>
+            </div>
+
+            <div *ngIf="expandedTool === i && tool.details" class="accordion-content">
+              <div class="details-intro">
+                <h4>💰 Precios</h4>
+                <p>{{ tool.details.pricing }}</p>
+              </div>
+
+              <div class="key-points">
+                <h4>✅ Mejor para</h4>
+                <ul>
+                  <li *ngFor="let use of tool.details.bestFor">{{ use }}</li>
+                </ul>
+              </div>
+
+              <div class="examples-section">
+                <h4>⚠️ Limitaciones</h4>
+                <ul class="examples-list">
+                  <li *ngFor="let limitation of tool.details.limitations">{{ limitation }}</li>
+                </ul>
+              </div>
+
+              <div class="tips-section">
+                <h4>💡 Tips Profesionales</h4>
+                <ul>
+                  <li *ngFor="let tip of tool.details.tips">{{ tip }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box blue center">
+          <p>{{ slide.data.footer }}</p>
+        </div>
+      </div>
+
+      <!-- Grid Slide -->
+      <div *ngIf="slide.type === 'grid'" class="slide-grid">
+        <h2>{{ slide.title }}</h2>
+
+        <!-- Slide 7 - Beneficios con expansión -->
+        <div *ngIf="slide.id === 7" class="grid">
+          <div *ngFor="let benefit of slide7Benefits; let i = index"
+               class="grid-item box accordion-item"
+               [ngClass]="benefit.color"
+               [class.expanded]="expandedBenefit === i"
+               (click)="toggleBenefit(i)">
+            <h3>
+              <span class="accordion-icon">{{ expandedBenefit === i ? '▼' : '▸' }}</span>
+              {{ benefit.icon }} {{ benefit.title }}
+            </h3>
+            <p>{{ benefit.description }}</p>
+
+            <div *ngIf="expandedBenefit === i && benefit.expandedInfo" class="accordion-content">
+              <div class="details-intro">
+                <h4>📊 Métricas</h4>
+                <ul class="key-points">
+                  <li *ngFor="let metric of benefit.expandedInfo.metrics">{{ metric }}</li>
+                </ul>
+              </div>
+
+              <div class="examples-section">
+                <h4>💼 Casos Reales</h4>
+                <ul class="examples-list">
+                  <li *ngFor="let realCase of benefit.expandedInfo.realCases">{{ realCase }}</li>
+                </ul>
+              </div>
+
+              <div class="best-practices-section">
+                <h4>✅ Mejores Prácticas</h4>
+                <ul>
+                  <li *ngFor="let practice of benefit.expandedInfo.bestPractices">{{ practice }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 8 - Limitaciones con expansión -->
+        <div *ngIf="slide.id === 8" class="grid">
+          <div *ngFor="let limitation of slide8Limitations; let i = index"
+               class="grid-item box accordion-item"
+               [ngClass]="limitation.color"
+               [class.expanded]="expandedLimitation === i"
+               (click)="toggleLimitation(i)">
+            <h3>
+              <span class="accordion-icon">{{ expandedLimitation === i ? '▼' : '▸' }}</span>
+              {{ limitation.icon }} {{ limitation.title }}
+            </h3>
+            <p>{{ limitation.description }}</p>
+            <pre *ngIf="limitation.code"><code>{{ limitation.code }}</code></pre>
+
+            <div *ngIf="expandedLimitation === i && limitation.expandedInfo" class="accordion-content">
+              <div class="details-intro">
+                <h4>🛡️ Cómo Evitarlo</h4>
+                <ul class="key-points">
+                  <li *ngFor="let avoid of limitation.expandedInfo.howToAvoid">{{ avoid }}</li>
+                </ul>
+              </div>
+
+              <div class="examples-section">
+                <h4>⚠️ Ejemplos Reales</h4>
+                <ul class="examples-list">
+                  <li *ngFor="let example of limitation.expandedInfo.realExamples">{{ example }}</li>
+                </ul>
+              </div>
+
+              <div class="solutions-section">
+                <h4>✅ Soluciones</h4>
+                <ul>
+                  <li *ngFor="let solution of limitation.expandedInfo.solutions">{{ solution }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box" [ngClass]="slide.id === 7 ? 'blue' : 'orange'" class="center footer-box">
+          <p [innerHTML]="slide.data.footer"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slide Navigation Dots -->
+  <div class="slide-dots">
+    <span
+      *ngFor="let slide of slides; let i = index"
+      class="dot"
+      [class.active]="i === currentSlide"
+      (click)="goToSlide(i)"
+      [title]="slide.title">
+    </span>
+  </div>
+</div>
