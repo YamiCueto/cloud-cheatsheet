@@ -51,7 +51,7 @@ interface Tool {
   imports: [CommonModule],
   templateUrl: './clase5-testing-apis.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase5-testing-apis.component.css'
   ]
 })

@@ -48,7 +48,7 @@ interface Format {
   imports: [CommonModule],
   templateUrl: './clase3-datos-prueba.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase3-datos-prueba.component.css'
   ]
 })

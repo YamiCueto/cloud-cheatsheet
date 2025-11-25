@@ -50,7 +50,7 @@ interface Tool {
   imports: [CommonModule],
   templateUrl: './clase7-frontend-legacy-vanilla.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase7-frontend-legacy-vanilla.component.css'
   ]
 })

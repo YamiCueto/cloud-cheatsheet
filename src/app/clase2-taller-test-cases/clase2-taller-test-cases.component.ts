@@ -40,7 +40,7 @@ interface Challenge {
   imports: [CommonModule],
   templateUrl: './clase2-taller-test-cases.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase2-taller-test-cases.component.css'
   ]
 })

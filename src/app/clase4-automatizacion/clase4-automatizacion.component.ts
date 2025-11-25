@@ -49,7 +49,7 @@ interface Tool {
   imports: [CommonModule],
   templateUrl: './clase4-automatizacion.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase4-automatizacion.component.css'
   ]
 })

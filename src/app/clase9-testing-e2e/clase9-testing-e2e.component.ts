@@ -58,7 +58,7 @@ interface Tip {
   imports: [CommonModule],
   templateUrl: './clase9-testing-e2e.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase9-testing-e2e.component.css'
   ]
 })

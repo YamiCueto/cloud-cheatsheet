@@ -48,7 +48,7 @@ interface Challenge {
   imports: [CommonModule],
   templateUrl: './clase8-migracion-angular.component.html',
   styleUrls: [
-    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    '../shared-presentation.css',
     './clase8-migracion-angular.component.css'
   ]
 })
