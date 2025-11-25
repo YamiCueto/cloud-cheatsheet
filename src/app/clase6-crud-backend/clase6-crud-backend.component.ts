@@ -48,7 +48,10 @@ interface Tool {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase6-crud-backend.component.html',
-  styleUrl: './clase6-crud-backend.component.css'
+  styleUrls: [
+    '../shared-presentation.css',
+    './clase6-crud-backend.component.css'
+  ]
 })
 export class Clase6CrudBackendComponent {
   currentSlide = 0;
