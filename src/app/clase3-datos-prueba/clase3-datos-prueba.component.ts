@@ -47,7 +47,10 @@ interface Format {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase3-datos-prueba.component.html',
-  styleUrl: './clase3-datos-prueba.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase3-datos-prueba.component.css'
+  ]
 })
 export class Clase3DatosPruebaComponent {
   currentSlide = 0;

@@ -57,7 +57,10 @@ interface Tip {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase9-testing-e2e.component.html',
-  styleUrl: './clase9-testing-e2e.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase9-testing-e2e.component.css'
+  ]
 })
 export class Clase9TestingE2eComponent {
   activeSlide = 0;

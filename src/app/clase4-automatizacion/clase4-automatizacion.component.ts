@@ -48,7 +48,10 @@ interface Tool {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase4-automatizacion.component.html',
-  styleUrl: './clase4-automatizacion.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase4-automatizacion.component.css'
+  ]
 })
 export class Clase4AutomatizacionComponent {
   currentSlide = 0;

@@ -50,7 +50,10 @@ interface Tool {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase5-testing-apis.component.html',
-  styleUrl: './clase5-testing-apis.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase5-testing-apis.component.css'
+  ]
 })
 export class Clase5TestingApisComponent {
   currentSlide = 0;

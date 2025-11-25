@@ -47,7 +47,10 @@ interface Challenge {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase8-migracion-angular.component.html',
-  styleUrl: './clase8-migracion-angular.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase8-migracion-angular.component.css'
+  ]
 })
 export class Clase8MigracionAngularComponent {
   // Estado de acordeones

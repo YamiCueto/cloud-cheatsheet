@@ -39,7 +39,10 @@ interface Challenge {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase2-taller-test-cases.component.html',
-  styleUrl: './clase2-taller-test-cases.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase2-taller-test-cases.component.css'
+  ]
 })
 export class Clase2TallerTestCasesComponent {
   currentSlide = 0;
