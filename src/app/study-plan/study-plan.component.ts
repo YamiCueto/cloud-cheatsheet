@@ -13,6 +13,11 @@ import autoTable from 'jspdf-autotable';
 })
 export class StudyPlanComponent {
   isGeneratingPDF = false;
+  showPlan = false;
+
+  togglePlan() {
+    this.showPlan = !this.showPlan;
+  }
 
   async downloadPDF() {
     this.isGeneratingPDF = true;

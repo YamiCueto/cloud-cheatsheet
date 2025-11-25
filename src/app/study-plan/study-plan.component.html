@@ -1,9 +1,30 @@
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
   <div class="study-plan-container px-4">
-    <!-- Download Button -->
-    <div class="flex justify-end mb-6">
+    <!-- Plan de Estudio Card -->
+    <div class="mb-8">
+      <div (click)="togglePlan()"
+           class="block bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer">
+        <div class="flex items-center gap-4">
+          <div class="text-6xl">📚</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-2">Plan de Estudio: IA Generativa</h2>
+            <p class="text-purple-100 mb-3">De Usuario Casual a Prompt Engineer Profesional - 20 días hábiles</p>
+            <div class="flex gap-2 flex-wrap">
+              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">4 Módulos</span>
+              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">1 hora diaria</span>
+              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">Teórico-Práctica</span>
+              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">QA & Dev</span>
+            </div>
+          </div>
+          <div class="text-3xl transition-transform duration-300" [class.rotate-90]="showPlan">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download Button (solo visible cuando se muestra el plan) -->
+    <div *ngIf="showPlan" class="flex justify-end mb-6">
       <button
-        (click)="downloadPDF()"
+        (click)="downloadPDF(); $event.stopPropagation()"
         [disabled]="isGeneratingPDF"
         class="download-button flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg disabled:opacity-50"
         title="Descargar plan en PDF"
@@ -37,8 +58,8 @@
       </a>
     </div>
 
-    <!-- Study Plan Content -->
-    <div id="study-plan-content" class="bg-white rounded-lg shadow-xl p-8">
+    <!-- Study Plan Content (solo visible cuando showPlan es true) -->
+    <div *ngIf="showPlan" id="study-plan-content" class="bg-white rounded-lg shadow-xl p-8 animate-fadeIn">
       <h1>IA Generativa para Equipos QA y Desarrollo</h1>
       <p><strong>Plan de Capacitación - 1 Mes (20 días hábiles)</strong></p>
 
