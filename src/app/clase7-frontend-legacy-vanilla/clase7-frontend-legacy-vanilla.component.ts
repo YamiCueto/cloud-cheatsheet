@@ -49,7 +49,10 @@ interface Tool {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clase7-frontend-legacy-vanilla.component.html',
-  styleUrl: './clase7-frontend-legacy-vanilla.component.css'
+  styleUrls: [
+    '../clase6-crud-backend/clase6-crud-backend.component.css',
+    './clase7-frontend-legacy-vanilla.component.css'
+  ]
 })
 export class Clase7FrontendLegacyVanillaComponent {
   activeSlide = 0;
