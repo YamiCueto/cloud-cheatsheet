@@ -39,6 +39,38 @@ const routes: Routes = [
     path: 'clase1-ia-generativa',
     loadComponent: () => import('./clase1-ia-generativa/clase1-ia-generativa.component').then(m => m.Clase1IaGenerativaComponent)
   },
+  {
+    path: 'clase2-taller-test-cases',
+    loadComponent: () => import('./clase2-taller-test-cases/clase2-taller-test-cases.component').then(m => m.Clase2TallerTestCasesComponent)
+  },
+  {
+    path: 'clase3-datos-prueba',
+    loadComponent: () => import('./clase3-datos-prueba/clase3-datos-prueba.component').then(m => m.Clase3DatosPruebaComponent)
+  },
+  {
+    path: 'clase4-automatizacion',
+    loadComponent: () => import('./clase4-automatizacion/clase4-automatizacion.component').then(m => m.Clase4AutomatizacionComponent)
+  },
+  {
+    path: 'clase5-testing-apis',
+    loadComponent: () => import('./clase5-testing-apis/clase5-testing-apis.component').then(m => m.Clase5TestingApisComponent)
+  },
+  {
+    path: 'clase6-crud-backend',
+    loadComponent: () => import('./clase6-crud-backend/clase6-crud-backend.component').then(m => m.Clase6CrudBackendComponent)
+  },
+  {
+    path: 'clase7-frontend-legacy-vanilla',
+    loadComponent: () => import('./clase7-frontend-legacy-vanilla/clase7-frontend-legacy-vanilla.component').then(m => m.Clase7FrontendLegacyVanillaComponent)
+  },
+  {
+    path: 'clase8-migracion-angular',
+    loadComponent: () => import('./clase8-migracion-angular/clase8-migracion-angular.component').then(m => m.Clase8MigracionAngularComponent)
+  },
+  {
+    path: 'clase9-testing-e2e',
+    loadComponent: () => import('./clase9-testing-e2e/clase9-testing-e2e.component').then(m => m.Clase9TestingE2eComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

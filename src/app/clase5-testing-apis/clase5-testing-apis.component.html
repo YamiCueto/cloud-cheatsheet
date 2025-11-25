@@ -1,0 +1,338 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- Slide 1: Title -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🎯 TALLER PRÁCTICO</div>
+        <h1>{{ slide.title }}</h1>
+        <h2 class="subtitle">Testing de APIs con IA (Postman/REST Assured)</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="icon">⏱️</span>
+            <span class="label">Duración</span>
+            <span class="value">60 minutos</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📊</span>
+            <span class="label">Estructura</span>
+            <span class="value">10 min teoría + 50 min práctica</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">🎁</span>
+            <span class="label">Entregable</span>
+            <span class="value">Collection exportable</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">💪</span>
+            <span class="label">Nivel</span>
+            <span class="value">Principiante-Intermedio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Theory -->
+      <div *ngIf="slide.type === 'theory'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <div class="theory-grid">
+          <div *ngFor="let point of theoryPoints" class="theory-card" [ngClass]="point.color">
+            <div class="theory-icon">{{ point.icon }}</div>
+            <h3>{{ point.title }}</h3>
+            <p>{{ point.description }}</p>
+            <ul>
+              <li *ngFor="let item of point.items">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warning-box">
+          <strong>⏰ Recuerda:</strong> Generarás suites de API tests completas. Trae documentación de tu API.
+        </div>
+      </div>
+
+      <!-- Slide 3: Tools -->
+      <div *ngIf="slide.type === 'tools'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Conoce las herramientas principales de API Testing</p>
+
+        <div class="formats-container">
+          <div *ngFor="let tool of tools; let i = index" class="format-card" (click)="toggleTool(i)">
+            <div class="format-header">
+              <span class="format-icon">{{ tool.icon }}</span>
+              <h3>{{ tool.name }}</h3>
+              <span class="accordion-icon">{{ expandedTool === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedTool === i" class="format-content">
+              <p class="format-description">{{ tool.description }}</p>
+              <div class="pros-cons-grid">
+                <div class="pros-box">
+                  <h4>✅ Pros</h4>
+                  <ul>
+                    <li *ngFor="let pro of tool.pros">{{ pro }}</li>
+                  </ul>
+                </div>
+                <div class="cons-box">
+                  <h4>⚠️ Cons</h4>
+                  <ul>
+                    <li *ngFor="let con of tool.cons">{{ con }}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="use-case-box">
+                <strong>💡 Cuándo usar:</strong> {{ tool.useCase }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Examples -->
+      <div *ngIf="slide.type === 'examples'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Aprende viendo el contraste entre prompts básicos vs estructurados</p>
+
+        <div class="examples-container">
+          <div *ngFor="let example of examples; let i = index" class="example-card">
+            <div class="example-header" (click)="toggleExample(i)">
+              <span class="example-number">Ejemplo {{ i + 1 }}</span>
+              <h3>{{ example.title }}</h3>
+              <span class="accordion-icon">{{ expandedExample === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedExample === i" class="example-content">
+              <!-- API Endpoint Box -->
+              <div class="testcase-box">
+                <h4 class="text-xl font-bold text-orange-300 mb-4">🔌 API Endpoint</h4>
+                <div class="space-y-3">
+                  <div>
+                    <span class="font-semibold text-gray-300">Method:</span>
+                    <span class="text-white ml-2 px-3 py-1 bg-green-600 rounded font-mono">{{ example.method }}</span>
+                  </div>
+                  <div>
+                    <span class="font-semibold text-gray-300">Endpoint:</span>
+                    <span class="text-white ml-2 font-mono text-sm break-all">{{ example.apiEndpoint }}</span>
+                  </div>
+                  <div>
+                    <span class="font-semibold text-gray-300">Descripción:</span>
+                    <span class="text-white ml-2">{{ example.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="prompt-comparison">
+                <div class="prompt-bad">
+                  <div class="prompt-header">
+                    <span class="icon">❌</span>
+                    <h4>Prompt Genérico (No Recomendado)</h4>
+                  </div>
+                  <div class="prompt-text">{{ example.badPrompt.text }}</div>
+                  <div class="problems-list">
+                    <strong>Problemas:</strong>
+                    <ul>
+                      <li *ngFor="let problem of example.badPrompt.problems">{{ problem }}</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="prompt-good">
+                  <div class="prompt-header">
+                    <span class="icon">✅</span>
+                    <h4>Prompt Estructurado (Recomendado)</h4>
+                  </div>
+                  <div class="prompt-text">{{ example.goodPrompt.text }}</div>
+                  <div class="benefits-list">
+                    <strong>Beneficios:</strong>
+                    <ul>
+                      <li *ngFor="let benefit of example.goodPrompt.benefits">{{ benefit }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <h4 class="text-2xl font-bold text-green-300 mb-4">✅ Tests Generados</h4>
+                <pre class="code-output"><code>{{ example.generatedTests }}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: Process -->
+      <div *ngIf="slide.type === 'process'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Metodología probada para generar test suites completas</p>
+
+        <div class="process-container">
+          <div *ngFor="let step of processSteps; let i = index" class="process-step" (click)="toggleStep(i)">
+            <div class="step-header">
+              <div class="step-number">{{ step.number }}</div>
+              <div class="step-info">
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.description }}</p>
+              </div>
+              <span class="accordion-icon">{{ expandedStep === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedStep === i" class="step-content">
+              <div *ngIf="step.example" class="step-example">
+                <strong>📌 Ejemplo:</strong> {{ step.example }}
+              </div>
+              <div class="step-tips">
+                <strong>💡 Tips:</strong>
+                <ul>
+                  <li *ngFor="let tip of step.tips">{{ tip }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Template -->
+      <div *ngIf="slide.type === 'template'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Usa este template para cualquier endpoint de tu API</p>
+
+        <div class="template-container">
+          <div class="template-header">
+            <h3>🎯 Template para Generación de API Tests</h3>
+            <button (click)="copyTemplate()" class="copy-button">📋 Copiar Template</button>
+          </div>
+          <pre class="template-code"><code>{{ template }}</code></pre>
+          <div class="template-instructions">
+            <h4>📝 Instrucciones de Uso:</h4>
+            <ol>
+              <li>Completa las secciones [ROL], [CONTEXTO], [TAREA] con info de tu API</li>
+              <li>Reemplaza [METHOD] [PATH] con tu endpoint real</li>
+              <li>Documenta estructura request/response</li>
+              <li>Lista todos los casos de prueba (happy + negativos)</li>
+              <li>Especifica herramienta: Postman, REST Assured o Pytest</li>
+              <li>Copia y pega el prompt completo en ChatGPT/Copilot</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: Challenges -->
+      <div *ngIf="slide.type === 'challenges'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">3 desafíos reales para practicar con tu IA favorita</p>
+
+        <div class="challenges-container">
+          <div *ngFor="let challenge of challenges; let i = index"
+               class="challenge-card"
+               [ngClass]="challenge.color"
+               (click)="toggleChallenge(i)">
+            <div class="challenge-header">
+              <span class="difficulty-badge" [ngClass]="challenge.difficulty.toLowerCase()">
+                {{ challenge.difficulty }}
+              </span>
+              <h3>{{ challenge.title }}</h3>
+              <span class="accordion-icon">{{ expandedChallenge === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedChallenge === i" class="challenge-content">
+              <div class="challenge-section">
+                <h4>🎯 API</h4>
+                <p>{{ challenge.api }}</p>
+              </div>
+
+              <div class="challenge-section">
+                <h4>📡 Endpoints</h4>
+                <ul>
+                  <li *ngFor="let endpoint of challenge.endpoints">{{ endpoint }}</li>
+                </ul>
+              </div>
+
+              <div class="challenge-section">
+                <h4>✅ Requisitos</h4>
+                <ul>
+                  <li *ngFor="let req of challenge.requirements">{{ req }}</li>
+                </ul>
+              </div>
+
+              <div class="challenge-section">
+                <h4>💡 Pistas</h4>
+                <ul>
+                  <li *ngFor="let hint of challenge.hints">{{ hint }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Tips -->
+      <div *ngIf="slide.type === 'tips'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Consejos de expertos para testing de APIs de nivel profesional</p>
+
+        <div class="tips-grid">
+          <div *ngFor="let tip of professionalTips" class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <h3>{{ tip.title }}</h3>
+            <p class="tip-description">{{ tip.description }}</p>
+            <div class="tip-example">
+              <strong>Ejemplo:</strong> {{ tip.example }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Summary -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+
+        <div class="summary-section">
+          <h3>📦 Entregables del Taller</h3>
+          <div class="deliverables-grid">
+            <div *ngFor="let deliverable of deliverables" class="deliverable-card">
+              <h4>{{ deliverable.title }}</h4>
+              <p>{{ deliverable.description }}</p>
+              <ul class="checkpoints">
+                <li *ngFor="let checkpoint of deliverable.checkpoints">
+                  <span class="checkbox">☑️</span> {{ checkpoint }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-section">
+          <h3>🚀 Próximos Pasos</h3>
+          <div class="next-steps">
+            <div *ngFor="let step of nextSteps; let i = index" class="next-step">
+              <span class="step-number">{{ i + 1 }}</span>
+              <span class="step-text">{{ step }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="final-message">
+          <h3>🎉 ¡Excelente trabajo!</h3>
+          <p>Ya sabes cómo usar IA para generar test suites completas de APIs. Ahora podrás validar contratos, status codes, schemas y performance automáticamente.</p>
+          <p><strong>Próxima clase:</strong> Taller de Generación de CRUD Completo Backend</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Progress Dots -->
+  <div class="progress-dots">
+    <span *ngFor="let slide of slides; let i = index"
+          class="dot"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)">
+    </span>
+  </div>
+</div>

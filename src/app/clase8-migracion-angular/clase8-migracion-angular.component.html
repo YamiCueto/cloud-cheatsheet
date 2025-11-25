@@ -1,0 +1,323 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- Slide 1: Title -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🎯 TALLER PRÁCTICO</div>
+        <h1>{{ slide.title }}</h1>
+        <h2 class="subtitle">Refactoring Legacy Frontend con IA (Vanilla JS/jQuery → Angular)</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="icon">⏱️</span>
+            <span class="label">Duración</span>
+            <span class="value">60 minutos</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📊</span>
+            <span class="label">Estructura</span>
+            <span class="value">10 min teoría + 50 min práctica</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">🎁</span>
+            <span class="label">Entregable</span>
+            <span class="value">Código Angular funcional</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">💪</span>
+            <span class="label">Nivel</span>
+            <span class="value">Principiante-Intermedio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Theory -->
+      <div *ngIf="slide.type === 'theory'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <div class="theory-grid">
+          <div *ngFor="let point of theoryPoints" class="theory-card" [ngClass]="point.color">
+            <div class="theory-icon">{{ point.icon }}</div>
+            <h3>{{ point.title }}</h3>
+            <p>{{ point.description }}</p>
+            <ul>
+              <li *ngFor="let item of point.items">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warning-box">
+          <strong>⏰ Recuerda:</strong> Migrarás apps legacy Vanilla JS/jQuery a Angular moderno con arquitectura escalable.
+        </div>
+      </div>
+
+      <!-- Slide 3: Tools -->
+      <div *ngIf="slide.type === 'tools'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Estrategias de migración frontend según tamaño, tiempo y riesgo</p>
+
+        <div class="formats-container">
+          <div *ngFor="let strategy of migrationStrategies; let i = index" class="format-card" (click)="toggleTool(i)">
+            <div class="format-header">
+              <span class="format-icon">{{ strategy.icon }}</span>
+              <h3>{{ strategy.name }}</h3>
+              <span class="accordion-icon">{{ expandedTool === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedTool === i" class="format-content">
+              <p class="format-description">{{ strategy.description }}</p>
+              <div class="use-case-box">
+                <strong>💡 Cuándo usar:</strong> {{ strategy.whenToUse }}
+              </div>
+              <div class="pros-cons-grid">
+                <div class="pros-box">
+                  <h4>✅ Pros</h4>
+                  <ul>
+                    <li *ngFor="let pro of strategy.pros">{{ pro }}</li>
+                  </ul>
+                </div>
+                <div class="cons-box">
+                  <h4>⚠️ Cons</h4>
+                  <ul>
+                    <li *ngFor="let con of strategy.cons">{{ con }}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="complexity-badge" [ngClass]="'complexity-' + strategy.complexity.toLowerCase()">
+                <strong>Complejidad:</strong> {{ strategy.complexity }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Examples -->
+      <div *ngIf="slide.type === 'examples'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Aprende viendo el contraste entre prompts básicos vs estructurados</p>
+
+        <div class="examples-container">
+          <div *ngFor="let example of examples; let i = index" class="example-card">
+            <div class="example-header" (click)="toggleExample(i)">
+              <span class="example-number">Ejemplo {{ i + 1 }}</span>
+              <h3>{{ example.title }}</h3>
+              <span class="accordion-icon">{{ expandedExample === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedExample === i" class="example-content">
+              <!-- Legacy Code Box -->
+              <div class="testcase-box">
+                <h4 class="text-xl font-bold text-blue-300 mb-4">📜 Código Legacy</h4>
+                <div class="space-y-3">
+                  <div>
+                    <span class="font-semibold text-gray-300">Stack:</span>
+                    <span class="text-white ml-2">{{ example.legacyTech }} → {{ example.targetTech }}</span>
+                  </div>
+                  <div>
+                    <span class="font-semibold text-gray-300">Descripción:</span>
+                    <span class="text-white ml-2">{{ example.description }}</span>
+                  </div>
+                </div>
+                <pre class="code-output mt-4"><code>{{ example.legacyCode }}</code></pre>
+              </div>
+
+              <div class="prompt-comparison">
+                <div class="prompt-bad">
+                  <div class="prompt-header">
+                    <span class="icon">❌</span>
+                    <h4>Prompt Genérico (No Recomendado)</h4>
+                  </div>
+                  <div class="prompt-text">{{ example.badPrompt }}</div>
+                </div>
+
+                <div class="prompt-good">
+                  <div class="prompt-header">
+                    <span class="icon">✅</span>
+                    <h4>Prompt Estructurado (Recomendado)</h4>
+                  </div>
+                  <div class="prompt-text">{{ example.goodPrompt }}</div>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <h4 class="text-2xl font-bold text-green-300 mb-4">✅ Código Angular Refactorizado</h4>
+                <pre class="code-output"><code>{{ example.refactoredCode }}</code></pre>
+
+                <div class="migration-notes-box mt-6">
+                  <h4 class="text-xl font-bold text-purple-300 mb-3">📝 Notas de Migración</h4>
+                  <pre class="text-sm text-gray-300">{{ example.migrationNotes }}</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: Process -->
+      <div *ngIf="slide.type === 'process'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Metodología probada para migrar legacy frontend a Angular moderno</p>
+
+        <div class="process-container">
+          <div *ngFor="let step of migrationProcess; let i = index" class="process-step" (click)="toggleStep(i)">
+            <div class="step-header">
+              <div class="step-number">{{ step.number }}</div>
+              <div class="step-info">
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.description }}</p>
+              </div>
+              <span class="accordion-icon">{{ expandedStep === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedStep === i" class="step-content">
+              <div class="step-example">
+                <strong>🎯 Acción:</strong>
+                <pre class="text-sm text-gray-300 whitespace-pre-wrap mt-2">{{ step.action }}</pre>
+              </div>
+              <div class="step-tips mt-4">
+                <strong>💡 Tip Profesional:</strong>
+                <p class="text-sm text-gray-300 mt-2">{{ step.tip }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Template -->
+      <div *ngIf="slide.type === 'template'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Usa este template para cualquier endpoint de tu API</p>
+
+        <div class="template-container">
+          <div class="template-header">
+            <h3>🎯 Template para Generación de API Tests</h3>
+            <button (click)="copyTemplate()" class="copy-button">📋 Copiar Template</button>
+          </div>
+          <pre class="template-code"><code>{{ template }}</code></pre>
+          <div class="template-instructions">
+            <h4>📝 Instrucciones de Uso:</h4>
+            <ol>
+              <li>Completa las secciones [ROL], [CONTEXTO], [TAREA] con info de tu API</li>
+              <li>Reemplaza [METHOD] [PATH] con tu endpoint real</li>
+              <li>Documenta estructura request/response</li>
+              <li>Lista todos los casos de prueba (happy + negativos)</li>
+              <li>Especifica herramienta: Postman, REST Assured o Pytest</li>
+              <li>Copia y pega el prompt completo en ChatGPT/Copilot</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: Challenges -->
+      <div *ngIf="slide.type === 'challenges'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">3 desafíos reales para practicar con tu IA favorita</p>
+
+        <div class="challenges-container">
+          <div *ngFor="let challenge of challenges; let i = index"
+               class="challenge-card"
+               [ngClass]="challenge.color"
+               (click)="toggleChallenge(i)">
+            <div class="challenge-header">
+              <span class="difficulty-badge" [ngClass]="challenge.difficulty.toLowerCase()">
+                {{ challenge.difficulty }}
+              </span>
+              <h3>{{ challenge.title }}</h3>
+              <span class="accordion-icon">{{ expandedChallenge === i ? '▼' : '▸' }}</span>
+            </div>
+
+            <div *ngIf="expandedChallenge === i" class="challenge-content">
+              <div class="challenge-section">
+                <h4>📜 Escenario Legacy</h4>
+                <pre class="text-sm text-gray-300 bg-gray-800 p-4 rounded">{{ challenge.legacyScenario }}</pre>
+              </div>
+
+              <div class="challenge-section">
+                <h4>🎯 Descripción</h4>
+                <p>{{ challenge.description }}</p>
+              </div>
+
+              <div class="challenge-section">
+                <h4>✅ Requisitos</h4>
+                <ul>
+                  <li *ngFor="let req of challenge.requirements">{{ req }}</li>
+                </ul>
+              </div>
+
+              <div class="challenge-section">
+                <h4>🎁 Resultado Esperado</h4>
+                <p>{{ challenge.expectedOutcome }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Tips -->
+      <div *ngIf="slide.type === 'tips'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Consejos de expertos para refactoring frontend de nivel profesional</p>
+
+        <div class="tips-grid">
+          <div *ngFor="let tip of professionalTips" class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Summary -->
+      <div *ngIf="slides[currentSlide].type === 'summary'" class="slide-content">
+        <h2>{{ slides[currentSlide].title }}</h2>
+
+        <div class="summary-section">
+          <h3>📦 Entregables del Taller</h3>
+          <div class="deliverables-grid">
+            <div *ngFor="let deliverable of deliverables" class="deliverable-card">
+              <h4>{{ deliverable.title }}</h4>
+              <p>{{ deliverable.description }}</p>
+              <ul class="checkpoints">
+                <li *ngFor="let checkpoint of deliverable.checkpoints">
+                  <span class="checkbox">☑️</span> {{ checkpoint }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-section">
+          <h3>🚀 Próximos Pasos</h3>
+          <div class="next-steps">
+            <div *ngFor="let step of nextSteps; let i = index" class="next-step">
+              <span class="step-number">{{ i + 1 }}</span>
+              <span class="step-text">{{ step }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="final-message">
+          <h3>🎉 ¡Excelente trabajo!</h3>
+          <p>Ya dominas estrategias de migración frontend legacy a Angular moderno. Ahora podrás refactorizar aplicaciones Vanilla JS/jQuery con arquitectura escalable y componentes reutilizables.</p>
+          <p><strong>Próxima clase:</strong> Taller de Debugging y Solución de Errores con IA</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Progress Dots -->
+  <div class="progress-dots">
+    <span *ngFor="let slide of slides; let i = index"
+          class="dot"
+          [class.active]="i === currentSlide"
+          (click)="currentSlide = i">
+    </span>
+  </div>
+</div>

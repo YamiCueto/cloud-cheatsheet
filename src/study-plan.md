@@ -83,123 +83,132 @@ Tabla con columnas: ID | Escenario | Pre-condiciones | Pasos | Resultado Esperad
 
 ---
 
-## 📚 Plan de Estudios - 4 Módulos en 20 Días
+## 📚 Plan de Estudios Reformado - 12 Clases Prácticas
 
-### Módulo 1: Fundamentos (3 días)
+**🎯 Filosofía del Curso:**
+- ✅ Clase 1: Fundamentos teóricos (YA COMPLETADA)
+- ✅ Clases 2-12: **100% talleres prácticos** con entregables reales
+- ✅ Cada clase = 1 problema real → solución con IA → resultado tangible
 
-**Día 1: ¿Qué es IA, ML y GenIA?**
-- Diferencias clave y evolución
-- LLMs: tokens, contexto, temperatura
+### ✅ Módulo 1: Fundamentos (COMPLETADO - Clase 1)
 
-**Día 2: Herramientas disponibles**
-- ChatGPT, Claude, Gemini (demo comparativa)
-- GitHub Copilot, Cursor, Codeium
-
-**Día 3: Beneficios y limitaciones**
-- Casos reales en Dev/QA
-- Alucinaciones, sesgos, verificación
-- Ética y responsabilidad
-
----
-
-### Módulo 2: Análisis y Entendimiento de Necesidades (5 días) ⭐
-
-> **Este es el módulo MÁS CRÍTICO del curso**
-
-**Día 4: Anatomía de una Historia de Usuario**
-- Como/Quiero/Para qué
-- Criterios de aceptación
-- Definición de Done
-
-**Día 5: Extraer información clave**
-- Actores involucrados
-- Acciones/verbos (CRUD, validaciones, flujos)
-- Datos entrada/salida
-- Reglas de negocio
-
-**Día 6: De HU a Casos de Prueba**
-- Path feliz vs alternos
-- Edge cases y validaciones
-- Taller: analizar HU real de sistema bancario
-
-**Día 7: De HU a Requerimientos Técnicos**
-- Identificar endpoints necesarios
-- Modelos de datos
-- Dependencias entre servicios
-
-**Día 8: Taller intensivo**
-- 3 HU reales → descomponer en tareas Dev/QA
-- Trabajo en equipos
+**Clase 1: Fundamentos de IA Generativa** ✅
+- ✅ Diferencias IA, ML y GenIA
+- ✅ LLMs: tokens, contexto, temperatura
+- ✅ Herramientas: ChatGPT, Claude, Gemini, Copilot, Cursor
+- ✅ Beneficios y limitaciones reales
+- ✅ Ejercicio práctico: Análisis de HU de Bureau de Crédito
 
 ---
 
-### Módulo 3: Prompt Engineering Aplicado (7 días) ⭐⭐
+### 🎯 Módulo 2: Talleres Prácticos para QA (4 sesiones)
 
-#### Fundamentos de Prompts (Días 9-10)
+> **Enfoque: Manos a la obra. Cada clase = 1 taller completo con resultados tangibles**
 
-**Día 9: Estructura del prompt perfecto**
-- [ROL] Identidad del asistente
-- [CONTEXTO] Información relevante
-- [TAREA] Qué debe hacer
-- [RESTRICCIONES] Límites y validaciones
-- [FORMATO] Cómo entregar resultado
+**Clase 2: Taller - Generación de Test Cases desde HU**
+- **Reto:** HU real de consulta Bureau de Crédito
+- **Práctica:** Analizar HU → Estructurar prompt → Generar 15 test cases con edge cases
+- **Entregable:** Suite de casos de prueba lista para usar
+- **Tiempo:** 15 min teoría + 45 min práctica
 
-**Día 10: Técnicas avanzadas**
-- Zero-shot vs Few-shot (con ejemplos)
-- Chain-of-thought: "Piensa paso a paso"
-- Iteración: prompt → resultado → refinamiento
+**Clase 3: Taller - Generación de Datos de Prueba Masivos**
+- **Reto:** Necesitan 1000 clientes sintéticos para testing
+- **Práctica:** Prompt para generar JSON, SQL inserts, CSV con datos realistas
+- **Entregable:** Dataset completo listo para carga
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-#### Aplicación para QA (Días 11-13)
+**Clase 4: Taller - Scripts de Automatización con IA**
+- **Reto:** Automatizar flujo de login + consulta saldo
+- **Práctica:** Desde test cases → generar scripts Selenium/Cypress funcionales
+- **Entregable:** Script ejecutable con assertions
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-**Día 11: Prompt para Test Cases**
-- HU → casos de prueba completos
-- Ejercicio: "Consulta de saldo" → 10 test cases
-
-**Día 12: Prompt para Test Data**
-- Generar datos sintéticos realistas
-- JSON, SQL inserts, CSV para carga masiva
-
-**Día 13: Prompt para Scripts Automatización**
-- Selenium/Cypress desde casos de prueba
-- Mantener locators, assertions
-
-#### Aplicación para Dev (Días 14-15)
-
-**Día 14: Prompt para Code Generation**
-- HU → controller Spring Boot
-- Validaciones, manejo errores, DTOs
-
-**Día 15: Prompt para Refactoring y Debug**
-- VB6 → Java (caso real migración)
-- "Explica este código legacy y mígralo"
+**Clase 5: Taller - Testing de APIs y Validaciones**
+- **Reto:** Suite completa de Postman/REST Assured para API de préstamos
+- **Práctica:** HU → requests + validaciones + edge cases + manejo errores
+- **Entregable:** Collection Postman exportable
+- **Tiempo:** 10 min teoría + 50 min práctica
 
 ---
 
-### Módulo 4: Integración Dev-QA (5 días) ⭐
+### 💻 Módulo 3: Talleres Prácticos para Desarrollo (4 sesiones)
 
-**Día 16: Flujo completo con IA**
-- HU → Análisis → Prompt Dev → Código → Prompt QA → Tests → Ejecución
+**Clase 6: Taller - Generación de CRUD Backend Completo**
+- **Reto:** API REST de gestión de clientes desde cero (Spring Boot + H2)
+- **Práctica:** HU → Controller + Service + Repository + DTOs + Tests
+- **Entregable:** Backend funcional con Swagger, listo para consumir
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-**Día 17: Code Review con IA**
-- Detectar bugs, code smells
-- Sugerencias de mejora
-- Validar estándares de código
+**Clase 7: Taller - Frontend Legacy Consumiendo API**
+- **Reto:** Cliente web Vanilla JS que consume API de Clientes (Clase 6)
+- **Práctica:** Generar HTML + JS puro con fetch, DOM manipulation, localStorage
+- **Entregable:** App legacy funcional (CRUD completo en navegador)
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-**Día 18: Documentación automática**
-- Swagger desde código
-- README, diagramas de arquitectura
-- Comentarios y JavaDoc
+**Clase 8: Taller - Refactoring Frontend Legacy a Angular**
+- **Reto:** Migrar app Vanilla JS (Clase 7) a Angular moderno
+- **Práctica:** Analizar legacy → Elegir estrategia → Migrar a Angular → Validar equivalencia
+- **Entregable:** App Angular consumiendo misma API + arquitectura escalable
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-**Día 19: Caso real: Migración VB6**
-- Analizar módulo legacy
-- Prompts para migración + testing
-- Validación funcional
+**Clase 9: Taller - Testing E2E del Stack Completo**
+- **Reto:** Suite de tests sobre Backend (Clase 6) + Frontend Angular (Clase 8)
+- **Práctica:** Tests unitarios Service + Tests integración API + Tests E2E Cypress
+- **Entregable:** Suite completa de tests automatizados pasando
+- **Tiempo:** 10 min teoría + 50 min práctica
 
-**Día 20: Proyecto Final**
-- HU real de sistema bancario
-- Equipo Dev: genera código con IA
-- Equipo QA: genera suite completa con IA
-- Presentación: prompt + resultado + lecciones
+---
+
+### 🚀 Módulo 4: Talleres Integrados Dev-QA (3 sesiones)
+
+**Clase 10: Taller - Debugging y Solución de Errores**
+- **Reto:** 5 bugs reales introducidos en el Stack (Backend + Frontend)
+- **Práctica:** IA analiza stack traces → Sugiere solución → Implementar fix
+- **Entregable:** Bugs resueltos con explicación y tests de regresión
+- **Tiempo:** 10 min teoría + 50 min práctica
+
+**Clase 11: Taller - Documentación Automática del Proyecto**
+- **Reto:** Documentar Stack completo (Backend + Frontend Angular)
+- **Práctica:** README completo, JavaDoc, JSDoc, diagramas arquitectura, guía deploy
+- **Entregable:** Suite completa de documentación profesional
+- **Tiempo:** 10 min teoría + 50 min práctica
+
+**Clase 12: Proyecto Final Integrado**
+- **Reto:** Extender sistema con módulo de Transacciones (Backend + Frontend + Tests)
+- **Equipos mixtos Dev+QA:**
+  - Analizar 3 HU complejas (Transacciones bancarias)
+  - Dev: Backend transacciones + Frontend funcional
+  - QA: Suite tests completa (unitarios, integración, E2E)
+  - Code Review con IA + Documentación
+  - Deploy y presentación
+- **Entregable:** Sistema completo funcional + tests + docs + presentación
+- **Tiempo:** 60 min (sin teoría, full hands-on)
+
+---
+
+## 🎓 Estructura de cada Taller (Clases 2-12)
+
+### Formato Estándar (60 minutos):
+
+**1. Intro Rápida (5-10 min):**
+- Contexto del reto
+- Ejemplo de prompt base
+- Tips clave para este taller específico
+
+**2. Trabajo Individual/Parejas (30 min):**
+- Cada uno trabaja en su máquina con IA
+- Instructor circula ayudando
+- Resolución de dudas en vivo
+
+**3. Revisión Grupal (15 min):**
+- 2-3 personas comparten su solución
+- Comparar diferentes approaches
+- Identificar mejores prácticas
+
+**4. Cierre y Tarea (5 min):**
+- Lecciones aprendidas
+- Tarea opcional: variación del ejercicio
+- Preview próxima clase
 
 ---
 
