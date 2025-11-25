@@ -1,0 +1,335 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="activeSlide === 0" class="control-btn">← Anterior</button>
+    <span class="slide-counter">{{ activeSlide + 1 }} / {{ slides.length }}</span>
+    <button (click)="nextSlide()" [disabled]="activeSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === activeSlide">
+
+      <!-- Slide 1: Title -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🌟 TALLER PRÁCTICO</div>
+        <h1>{{ slide.title }}</h1>
+        <h2 class="subtitle">Frontend Legacy Vanilla JS consumiendo API</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="icon">⏱️</span>
+            <span class="label">Duración</span>
+            <span class="value">60 minutos</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📊</span>
+            <span class="label">Estructura</span>
+            <span class="value">10 min teoría + 50 min práctica</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">🎁</span>
+            <span class="label">Entregable</span>
+            <span class="value">App Vanilla JS funcional</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">💪</span>
+            <span class="label">Nivel</span>
+            <span class="value">Principiante</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Theory -->
+      <div *ngIf="slide.type === 'theory'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <div class="theory-grid">
+          <div *ngFor="let point of theoryPoints" class="theory-card" [ngClass]="point.color">
+            <div class="theory-icon">{{ point.icon }}</div>
+            <h3>{{ point.title }}</h3>
+            <p>{{ point.description }}</p>
+            <ul>
+              <li *ngFor="let item of point.items">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warning-box">
+          <strong>⏰ Recuerda:</strong> Generarás frontend legacy realista que consumirá tu Backend (Clase 6). Este código lo migrarás en Clase 8.
+        </div>
+      </div>
+
+      <!-- Slide 3: Tools (Legacy vs Modern) -->
+      <div *ngIf="slide.type === 'tools'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Comparación de tecnologías legacy vs modernas</p>
+
+        <div class="formats-container">
+          <div *ngFor="let tool of legacyVsModern; let i = index" class="format-card" [ngClass]="tool.color">
+            <div class="format-header">
+              <span class="format-icon">{{ tool.icon }}</span>
+              <h3>{{ tool.name }}</h3>
+            </div>
+
+            <div class="format-content">
+              <p class="format-description">{{ tool.description }}</p>
+              <div class="pros-cons-grid">
+                <div class="pros-box">
+                  <h4>✅ Pros</h4>
+                  <ul>
+                    <li *ngFor="let pro of tool.pros">{{ pro }}</li>
+                  </ul>
+                </div>
+                <div class="cons-box">
+                  <h4>⚠️ Cons</h4>
+                  <ul>
+                    <li *ngFor="let con of tool.cons">{{ con }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Example (CRUD Clientes) -->
+      <div *ngIf="slide.type === 'examples'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Genera frontend legacy completo con IA</p>
+
+        <div class="example-card">
+          <h3>{{ mainExample.title }}</h3>
+          <p class="format-description">{{ mainExample.description }}</p>
+
+          <!-- API Endpoints -->
+          <div class="testcase-box">
+            <h4>🔌 Endpoints API (Clase 6)</h4>
+            <pre class="code-block">{{ mainExample.apiEndpoints }}</pre>
+          </div>
+
+          <!-- Bad Prompt -->
+          <div class="prompt-comparison">
+            <div class="prompt-bad">
+              <div class="prompt-header">
+                <span class="icon">❌</span>
+                <h4>Prompt Genérico</h4>
+              </div>
+              <div class="prompt-text">{{ mainExample.badPrompt.text }}</div>
+              <div class="problems-list">
+                <strong>Problemas:</strong>
+                <ul>
+                  <li *ngFor="let problem of mainExample.badPrompt.problems">{{ problem }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Good Prompt -->
+            <div class="prompt-good">
+              <div class="prompt-header">
+                <span class="icon">✅</span>
+                <h4>Prompt Estructurado</h4>
+              </div>
+              <div class="prompt-text">{{ mainExample.goodPrompt.text }}</div>
+              <div class="benefits-list">
+                <strong>Beneficios:</strong>
+                <ul>
+                  <li *ngFor="let benefit of mainExample.goodPrompt.benefits">{{ benefit }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legacy Code Generated -->
+          <div class="code-section">
+            <h4>📜 Código Legacy Generado (index.html completo)</h4>
+            <pre class="code-block">{{ mainExample.legacyCode }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: Process -->
+      <div *ngIf="slide.type === 'process'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Sigue estos pasos para generar tu frontend legacy</p>
+
+        <div class="process-container">
+          <div *ngFor="let step of process" class="process-step">
+            <div class="step-number">{{ step.number }}</div>
+            <div class="step-content">
+              <h3>{{ step.title }}</h3>
+              <p class="step-description">{{ step.description }}</p>
+              <div class="step-action">
+                <strong>🎯 Acción:</strong> {{ step.action }}
+              </div>
+              <div class="step-tip">
+                <strong>💡 Tip:</strong> {{ step.tip }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Template -->
+      <div *ngIf="slide.type === 'template'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Copia y adapta este prompt para tu propia app</p>
+
+        <div class="template-box">
+          <h3>📝 Template de Prompt para Frontend Legacy</h3>
+          <pre class="code-block">Genera una aplicación web CRUD de [ENTIDAD] en Vanilla JavaScript puro que consuma la siguiente API REST:
+
+**Contexto:**
+- Backend: [TECNOLOGÍA] corriendo en [URL]
+- Endpoints disponibles:
+  * GET /api/[entidad] (listar todos)
+  * POST /api/[entidad] (crear, body JSON: {{ '{' }}campo1, campo2, campo3{{ '}' }})
+  * PUT /api/[entidad]/{{ '{' }}id{{ '}' }} (actualizar)
+  * DELETE /api/[entidad]/{{ '{' }}id{{ '}' }} (eliminar)
+- Modelo: {{ '{' }}id, campo1, campo2, campo3{{ '}' }}
+
+**Requerimientos técnicos:**
+- HTML en un solo archivo index.html
+- CSS inline o en {{ '<' }}style{{ '>' }} tag
+- JavaScript puro en {{ '<' }}script{{ '>' }} tag (sin módulos ES6)
+- fetch() para llamadas HTTP (incluir headers JSON)
+- DOM manipulation con document.getElementById/querySelector
+- Event listeners inline (onclick) o .addEventListener
+- Tabla HTML para mostrar [entidad] (con botones Editar/Eliminar)
+- Formulario para Crear/Actualizar (reusar mismo form)
+- Variables globales para estado ([entidad]Editando, etc)
+- Manejo básico de errores (alert/console.log)
+
+**Características legacy intencionales:**
+- Código en un solo archivo
+- innerHTML para actualizar tabla completa
+- Sin validaciones cliente complejas
+- Lógica mezclada con presentación
+- Variables globales para estado
+- Callbacks anidados
+
+**Entregable:**
+Archivo index.html completo con HTML + CSS + JS funcional.</pre>
+        </div>
+
+        <div class="tips-box">
+          <h4>🎯 Variables a personalizar:</h4>
+          <ul>
+            <li><strong>[ENTIDAD]:</strong> clientes, productos, usuarios, pedidos, etc.</li>
+            <li><strong>[TECNOLOGÍA]:</strong> Spring Boot, Node.js Express, Django, etc.</li>
+            <li><strong>[URL]:</strong> http://localhost:8080, https://api.miapp.com, etc.</li>
+            <li><strong>{{ '{' }}campo1, campo2, campo3{{ '}' }}:</strong> atributos del modelo (nombre, email, etc.)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Slide 7: Challenges -->
+      <div *ngIf="slide.type === 'challenges'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <p class="subtitle">Elige tu nivel y practica</p>
+
+        <div class="challenges-container">
+          <div *ngFor="let challenge of challenges" class="challenge-card" [ngClass]="challenge.color">
+            <div class="challenge-header">
+              <span class="difficulty-badge">{{ challenge.difficulty }}</span>
+              <h3>{{ challenge.title }}</h3>
+            </div>
+            <p class="challenge-description">{{ challenge.description }}</p>
+
+            <div class="challenge-section">
+              <h4>📋 Requerimientos:</h4>
+              <ul>
+                <li *ngFor="let req of challenge.requirements">{{ req }}</li>
+              </ul>
+            </div>
+
+            <div class="challenge-section">
+              <h4>💡 Pistas:</h4>
+              <ul>
+                <li *ngFor="let hint of challenge.hints">{{ hint }}</li>
+              </ul>
+            </div>
+
+            <div class="expected-outcome">
+              <strong>🎯 Resultado esperado:</strong> {{ challenge.expectedOutcome }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Tips -->
+      <div *ngIf="slide.type === 'tips'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+        <div class="tips-grid">
+          <div *ngFor="let tip of tips" class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Summary -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content">
+        <h2>{{ slide.title }}</h2>
+
+        <div class="summary-grid">
+          <div class="summary-card green">
+            <h3>🎯 Objetivo Cumplido</h3>
+            <ul>
+              <li>✅ Frontend legacy funcional en Vanilla JS</li>
+              <li>✅ Consumo completo de API (CRUD 5 endpoints)</li>
+              <li>✅ Código espagueti intencional (deuda técnica)</li>
+              <li>✅ Base para migración en Clase 8</li>
+            </ul>
+          </div>
+
+          <div class="summary-card blue">
+            <h3>📦 Entregable</h3>
+            <ul>
+              <li>index.html completo (<300 líneas)</li>
+              <li>HTML + CSS + JS en un solo archivo</li>
+              <li>CRUD funcional contra localhost:8080</li>
+              <li>Screenshots de app funcionando</li>
+              <li>Lista de anti-patterns identificados</li>
+            </ul>
+          </div>
+
+          <div class="summary-card orange">
+            <h3>💡 Aprendiste</h3>
+            <ul>
+              <li>Generar frontend legacy con IA</li>
+              <li>fetch() para consumir API REST</li>
+              <li>DOM manipulation sin frameworks</li>
+              <li>Identificar deuda técnica</li>
+              <li>Preparar código para refactoring</li>
+            </ul>
+          </div>
+
+          <div class="summary-card purple">
+            <h3>➡️ Próxima Clase</h3>
+            <ul>
+              <li><strong>Clase 8:</strong> Migración a Angular</li>
+              <li>Tomar tu código Vanilla JS de hoy</li>
+              <li>Refactorizar a componentes Angular</li>
+              <li>Services, HttpClient, Reactive Forms</li>
+              <li>Validar equivalencia funcional</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="final-message">
+          <p>🎉 <strong>¡Felicitaciones!</strong> Creaste tu primer frontend legacy que consumirá un backend real.</p>
+          <p>🚀 Ahora tienes un proyecto completo: Backend (Clase 6) + Frontend Legacy (Clase 7) listo para migrar (Clase 8).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Progress Dots -->
+  <div class="progress-dots">
+    <span *ngFor="let slide of slides; let i = index"
+          class="dot"
+          [class.active]="i === activeSlide"
+          (click)="goToSlide(i)">
+    </span>
+  </div>
+</div>
