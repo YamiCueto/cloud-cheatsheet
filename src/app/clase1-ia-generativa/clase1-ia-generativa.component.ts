@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SlideContentService, BulletDetail, TimelineDetail, ToolDetail, BenefitDetail, LimitationDetail } from './slide-content.service';
 
 interface Slide {
@@ -13,7 +14,7 @@ interface Slide {
 @Component({
   selector: 'app-clase1-ia-generativa',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './clase1-ia-generativa.component.html',
   styleUrls: ['./clase1-ia-generativa.component.css']
 })

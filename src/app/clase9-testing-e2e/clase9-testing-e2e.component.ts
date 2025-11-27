@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface TestLevel {
   name: string;
@@ -55,7 +56,7 @@ interface Tip {
 @Component({
   selector: 'app-clase9-testing-e2e',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './clase9-testing-e2e.component.html',
   styleUrls: [
     '../shared-presentation.css',

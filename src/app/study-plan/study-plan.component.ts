@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TechStackComponent } from '../tech-stack/tech-stack.component';
+import { InstallationGuidesComponent } from '../installation-guides/installation-guides.component';
 
 interface Clase {
   route: string;
@@ -16,7 +17,7 @@ interface Clase {
 @Component({
   selector: 'app-study-plan',
   standalone: true,
-  imports: [CommonModule, RouterModule, TechStackComponent],
+  imports: [CommonModule, RouterModule, TechStackComponent, InstallationGuidesComponent],
   templateUrl: './study-plan.component.html',
   styleUrls: ['./study-plan.component.css']
 })

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Example {
   title: string;
@@ -45,7 +46,7 @@ interface Format {
 @Component({
   selector: 'app-clase3-datos-prueba',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './clase3-datos-prueba.component.html',
   styleUrls: [
     '../shared-presentation.css',

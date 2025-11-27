@@ -24,30 +24,54 @@
   <div *ngIf="showStack" class="mt-6 bg-white rounded-lg shadow-xl p-8 animate-fadeIn">
     <div class="mb-6">
       <h3 class="text-3xl font-bold text-gray-800 mb-2">🛠️ Stack Tecnológico Completo</h3>
-      <p class="text-gray-600">
+      <p class="text-gray-600 mb-4">
         Todas las herramientas, lenguajes, frameworks y librerías utilizadas a lo largo de las 12 clases del curso.
         Este stack representa las tecnologías más demandadas en la industria para QA y Desarrollo con IA Generativa.
       </p>
+
+      <!-- Expand/Collapse All Controls -->
+      <div class="flex gap-3 mb-4">
+        <button (click)="expandAllCategories()"
+                class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+          <span>➕</span>
+          <span>Expandir Todas</span>
+        </button>
+        <button (click)="collapseAllCategories()"
+                class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-600 hover:to-rose-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+          <span>➖</span>
+          <span>Colapsar Todas</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Categories -->
-    <div *ngFor="let category of categories" class="mb-8">
-      <div class="flex items-center gap-3 mb-4">
-        <h4 class="text-2xl font-bold bg-gradient-to-r {{getCategoryColor(category)}} bg-clip-text text-transparent">
-          {{category}}
-        </h4>
-        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-          {{getTechnologiesByCategory(category).length}} tecnologías
-        </span>
-      </div>
+    <!-- Categories (Accordion) -->
+    <div *ngFor="let category of categories" class="mb-4">
+      <!-- Category Header (Clickable) -->
+      <button (click)="toggleCategory(category, $event)"
+              class="w-full bg-gradient-to-r {{getCategoryColor(category)}} text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-4">
+          <h4 class="text-xl font-bold">
+            {{category}}
+          </h4>
+          <span class="bg-white bg-opacity-20 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold">
+            {{getTechnologiesByCategory(category).length}} tecnologías
+          </span>
+        </div>
+        <div class="text-2xl transition-transform duration-300"
+             [class.rotate-90]="isCategoryExpanded(category)">
+          ▶
+        </div>
+      </button>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Category Content (Collapsible) -->
+      <div *ngIf="isCategoryExpanded(category)"
+           class="mt-4 mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fadeIn">
         <div *ngFor="let tech of getTechnologiesByCategory(category)"
              class="flip-card"
              (click)="toggleCard(tech.name, $event)">
           <div class="flip-card-inner" [class.flipped]="isFlipped(tech.name)">
             <!-- Front of card -->
-            <div class="flip-card-front bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-lg p-4">
+            <div class="flip-card-front bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-lg p-4 hover:border-gray-300 hover:shadow-lg transition-all">
               <div class="flex items-start gap-3 mb-3">
                 <div class="text-4xl">{{tech.icon}}</div>
                 <div class="flex-1">

@@ -1,3 +1,6 @@
+/* Estilos específicos Clase 1 - IA Generativa */
+/* Esta clase usa un diseño diferente tipo presentación de diapositivas */
+
 :host {
   display: block;
   width: 100%;
@@ -645,7 +648,8 @@ pre code {
 .slide-dots {
   position: fixed;
   bottom: 10%;
-  left: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 10px;
   z-index: 1000;
@@ -654,7 +658,6 @@ pre code {
   border-radius: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  margin-left: -50%;
 }
 
 .dot {
@@ -674,6 +677,49 @@ pre code {
 .dot.active {
   background: #00A3E0;
   transform: scale(1.3);
+}
+
+/* Back to menu button override for Clase 1 */
+.back-to-menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-to-menu .back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(26, 26, 46, 0.95);
+  color: #00A3E0;
+  border: 2px solid #00A3E0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-menu .back-btn:hover {
+  background: #00A3E0;
+  color: white;
+  border-color: #00A3E0;
+  transform: translateX(-4px);
+  box-shadow: 0 6px 12px rgba(0, 163, 224, 0.4);
+}
+
+.back-to-menu .back-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.back-to-menu .back-btn:hover svg {
+  transform: translateX(-2px);
 }
 
 /* Responsive */

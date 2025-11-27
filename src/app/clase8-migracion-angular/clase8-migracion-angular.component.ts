@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Example {
   title?: string;
@@ -45,7 +46,7 @@ interface Challenge {
 @Component({
   selector: 'app-clase8-migracion-angular',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './clase8-migracion-angular.component.html',
   styleUrls: [
     '../shared-presentation.css',

@@ -21,6 +21,7 @@ interface Technology {
 export class TechStackComponent {
   showStack = false;
   flippedCards: Set<string> = new Set();
+  expandedCategories: Set<string> = new Set();
 
   technologies: Technology[] = [
     // Editores y Herramientas de Desarrollo
@@ -332,5 +333,29 @@ export class TechStackComponent {
 
   isFlipped(techName: string): boolean {
     return this.flippedCards.has(techName);
+  }
+
+  toggleCategory(category: string, event: Event): void {
+    event.stopPropagation();
+    if (this.expandedCategories.has(category)) {
+      // Si ya está expandida, la colapsamos
+      this.expandedCategories.delete(category);
+    } else {
+      // Si no está expandida, colapsamos todas las demás y expandimos esta
+      this.expandedCategories.clear();
+      this.expandedCategories.add(category);
+    }
+  }
+
+  isCategoryExpanded(category: string): boolean {
+    return this.expandedCategories.has(category);
+  }
+
+  expandAllCategories(): void {
+    this.categories.forEach(cat => this.expandedCategories.add(cat));
+  }
+
+  collapseAllCategories(): void {
+    this.expandedCategories.clear();
   }
 }

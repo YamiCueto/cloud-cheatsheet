@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Example {
   title: string;
@@ -47,7 +48,7 @@ interface Tool {
 @Component({
   selector: 'app-clase7-frontend-legacy-vanilla',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './clase7-frontend-legacy-vanilla.component.html',
   styleUrls: [
     '../shared-presentation.css',
