@@ -29,150 +29,55 @@
     <app-tech-stack></app-tech-stack>
 
     <!-- Classes Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-      <!-- Clase 1 -->
-      <a routerLink="/clase1-ia-generativa" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 1</h3>
-          <p class="text-blue-100 mt-2">Introducción a IA Generativa</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+      <a *ngFor="let clase of paginatedClases"
+         [routerLink]="clase.route"
+         class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r p-6" [ngClass]="[clase.colorFrom, clase.colorTo]">
+          <h3 class="text-2xl font-bold text-white">Clase {{ clase.numero }}</h3>
+          <p class="text-white/90 mt-2">{{ clase.subtitulo }}</p>
         </div>
         <div class="p-6">
           <ul class="space-y-2 text-gray-600">
-            <li>✅ Fundamentos de IA Generativa</li>
-            <li>✅ Prompt Engineering</li>
-            <li>✅ Casos de uso en testing</li>
-            <li>✅ Taller práctico</li>
+            <li *ngFor="let item of clase.items">✅ {{ item }}</li>
           </ul>
         </div>
       </a>
+    </div>
 
-      <!-- Clase 2 -->
-      <a routerLink="/clase2-taller-test-cases" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-green-500 to-green-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 2</h3>
-          <p class="text-green-100 mt-2">Generación de Casos de Prueba</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Test cases con IA</li>
-            <li>✅ Escenarios de prueba</li>
-            <li>✅ Optimización de cobertura</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
+    <!-- Pagination Controls -->
+    <div class="flex justify-center items-center gap-4 mt-8">
+      <button
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+        ← Anterior
+      </button>
 
-      <!-- Clase 3 -->
-      <a routerLink="/clase3-datos-prueba" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 3</h3>
-          <p class="text-purple-100 mt-2">Generación de Datos de Prueba</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Estrategias de datos</li>
-            <li>✅ Datos sintéticos con IA</li>
-            <li>✅ Validación de datos</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
+      <div class="flex gap-2">
+        <button
+          *ngFor="let page of pages"
+          (click)="goToPage(page)"
+          [class.bg-indigo-600]="currentPage === page"
+          [class.text-white]="currentPage === page"
+          [class.bg-white]="currentPage !== page"
+          [class.text-gray-700]="currentPage !== page"
+          class="w-10 h-10 rounded-lg hover:bg-indigo-500 hover:text-white transition-colors shadow">
+          {{ page }}
+        </button>
+      </div>
 
-      <!-- Clase 4 -->
-      <a routerLink="/clase4-automatizacion" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 4</h3>
-          <p class="text-orange-100 mt-2">Automatización con IA</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Scripts de automatización</li>
-            <li>✅ Generación de código</li>
-            <li>✅ Mantenimiento inteligente</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+        Siguiente →
+      </button>
+    </div>
 
-      <!-- Clase 5 -->
-      <a routerLink="/clase5-testing-apis" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-red-500 to-red-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 5</h3>
-          <p class="text-red-100 mt-2">Testing de APIs</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Pruebas de APIs REST</li>
-            <li>✅ Validación de responses</li>
-            <li>✅ Automatización con IA</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
-
-      <!-- Clase 6 -->
-      <a routerLink="/clase6-crud-backend" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 6</h3>
-          <p class="text-indigo-100 mt-2">CRUD Backend con FastAPI</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Desarrollo de APIs</li>
-            <li>✅ CRUD operations</li>
-            <li>✅ Testing backend</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
-
-      <!-- Clase 7 -->
-      <a routerLink="/clase7-frontend-legacy-vanilla" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-pink-500 to-pink-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 7</h3>
-          <p class="text-pink-100 mt-2">Frontend Legacy Vanilla</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ JavaScript vanilla</li>
-            <li>✅ Integración con backend</li>
-            <li>✅ Testing frontend</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
-
-      <!-- Clase 8 -->
-      <a routerLink="/clase8-migracion-angular" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-teal-500 to-teal-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 8</h3>
-          <p class="text-teal-100 mt-2">Migración a Angular</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Modernización frontend</li>
-            <li>✅ Angular components</li>
-            <li>✅ Testing en Angular</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
-
-      <!-- Clase 9 -->
-      <a routerLink="/clase9-testing-e2e" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6">
-          <h3 class="text-2xl font-bold text-white">Clase 9</h3>
-          <p class="text-yellow-100 mt-2">Testing E2E</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Pruebas end-to-end</li>
-            <li>✅ Cypress/Playwright</li>
-            <li>✅ Integración con IA</li>
-            <li>✅ Taller práctico</li>
-          </ul>
-        </div>
-      </a>
+    <!-- Page Info -->
+    <div class="text-center mt-4 text-gray-600">
+      Mostrando clases {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, clases.length) }} de {{ clases.length }}
     </div>
   </div>
 </div>
