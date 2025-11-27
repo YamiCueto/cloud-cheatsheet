@@ -1,453 +1,178 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
-  <div class="study-plan-container px-4">
-    <!-- Plan de Estudio Card -->
-    <div class="mb-8">
-      <div (click)="togglePlan()"
-           class="block bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer">
-        <div class="flex items-center gap-4">
-          <div class="text-6xl">📚</div>
-          <div class="flex-1">
-            <h2 class="text-2xl font-bold mb-2">Plan de Estudio: IA Generativa</h2>
-            <p class="text-purple-100 mb-3">12 Clases Prácticas - De Fundamentos a Expert con Talleres</p>
-            <div class="flex gap-2 flex-wrap">
-              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">12 Clases</span>
-              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">100% Práctica</span>
-              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">Entregables Reales</span>
-              <span class="bg-purple-700 px-3 py-1 rounded-full text-sm">QA & Dev</span>
-            </div>
-          </div>
-          <div class="text-3xl transition-transform duration-300" [class.rotate-90]="showPlan">→</div>
-        </div>
-      </div>
+<div class="study-plan-page min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="study-plan-container max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold text-gray-900 mb-4">Plan de Estudio</h1>
+      <p class="text-xl text-gray-600">Automatización de Pruebas con IA Generativa</p>
     </div>
 
-    <!-- Download Button (solo visible cuando se muestra el plan) -->
-    <div *ngIf="showPlan" class="flex justify-end mb-6">
-      <button
-        (click)="downloadPDF(); $event.stopPropagation()"
-        [disabled]="isGeneratingPDF"
-        class="download-button flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg disabled:opacity-50"
-        title="Descargar plan en PDF"
-      >
-        <svg *ngIf="!isGeneratingPDF" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-        </svg>
-        <div *ngIf="isGeneratingPDF" class="spinner"></div>
-        <span>{{ isGeneratingPDF ? 'Generando PDF...' : 'Descargar Plan PDF' }}</span>
-      </button>
+    <!-- Plan de Estudio Overview Card -->
+    <div class="mb-12">
+      <a routerLink="/plan-detalle" class="block bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-4">📚 Plan Completo del Curso</h2>
+            <p class="text-white/90 text-lg">
+              Descubre la estructura completa del programa, objetivos de aprendizaje y metodología.
+              Haz clic para ver los detalles completos del plan de estudio.
+            </p>
+          </div>
+          <div class="ml-6">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      </a>
     </div>
 
     <!-- Tech Stack Component -->
     <app-tech-stack></app-tech-stack>
 
-    <!-- Clases Grid -->
+    <!-- Classes Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-      <!-- Clase 1 Card -->
-      <a routerLink="/clase1-ia-generativa"
-         class="block bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🤖</div>
-            <h2 class="text-xl font-bold flex-1">Clase 1: Fundamentos de IA Generativa ✅</h2>
-          </div>
-          <p class="text-blue-100 text-sm">Fundamentos de IA, ML y GenIA para QA y Desarrollo</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-blue-700 px-3 py-1 rounded-full text-xs">IA</span>
-            <span class="bg-blue-700 px-3 py-1 rounded-full text-xs">Machine Learning</span>
-            <span class="bg-blue-700 px-3 py-1 rounded-full text-xs">ChatGPT</span>
-            <span class="bg-blue-700 px-3 py-1 rounded-full text-xs">COMPLETADO</span>
-          </div>
+      <!-- Clase 1 -->
+      <a routerLink="/clase1-ia-generativa" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 1</h3>
+          <p class="text-blue-100 mt-2">Introducción a IA Generativa</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Fundamentos de IA Generativa</li>
+            <li>✅ Prompt Engineering</li>
+            <li>✅ Casos de uso en testing</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 2 Card -->
-      <a routerLink="/clase2-taller-test-cases"
-         class="block bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🧪</div>
-            <h2 class="text-xl font-bold flex-1">Clase 2: Taller - Generación de Test Cases</h2>
-          </div>
-          <p class="text-green-100 text-sm">Genera 15+ test cases profesionales desde Historias de Usuario</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-green-700 px-3 py-1 rounded-full text-xs">QA</span>
-            <span class="bg-green-700 px-3 py-1 rounded-full text-xs">Testing</span>
-            <span class="bg-green-700 px-3 py-1 rounded-full text-xs">Taller Práctico</span>
-            <span class="bg-green-700 px-3 py-1 rounded-full text-xs">Entregable</span>
-          </div>
+      <!-- Clase 2 -->
+      <a routerLink="/clase2-taller-test-cases" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-green-500 to-green-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 2</h3>
+          <p class="text-green-100 mt-2">Generación de Casos de Prueba</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Test cases con IA</li>
+            <li>✅ Escenarios de prueba</li>
+            <li>✅ Optimización de cobertura</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 3 Card -->
-      <a routerLink="/clase3-datos-prueba"
-         class="block bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">📊</div>
-            <h2 class="text-xl font-bold flex-1">Clase 3: Taller - Generación de Datos de Prueba Masivos</h2>
-          </div>
-          <p class="text-cyan-100 text-sm">Genera 1000+ registros sintéticos en JSON, SQL, CSV, XML</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Datos Sintéticos</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Testing Masivo</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Taller</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Dataset</span>
-          </div>
+      <!-- Clase 3 -->
+      <a routerLink="/clase3-datos-prueba" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 3</h3>
+          <p class="text-purple-100 mt-2">Generación de Datos de Prueba</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Estrategias de datos</li>
+            <li>✅ Datos sintéticos con IA</li>
+            <li>✅ Validación de datos</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 4 Card -->
-      <a routerLink="/clase4-automatizacion"
-         class="block bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🤖</div>
-            <h2 class="text-xl font-bold flex-1">Clase 4: Taller - Scripts de Automatización con IA</h2>
-          </div>
-          <p class="text-purple-100 text-sm">Genera scripts Selenium/Cypress desde test cases manuales</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-purple-700 px-3 py-1 rounded-full text-xs">Selenium</span>
-            <span class="bg-purple-700 px-3 py-1 rounded-full text-xs">Cypress</span>
-            <span class="bg-purple-700 px-3 py-1 rounded-full text-xs">Automatización</span>
-            <span class="bg-purple-700 px-3 py-1 rounded-full text-xs">POM</span>
-          </div>
+      <!-- Clase 4 -->
+      <a routerLink="/clase4-automatizacion" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 4</h3>
+          <p class="text-orange-100 mt-2">Automatización con IA</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Scripts de automatización</li>
+            <li>✅ Generación de código</li>
+            <li>✅ Mantenimiento inteligente</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 5 Card -->
-      <a routerLink="/clase5-testing-apis"
-         class="block bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🔌</div>
-            <h2 class="text-xl font-bold flex-1">Clase 5: Taller - Testing de APIs con IA</h2>
-          </div>
-          <p class="text-orange-100 text-sm">Genera suite completa Postman/REST Assured para APIs REST</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-orange-700 px-3 py-1 rounded-full text-xs">Postman</span>
-            <span class="bg-orange-700 px-3 py-1 rounded-full text-xs">REST Assured</span>
-            <span class="bg-orange-700 px-3 py-1 rounded-full text-xs">API Testing</span>
-            <span class="bg-orange-700 px-3 py-1 rounded-full text-xs">Collections</span>
-          </div>
+      <!-- Clase 5 -->
+      <a routerLink="/clase5-testing-apis" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-red-500 to-red-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 5</h3>
+          <p class="text-red-100 mt-2">Testing de APIs</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Pruebas de APIs REST</li>
+            <li>✅ Validación de responses</li>
+            <li>✅ Automatización con IA</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 6 Card -->
-      <a routerLink="/clase6-crud-backend"
-         class="block bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🍃</div>
-            <h2 class="text-xl font-bold flex-1">Clase 6: Taller - CRUD Completo Backend con IA</h2>
-          </div>
-          <p class="text-emerald-100 text-sm">Genera CRUD completo Spring Boot + H2 + Gradle + Swagger desde HU</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-emerald-700 px-3 py-1 rounded-full text-xs">Spring Boot</span>
-            <span class="bg-emerald-700 px-3 py-1 rounded-full text-xs">H2 Database</span>
-            <span class="bg-emerald-700 px-3 py-1 rounded-full text-xs">Gradle</span>
-            <span class="bg-emerald-700 px-3 py-1 rounded-full text-xs">Swagger UI</span>
-          </div>
+      <!-- Clase 6 -->
+      <a routerLink="/clase6-crud-backend" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 6</h3>
+          <p class="text-indigo-100 mt-2">CRUD Backend con FastAPI</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Desarrollo de APIs</li>
+            <li>✅ CRUD operations</li>
+            <li>✅ Testing backend</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 7 Card -->
-      <a routerLink="/clase7-frontend-legacy-vanilla"
-         class="block bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🌟</div>
-            <h2 class="text-xl font-bold flex-1">Clase 7: Taller - Frontend Legacy Vanilla JS consumiendo API</h2>
-          </div>
-          <p class="text-amber-100 text-sm">Genera cliente web Vanilla JS que consume API Clientes (Clase 6) con fetch, DOM manipulation</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-amber-700 px-3 py-1 rounded-full text-xs">Vanilla JS</span>
-            <span class="bg-amber-700 px-3 py-1 rounded-full text-xs">fetch API</span>
-            <span class="bg-amber-700 px-3 py-1 rounded-full text-xs">Legacy Code</span>
-            <span class="bg-amber-700 px-3 py-1 rounded-full text-xs">CRUD Frontend</span>
-          </div>
+      <!-- Clase 7 -->
+      <a routerLink="/clase7-frontend-legacy-vanilla" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-pink-500 to-pink-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 7</h3>
+          <p class="text-pink-100 mt-2">Frontend Legacy Vanilla</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ JavaScript vanilla</li>
+            <li>✅ Integración con backend</li>
+            <li>✅ Testing frontend</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 8 Card -->
-      <a routerLink="/clase8-migracion-angular"
-         class="block bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">♻️</div>
-            <h2 class="text-xl font-bold flex-1">Clase 8: Taller - Migración Frontend Legacy a Angular</h2>
-          </div>
-          <p class="text-indigo-100 text-sm">Refactoriza app Vanilla JS (Clase 7) a Angular moderno con arquitectura escalable</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-indigo-700 px-3 py-1 rounded-full text-xs">Angular</span>
-            <span class="bg-indigo-700 px-3 py-1 rounded-full text-xs">TypeScript</span>
-            <span class="bg-indigo-700 px-3 py-1 rounded-full text-xs">Refactoring</span>
-            <span class="bg-indigo-700 px-3 py-1 rounded-full text-xs">Migration</span>
-          </div>
+      <!-- Clase 8 -->
+      <a routerLink="/clase8-migracion-angular" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-teal-500 to-teal-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 8</h3>
+          <p class="text-teal-100 mt-2">Migración a Angular</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Modernización frontend</li>
+            <li>✅ Angular components</li>
+            <li>✅ Testing en Angular</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
 
-      <!-- Clase 9 Card -->
-      <a routerLink="/clase9-testing-e2e"
-         class="block bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <div class="text-5xl">🧪</div>
-            <h2 class="text-xl font-bold flex-1">Clase 9: Taller - Testing E2E del Stack Completo</h2>
-          </div>
-          <p class="text-cyan-100 text-sm">Genera suite completa tests Jasmine + JUnit + Cypress sobre Backend (Clase 6) + Frontend (Clase 8)</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Jasmine/Karma</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">JUnit/Mockito</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Cypress</span>
-            <span class="bg-cyan-700 px-3 py-1 rounded-full text-xs">Testing E2E</span>
-          </div>
+      <!-- Clase 9 -->
+      <a routerLink="/clase9-testing-e2e" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6">
+          <h3 class="text-2xl font-bold text-white">Clase 9</h3>
+          <p class="text-yellow-100 mt-2">Testing E2E</p>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Pruebas end-to-end</li>
+            <li>✅ Cypress/Playwright</li>
+            <li>✅ Integración con IA</li>
+            <li>✅ Taller práctico</li>
+          </ul>
         </div>
       </a>
-    </div>
-
-    <!-- Study Plan Content (solo visible cuando showPlan es true) -->
-    <div *ngIf="showPlan" id="study-plan-content" class="bg-white rounded-lg shadow-xl p-8 animate-fadeIn">
-      <h1>IA Generativa para Equipos QA y Desarrollo</h1>
-      <p><strong>Plan de Capacitación Reformado - 12 Clases Prácticas</strong></p>
-
-      <hr>
-
-      <h2>🎯 Filosofía del Curso</h2>
-      <ul>
-        <li>✅ <strong>Clase 1:</strong> Fundamentos teóricos (YA COMPLETADA)</li>
-        <li>✅ <strong>Clases 2-12:</strong> 100% talleres prácticos con entregables reales</li>
-        <li>✅ <strong>Cada clase:</strong> 1 problema real → solución con IA → resultado tangible</li>
-      </ul>
-
-      <hr>
-
-      <h2>✅ Módulo 1: Fundamentos (COMPLETADO)</h2>
-
-      <div class="box green">
-        <h3>Clase 1: Fundamentos de IA Generativa ✅</h3>
-        <ul>
-          <li>✅ Diferencias IA, ML y GenIA</li>
-          <li>✅ LLMs: tokens, contexto, temperatura</li>
-          <li>✅ Herramientas: ChatGPT, Claude, Gemini, Copilot, Cursor</li>
-          <li>✅ Beneficios y limitaciones reales</li>
-          <li>✅ Ejercicio práctico: Análisis de HU de Bureau de Crédito</li>
-        </ul>
-      </div>
-
-      <hr>
-
-      <h2>🎯 Módulo 2: Talleres Prácticos para QA (4 sesiones)</h2>
-      <blockquote>
-        <p><strong>Enfoque:</strong> Manos a la obra. Cada clase = 1 taller completo con resultados tangibles</p>
-      </blockquote>
-
-      <div class="box blue">
-        <h3>Clase 2: Taller - Generación de Test Cases desde HU</h3>
-        <p><strong>Reto:</strong> HU real de consulta Bureau de Crédito</p>
-        <p><strong>Práctica:</strong> Analizar HU → Estructurar prompt → Generar 15 test cases con edge cases</p>
-        <p><strong>Entregable:</strong> Suite de casos de prueba lista para usar</p>
-        <p><strong>Tiempo:</strong> 15 min teoría + 45 min práctica</p>
-      </div>
-
-      <div class="box blue">
-        <h3>Clase 3: Taller - Generación de Datos de Prueba Masivos</h3>
-        <p><strong>Reto:</strong> Necesitan 1000 clientes sintéticos para testing</p>
-        <p><strong>Práctica:</strong> Prompt para generar JSON, SQL inserts, CSV con datos realistas</p>
-        <p><strong>Entregable:</strong> Dataset completo listo para carga</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box blue">
-        <h3>Clase 4: Taller - Scripts de Automatización con IA</h3>
-        <p><strong>Reto:</strong> Automatizar flujo de login + consulta saldo</p>
-        <p><strong>Práctica:</strong> Desde test cases → generar scripts Selenium/Cypress funcionales</p>
-        <p><strong>Entregable:</strong> Script ejecutable con assertions</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box blue">
-        <h3>Clase 5: Taller - Testing de APIs y Validaciones</h3>
-        <p><strong>Reto:</strong> Suite completa de Postman/REST Assured para API de préstamos</p>
-        <p><strong>Práctica:</strong> HU → requests + validaciones + edge cases + manejo errores</p>
-        <p><strong>Entregable:</strong> Collection Postman exportable</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <hr>
-
-      <h2>💻 Módulo 3: Talleres Prácticos para Desarrollo (4 sesiones)</h2>
-
-      <div class="box orange">
-        <h3>Clase 6: Taller - Generación de CRUD Completo</h3>
-        <p><strong>Reto:</strong> Módulo de gestión de clientes desde cero</p>
-        <p><strong>Práctica:</strong> HU → Controller + Service + Repository + DTOs + Tests</p>
-        <p><strong>Entregable:</strong> Código funcional compilable con tests</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box orange">
-        <h3>Clase 7: Taller - Frontend Legacy Consumiendo API</h3>
-        <p><strong>Reto:</strong> Cliente web Vanilla JS que consume API de Clientes (Clase 6)</p>
-        <p><strong>Práctica:</strong> Generar HTML + JS puro con fetch, DOM manipulation, localStorage</p>
-        <p><strong>Entregable:</strong> App legacy funcional (CRUD completo en navegador)</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box orange">
-        <h3>Clase 8: Taller - Refactoring Frontend Legacy a Angular</h3>
-        <p><strong>Reto:</strong> Migrar app Vanilla JS (Clase 7) a Angular moderno</p>
-        <p><strong>Práctica:</strong> Analizar legacy → Elegir estrategia → Migrar a Angular → Validar equivalencia</p>
-        <p><strong>Entregable:</strong> App Angular consumiendo misma API + arquitectura escalable</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box orange">
-        <h3>Clase 9: Taller - Testing E2E del Stack Completo</h3>
-        <p><strong>Reto:</strong> Suite de tests sobre Backend (Clase 6) + Frontend Angular (Clase 8)</p>
-        <p><strong>Práctica:</strong> Tests unitarios Service + Tests integración API + Tests E2E Cypress</p>
-        <p><strong>Entregable:</strong> Suite completa de tests automatizados pasando</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <hr>
-
-      <h2>🚀 Módulo 4: Talleres Integrados Dev-QA (3 sesiones)</h2>
-
-      <div class="box green">
-        <h3>Clase 10: Taller - Debugging y Solución de Errores</h3>
-        <p><strong>Reto:</strong> 5 bugs reales introducidos en el Stack (Backend + Frontend)</p>
-        <p><strong>Práctica:</strong> IA analiza stack traces → Sugiere solución → Implementar fix</p>
-        <p><strong>Entregable:</strong> Bugs resueltos con explicación y tests de regresión</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box green">
-        <h3>Clase 11: Taller - Documentación Automática del Proyecto</h3>
-        <p><strong>Reto:</strong> Documentar Stack completo (Backend + Frontend Angular)</p>
-        <p><strong>Práctica:</strong> README completo, JavaDoc, JSDoc, diagramas arquitectura, guía deploy</p>
-        <p><strong>Entregable:</strong> Suite completa de documentación profesional</p>
-        <p><strong>Tiempo:</strong> 10 min teoría + 50 min práctica</p>
-      </div>
-
-      <div class="box green">
-        <h3>Clase 12: Proyecto Final Integrado</h3>
-        <p><strong>Reto:</strong> Extender sistema con módulo de Transacciones (Backend + Frontend + Tests)</p>
-        <p><strong>Equipos mixtos Dev+QA:</strong></p>
-        <ul>
-          <li>Analizar 3 HU complejas (Transacciones bancarias)</li>
-          <li>Dev: Backend transacciones + Frontend funcional</li>
-          <li>QA: Suite tests completa (unitarios, integración, E2E)</li>
-          <li>Code Review con IA + Documentación</li>
-          <li>Deploy y presentación</li>
-        </ul>
-        <p><strong>Entregable:</strong> Sistema completo funcional + tests + docs + presentación</p>
-        <p><strong>Tiempo:</strong> 60 min (sin teoría, full hands-on)</p>
-      </div>
-
-      <hr>
-
-      <h2>Formato Estándar (60 minutos)</h2>
-
-      <h3>📅 Estructura</h3>
-      <ul>
-        <li><strong>10-15 min:</strong> Contexto del reto</li>
-        <li><strong>45-50 min:</strong> Cada uno trabaja en su máquina con IA</li>
-        <li><strong>10 min:</strong> 2-3 personas comparten su solución</li>
-        <li><strong>5 min:</strong> Lecciones aprendidas</li>
-      </ul>
-
-      <hr>
-
-      <h2>🎓 Estructura de cada Taller (Clases 2-12)</h2>
-
-      <h3>Formato Estándar (60 minutos)</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Fase</th>
-            <th>Duración</th>
-            <th>Actividad</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1. Intro Rápida</strong></td>
-            <td>5-10 min</td>
-            <td>Contexto del reto + Ejemplo de prompt base + Tips clave</td>
-          </tr>
-          <tr>
-            <td><strong>2. Trabajo Práctico</strong></td>
-            <td>30 min</td>
-            <td>Cada uno trabaja en su máquina con IA (instructor circula ayudando)</td>
-          </tr>
-          <tr>
-            <td><strong>3. Revisión Grupal</strong></td>
-            <td>15 min</td>
-            <td>2-3 personas comparten solución + Comparar approaches + Mejores prácticas</td>
-          </tr>
-          <tr>
-            <td><strong>4. Cierre</strong></td>
-            <td>5 min</td>
-            <td>Lecciones aprendidas + Tarea opcional + Preview próxima clase</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr>
-
-      <h2>✨ Mejores Prácticas</h2>
-
-      <h3>Siempre analiza ANTES de escribir el prompt</h3>
-      <p>Dedica 5 minutos a entender la HU/requerimiento antes de usar la IA</p>
-
-      <h3>Sé específico, no genérico</h3>
-      <p>En vez de "genera tests", di "genera 10 tests para login incluyendo 2FA y bloqueo por intentos"</p>
-
-      <h3>Proporciona contexto de negocio</h3>
-      <p>La IA no sabe que trabajas en banca, que hay regulaciones, límites, etc. Díselo.</p>
-
-      <h3>Define el formato de salida</h3>
-      <p>Tabla, JSON, código con tests, Gherkin... especifica cómo quieres el resultado</p>
-
-      <h3>Itera, no te conformes</h3>
-      <p>Si el resultado no es óptimo, refina el prompt. Promedio: 2-3 iteraciones.</p>
-
-      <h3>Valida SIEMPRE los resultados</h3>
-      <p>La IA puede alucinar. Revisa código, ejecuta tests, verifica lógica de negocio.</p>
-
-      <h3>Construye tu biblioteca de prompts</h3>
-      <p>Guarda los prompts que funcionan bien para reutilizarlos y mejorarlos.</p>
-
-      <h3>Combina IA con tu experiencia</h3>
-      <p>La IA es una herramienta, no un reemplazo. Tu criterio profesional es irreemplazable.</p>
-
-      <hr>
-
-      <h2>🎯 Conclusión</h2>
-
-      <p>La IA Generativa no es magia, es una herramienta poderosa que amplifica tu conocimiento y experiencia cuando se usa correctamente.</p>
-
-      <p><strong>La diferencia entre un usuario casual y un profesional está en:</strong></p>
-
-      <ol>
-        <li><strong>Entender profundamente la necesidad</strong> antes de escribir cualquier prompt</li>
-        <li><strong>Estructurar prompts</strong> con Rol, Contexto, Tarea y Formato específicos</li>
-        <li><strong>Iterar y refinar</strong> hasta obtener el resultado óptimo</li>
-        <li><strong>Validar siempre</strong> los resultados con tu criterio profesional</li>
-      </ol>
-
-      <p>Este curso te dará las herramientas para pasar de usuario casual a Prompt Engineer profesional, multiplicando tu productividad sin sacrificar calidad.</p>
-
-      <blockquote>
-        <p><strong>Recuerda:</strong> La IA es tu copiloto, no tu piloto. Tú sigues siendo el experto que toma las decisiones.</p>
-      </blockquote>
-
-      <hr>
-
-      <h2>💡 ¡Éxito en tu jornada de aprendizaje!</h2>
-
-      <p>Cualquier duda, estamos para apoyarte en este proceso de transformación digital.</p>
     </div>
   </div>
 </div>
