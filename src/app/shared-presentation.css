@@ -957,15 +957,17 @@
   text-align: center;
 }
 
-/* Progress Dots */
-.progress-dots {
+/* Progress Dots / Slide Dots */
+.progress-dots,
+.slide-dots {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
   margin-top: 2rem;
 }
 
-.dot {
+.progress-dots .dot,
+.slide-dots .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -974,12 +976,14 @@
   transition: all 0.3s ease;
 }
 
-.dot:hover {
+.progress-dots .dot:hover,
+.slide-dots .dot:hover {
   background: rgba(255, 255, 255, 0.8);
   transform: scale(1.2);
 }
 
-.dot.active {
+.progress-dots .dot.active,
+.slide-dots .dot.active {
   background: white;
   width: 32px;
   border-radius: 6px;
