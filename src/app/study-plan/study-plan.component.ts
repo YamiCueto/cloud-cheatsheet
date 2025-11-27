@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TechStackComponent } from '../tech-stack/tech-stack.component';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-study-plan',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TechStackComponent],
   templateUrl: './study-plan.component.html',
   styleUrls: ['./study-plan.component.css']
 })
