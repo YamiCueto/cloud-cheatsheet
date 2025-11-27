@@ -7,6 +7,8 @@ interface Technology {
   description: string;
   category: string;
   tags: string[];
+  docUrl: string;
+  flipped?: boolean;
 }
 
 @Component({
@@ -18,6 +20,7 @@ interface Technology {
 })
 export class TechStackComponent {
   showStack = false;
+  flippedCards: Set<string> = new Set();
 
   technologies: Technology[] = [
     // Editores y Herramientas de Desarrollo
@@ -26,35 +29,40 @@ export class TechStackComponent {
       icon: '💻',
       description: 'Editor de código preferido para el curso. Ligero, extensible y con integración nativa de IA',
       category: 'Editores',
-      tags: ['Editor', 'IDE', 'Principal']
+      tags: ['Editor', 'IDE', 'Principal'],
+      docUrl: 'https://code.visualstudio.com/docs'
     },
     {
       name: 'GitHub Copilot',
       icon: '🤖',
       description: 'IA integrada en VSCode para autocompletado inteligente, generación de código y asistencia en tiempo real',
       category: 'IA & Asistentes',
-      tags: ['IA', 'Autocompletado', 'Premium']
+      tags: ['IA', 'Autocompletado', 'Premium'],
+      docUrl: 'https://docs.github.com/en/copilot'
     },
     {
       name: 'ChatGPT (OpenAI)',
       icon: '💬',
       description: 'LLM para generación de prompts, análisis de requerimientos y solución de problemas complejos',
       category: 'IA & Asistentes',
-      tags: ['IA', 'LLM', 'Gratuito']
+      tags: ['IA', 'LLM', 'Gratuito'],
+      docUrl: 'https://platform.openai.com/docs'
     },
     {
       name: 'Claude (Anthropic)',
       icon: '🧠',
       description: 'LLM con contexto extendido, ideal para analizar código completo y documentación técnica',
       category: 'IA & Asistentes',
-      tags: ['IA', 'LLM', 'Contexto']
+      tags: ['IA', 'LLM', 'Contexto'],
+      docUrl: 'https://docs.anthropic.com'
     },
     {
       name: 'Cursor AI',
       icon: '✨',
       description: 'Editor con IA integrada para desarrollo asistido, alternativa a VSCode con IA nativa',
       category: 'Editores',
-      tags: ['Editor', 'IA', 'Alternativo']
+      tags: ['Editor', 'IA', 'Alternativo'],
+      docUrl: 'https://docs.cursor.com'
     },
 
     // Frontend
@@ -63,35 +71,40 @@ export class TechStackComponent {
       icon: '🌐',
       description: 'Fundamentos web para estructura y estilos (Clase 7 - Vanilla JS)',
       category: 'Frontend',
-      tags: ['Web', 'Básico', 'Legacy']
+      tags: ['Web', 'Básico', 'Legacy'],
+      docUrl: 'https://developer.mozilla.org/en-US/docs/Web'
     },
     {
       name: 'JavaScript (Vanilla)',
       icon: '🟨',
       description: 'JavaScript puro sin frameworks para entender fundamentos (Clase 7)',
       category: 'Frontend',
-      tags: ['JavaScript', 'Legacy', 'DOM']
+      tags: ['JavaScript', 'Legacy', 'DOM'],
+      docUrl: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
     },
     {
       name: 'Angular 18+',
       icon: '🅰️',
       description: 'Framework moderno para aplicaciones enterprise escalables (Clases 8, 9, 12)',
       category: 'Frontend',
-      tags: ['Framework', 'TypeScript', 'Enterprise']
+      tags: ['Framework', 'TypeScript', 'Enterprise'],
+      docUrl: 'https://angular.dev/overview'
     },
     {
       name: 'TypeScript',
       icon: '🔷',
       description: 'Superset de JavaScript con tipado estático para código más robusto',
       category: 'Frontend',
-      tags: ['JavaScript', 'Tipado', 'Angular']
+      tags: ['JavaScript', 'Tipado', 'Angular'],
+      docUrl: 'https://www.typescriptlang.org/docs/'
     },
     {
       name: 'Tailwind CSS',
       icon: '🎨',
       description: 'Framework CSS utility-first para diseño rápido y consistente',
       category: 'Frontend',
-      tags: ['CSS', 'Diseño', 'Utilidades']
+      tags: ['CSS', 'Diseño', 'Utilidades'],
+      docUrl: 'https://tailwindcss.com/docs'
     },
 
     // Backend
@@ -100,28 +113,32 @@ export class TechStackComponent {
       icon: '☕',
       description: 'Lenguaje robusto para backend enterprise (Clase 6)',
       category: 'Backend',
-      tags: ['Lenguaje', 'Enterprise', 'JVM']
+      tags: ['Lenguaje', 'Enterprise', 'JVM'],
+      docUrl: 'https://docs.oracle.com/en/java/javase/17/'
     },
     {
       name: 'Spring Boot',
       icon: '🍃',
       description: 'Framework líder para APIs REST y microservicios en Java (Clase 6)',
       category: 'Backend',
-      tags: ['Framework', 'REST', 'Java']
+      tags: ['Framework', 'REST', 'Java'],
+      docUrl: 'https://spring.io/projects/spring-boot'
     },
     {
       name: 'Python 3.10+',
       icon: '🐍',
       description: 'Lenguaje versátil para scripting, APIs y testing (Clases 3, 4, 5)',
       category: 'Backend',
-      tags: ['Lenguaje', 'Scripting', 'Testing']
+      tags: ['Lenguaje', 'Scripting', 'Testing'],
+      docUrl: 'https://docs.python.org/3/'
     },
     {
       name: 'FastAPI',
       icon: '⚡',
       description: 'Framework moderno Python para APIs REST con validación automática',
       category: 'Backend',
-      tags: ['Framework', 'REST', 'Python']
+      tags: ['Framework', 'REST', 'Python'],
+      docUrl: 'https://fastapi.tiangolo.com'
     },
 
     // Bases de Datos
@@ -130,14 +147,16 @@ export class TechStackComponent {
       icon: '💾',
       description: 'Base de datos en memoria para desarrollo rápido con Spring Boot (Clase 6)',
       category: 'Bases de Datos',
-      tags: ['SQL', 'In-Memory', 'Java']
+      tags: ['SQL', 'In-Memory', 'Java'],
+      docUrl: 'https://www.h2database.com/html/main.html'
     },
     {
       name: 'SQLite',
       icon: '📦',
       description: 'Base de datos embebida ligera para Python y demos (FastAPI)',
       category: 'Bases de Datos',
-      tags: ['SQL', 'Embebida', 'Python']
+      tags: ['SQL', 'Embebida', 'Python'],
+      docUrl: 'https://www.sqlite.org/docs.html'
     },
 
     // Testing & QA
@@ -146,56 +165,64 @@ export class TechStackComponent {
       icon: '🤖',
       description: 'Automatización de pruebas E2E en navegadores (Clase 4)',
       category: 'Testing & QA',
-      tags: ['Automatización', 'E2E', 'Browser']
+      tags: ['Automatización', 'E2E', 'Browser'],
+      docUrl: 'https://www.selenium.dev/documentation/'
     },
     {
       name: 'Cypress',
       icon: '🌲',
       description: 'Framework moderno para testing E2E con experiencia developer-first (Clases 4, 9)',
       category: 'Testing & QA',
-      tags: ['E2E', 'JavaScript', 'Moderno']
+      tags: ['E2E', 'JavaScript', 'Moderno'],
+      docUrl: 'https://docs.cypress.io'
     },
     {
       name: 'JUnit 5',
       icon: '✅',
       description: 'Framework de testing unitario para Java/Spring Boot (Clases 6, 9)',
       category: 'Testing & QA',
-      tags: ['Unit Testing', 'Java', 'Backend']
+      tags: ['Unit Testing', 'Java', 'Backend'],
+      docUrl: 'https://junit.org/junit5/docs/current/user-guide/'
     },
     {
       name: 'Mockito',
       icon: '🎭',
       description: 'Framework para mocking en tests unitarios Java (Clases 6, 9)',
       category: 'Testing & QA',
-      tags: ['Mocking', 'Java', 'Unit Testing']
+      tags: ['Mocking', 'Java', 'Unit Testing'],
+      docUrl: 'https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html'
     },
     {
       name: 'Jasmine + Karma',
       icon: '🧪',
       description: 'Framework de testing unitario para Angular (Clases 8, 9)',
       category: 'Testing & QA',
-      tags: ['Unit Testing', 'Angular', 'Frontend']
+      tags: ['Unit Testing', 'Angular', 'Frontend'],
+      docUrl: 'https://jasmine.github.io/pages/docs_home.html'
     },
     {
       name: 'Postman',
       icon: '📮',
       description: 'Herramienta para testing manual y automatizado de APIs REST (Clase 5)',
       category: 'Testing & QA',
-      tags: ['API Testing', 'REST', 'Manual']
+      tags: ['API Testing', 'REST', 'Manual'],
+      docUrl: 'https://learning.postman.com/docs/'
     },
     {
       name: 'REST Assured',
       icon: '🔐',
       description: 'Librería Java para testing automatizado de APIs REST (Clase 5)',
       category: 'Testing & QA',
-      tags: ['API Testing', 'Java', 'Automatizado']
+      tags: ['API Testing', 'Java', 'Automatizado'],
+      docUrl: 'https://rest-assured.io'
     },
     {
       name: 'pytest',
       icon: '🧬',
       description: 'Framework de testing para Python con sintaxis simple (FastAPI)',
       category: 'Testing & QA',
-      tags: ['Unit Testing', 'Python', 'Backend']
+      tags: ['Unit Testing', 'Python', 'Backend'],
+      docUrl: 'https://docs.pytest.org'
     },
 
     // Build & Deploy
@@ -204,28 +231,32 @@ export class TechStackComponent {
       icon: '🐘',
       description: 'Build tool moderno para proyectos Java/Spring Boot (Clase 6)',
       category: 'Build & Deploy',
-      tags: ['Build', 'Java', 'Automatización']
+      tags: ['Build', 'Java', 'Automatización'],
+      docUrl: 'https://docs.gradle.org'
     },
     {
       name: 'npm',
       icon: '📦',
       description: 'Gestor de paquetes para JavaScript/TypeScript y Angular',
       category: 'Build & Deploy',
-      tags: ['Package Manager', 'JavaScript', 'Node']
+      tags: ['Package Manager', 'JavaScript', 'Node'],
+      docUrl: 'https://docs.npmjs.com'
     },
     {
       name: 'Git',
       icon: '🔀',
       description: 'Sistema de control de versiones distribuido',
       category: 'Build & Deploy',
-      tags: ['Version Control', 'Colaboración']
+      tags: ['Version Control', 'Colaboración'],
+      docUrl: 'https://git-scm.com/doc'
     },
     {
       name: 'GitHub',
       icon: '🐙',
       description: 'Plataforma para hosting de repositorios y colaboración',
       category: 'Build & Deploy',
-      tags: ['Repository', 'Colaboración', 'CI/CD']
+      tags: ['Repository', 'Colaboración', 'CI/CD'],
+      docUrl: 'https://docs.github.com'
     },
 
     // Librerías y Herramientas Adicionales
@@ -234,28 +265,32 @@ export class TechStackComponent {
       icon: '📘',
       description: 'Documentación interactiva automática para APIs REST (Clases 5, 6)',
       category: 'Documentación',
-      tags: ['API Docs', 'OpenAPI', 'Interactivo']
+      tags: ['API Docs', 'OpenAPI', 'Interactivo'],
+      docUrl: 'https://swagger.io/docs/'
     },
     {
       name: 'Faker.js / Faker (Python)',
       icon: '🎲',
       description: 'Generación de datos sintéticos realistas para testing (Clase 3)',
       category: 'Testing & QA',
-      tags: ['Datos Sintéticos', 'Mocking', 'Testing']
+      tags: ['Datos Sintéticos', 'Mocking', 'Testing'],
+      docUrl: 'https://fakerjs.dev/guide/'
     },
     {
       name: 'Lombok',
       icon: '🌶️',
       description: 'Librería Java para reducir boilerplate code (Clase 6)',
       category: 'Librerías',
-      tags: ['Java', 'Productividad', 'Backend']
+      tags: ['Java', 'Productividad', 'Backend'],
+      docUrl: 'https://projectlombok.org/features/'
     },
     {
       name: 'RxJS',
       icon: '🔄',
       description: 'Librería para programación reactiva en Angular',
       category: 'Librerías',
-      tags: ['Reactive', 'Angular', 'Observables']
+      tags: ['Reactive', 'Angular', 'Observables'],
+      docUrl: 'https://rxjs.dev/guide/overview'
     }
   ];
 
@@ -284,5 +319,18 @@ export class TechStackComponent {
 
   toggleStack(): void {
     this.showStack = !this.showStack;
+  }
+
+  toggleCard(techName: string, event: Event): void {
+    event.stopPropagation();
+    if (this.flippedCards.has(techName)) {
+      this.flippedCards.delete(techName);
+    } else {
+      this.flippedCards.add(techName);
+    }
+  }
+
+  isFlipped(techName: string): boolean {
+    return this.flippedCards.has(techName);
   }
 }
