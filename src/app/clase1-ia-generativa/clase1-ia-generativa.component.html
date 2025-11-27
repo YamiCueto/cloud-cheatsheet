@@ -1,23 +1,26 @@
 <div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
-  <!-- Back to Study Plan Button -->
-  <div class="back-to-menu">
-    <a routerLink="/study-plan" class="back-btn">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-      </svg>
-      <span>Volver al Plan de Estudio</span>
-    </a>
-  </div>
+  <!-- Top Navigation Bar -->
+  <div class="top-nav-bar">
+    <!-- Back to Study Plan Button -->
+    <div class="back-to-menu">
+      <a routerLink="/study-plan" class="back-btn">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        <span>Volver al Plan de Estudio</span>
+      </a>
+    </div>
 
-  <!-- Navigation Controls -->
-  <div class="controls">
-    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">
-      ← Anterior
-    </button>
-    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
-    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">
-      Siguiente →
-    </button>
+    <!-- Navigation Controls -->
+    <div class="controls">
+      <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">
+        ← Anterior
+      </button>
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">
+        Siguiente →
+      </button>
+    </div>
   </div>
 
   <!-- Slide Container -->
