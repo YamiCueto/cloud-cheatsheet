@@ -36,6 +36,10 @@ const routes: Routes = [
     loadComponent: () => import('./study-plan/study-plan.component').then(m => m.StudyPlanComponent)
   },
   {
+    path: 'plan-detalle',
+    loadComponent: () => import('./plan-detalle/plan-detalle').then(m => m.PlanDetalle)
+  },
+  {
     path: 'clase1-ia-generativa',
     loadComponent: () => import('./clase1-ia-generativa/clase1-ia-generativa.component').then(m => m.Clase1IaGenerativaComponent)
   },
