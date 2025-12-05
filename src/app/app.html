@@ -1,8 +1,8 @@
 <div class="min-h-screen flex">
 	<!-- Sidebar for md+ screens -->
-	<aside [class.w-64]="!sidebarCollapsed" [class.w-20]="sidebarCollapsed" class="hidden md:flex bg-gray-800 text-white p-4 flex-col transition-all duration-200">
+	<aside [class.w-64]="!sidebarCollapsed" [class.w-20]="sidebarCollapsed" class="hidden md:flex bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 text-white p-4 flex-col transition-all duration-200 border-r-2 border-purple-500">
 		<div class="flex items-center gap-2 mb-4">
-			<button (click)="toggleSidebar()" class="p-1 rounded hover:bg-gray-700 focus:outline-none" aria-label="Toggle sidebar" title="Toggle sidebar">
+			<button (click)="toggleSidebar()" class="p-1 rounded hover:bg-purple-700 focus:outline-none" aria-label="Toggle sidebar" title="Toggle sidebar">
 				<mat-icon aria-hidden="true">{{ sidebarCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
 			</button>
 			<a routerLink="/" class="text-lg font-bold" *ngIf="!sidebarCollapsed">Cloud Cheatsheet</a>
@@ -108,7 +108,7 @@
 
 	<!-- Mobile header (shown on small screens) -->
 	<div class="flex-1 flex flex-col">
-		<header class="md:hidden p-4 bg-gray-800 text-white">
+		<header class="md:hidden p-4 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 text-white border-b-2 border-purple-500">
 			<div class="container mx-auto flex items-center gap-4">
 				<a routerLink="/" class="text-xl font-bold">Cloud Cheatsheet</a>
 				<nav class="ml-4 flex gap-4">
@@ -135,16 +135,75 @@
 		</header>
 
 		<main class="flex-1 w-full px-6 py-6">
+			<!-- Breadcrumbs -->
+			<nav class="mb-4 flex items-center text-sm text-gray-600 flex-wrap" aria-label="Breadcrumb">
+				<a routerLink="/" class="hover:text-purple-600 transition-colors flex items-center gap-1">
+					<mat-icon class="text-sm">home</mat-icon>
+					Inicio
+				</a>
+				<ng-container *ngFor="let breadcrumb of getBreadcrumbs(); let last = last">
+					<span class="mx-2 text-gray-400">/</span>
+					<a *ngIf="!last && breadcrumb.url"
+					   [routerLink]="breadcrumb.url"
+					   class="hover:text-purple-600 transition-colors">
+						{{ breadcrumb.label }}
+					</a>
+					<span *ngIf="last || !breadcrumb.url" class="text-gray-900 font-semibold">
+						{{ breadcrumb.label }}
+					</span>
+				</ng-container>
+			</nav>
 			<router-outlet></router-outlet>
 		</main>
 
-		<footer class="bg-gray-800 text-white py-6">
-			<div class="w-full max-w-7xl mx-auto px-4 text-center">
-				<p class="text-gray-300">Built with Angular and Tailwind CSS</p>
-				<div class="mt-4 flex justify-center space-x-4">
-					<a href="https://aws.amazon.com/documentation/" target="_blank" rel="noopener" class="text-orange-500 hover:underline">AWS Documentation</a>
-					<span class="text-gray-600">|</span>
-					<a href="https://github.com/YamiCueto/cloud-cheatsheet" target="_blank" rel="noopener" class="text-orange-500 hover:underline">GitHub Repository</a>
+		<footer class="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 text-white py-12 mt-8 border-t-4 border-purple-500">
+			<div class="w-full max-w-7xl mx-auto px-4">
+				<!-- Made with love section -->
+				<div class="text-center mb-8">
+					<div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+						<span class="text-2xl animate-pulse">❤️</span>
+						<p class="text-lg font-semibold">
+							Hecho con <span class="text-red-400">amor</span> por
+							<span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent font-bold">Yamid Cueto Mazo</span>
+						</p>
+					</div>
+					<p class="text-purple-300 mt-3 text-sm">Para la comunidad de desarrolladores y QA que quieren crecer 🚀</p>
+				</div>
+
+				<!-- Tech stack -->
+				<div class="flex justify-center items-center gap-4 mb-6 flex-wrap">
+					<span class="bg-white/5 px-4 py-2 rounded-lg text-sm text-gray-300">
+						⚡ Built with <span class="text-red-400 font-semibold">Angular 20</span>
+					</span>
+					<span class="bg-white/5 px-4 py-2 rounded-lg text-sm text-gray-300">
+						🎨 Styled with <span class="text-blue-400 font-semibold">Tailwind CSS</span>
+					</span>
+					<span class="bg-white/5 px-4 py-2 rounded-lg text-sm text-gray-300">
+						🤖 Powered by <span class="text-purple-400 font-semibold">IA Generativa</span>
+					</span>
+				</div>
+
+				<!-- Links section -->
+				<div class="flex justify-center items-center gap-6 flex-wrap text-sm">
+					<a href="https://aws.amazon.com/documentation/" target="_blank" rel="noopener" class="text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-2">
+						<mat-icon class="text-lg">cloud</mat-icon>
+						AWS Documentation
+					</a>
+					<span class="text-gray-600">•</span>
+					<a href="https://github.com/YamiCueto/cloud-cheatsheet" target="_blank" rel="noopener" class="text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-2">
+						<mat-icon class="text-lg">code</mat-icon>
+						GitHub Repository
+					</a>
+					<span class="text-gray-600">•</span>
+					<a href="https://www.linkedin.com/in/yamid-cueto-mazo" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2">
+						<mat-icon class="text-lg">person</mat-icon>
+						LinkedIn
+					</a>
+				</div>
+
+				<!-- Copyright -->
+				<div class="text-center mt-8 text-gray-400 text-xs">
+					© 2025 Yamid Cueto Mazo. Comparte el conocimiento, haz crecer la comunidad 🌱
 				</div>
 			</div>
 		</footer>

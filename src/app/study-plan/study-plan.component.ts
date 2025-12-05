@@ -51,7 +51,7 @@ export class StudyPlanComponent {
   Math = Math;
 
   // Estado de expansión de planes
-  planQAExpanded = true;
+  planQAExpanded = false;
   planDevExpanded = false;
   planBusinessExpanded = false;
   planLeadersExpanded = false;

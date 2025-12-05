@@ -29,6 +29,44 @@
           </div>
         </div>
 
+        <!-- Preview cuando está colapsado -->
+        <div *ngIf="!planQAExpanded" class="p-6 bg-gradient-to-br from-purple-50 to-indigo-50">
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-purple-700 shadow-sm">
+              ⏱️ 9 horas de práctica
+            </span>
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-indigo-700 shadow-sm">
+              📋 9 talleres completos
+            </span>
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-blue-700 shadow-sm">
+              🎯 Nivel: Básico a Avanzado
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-sm text-gray-700">
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Test Cases con IA</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Datos de prueba masivos</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Scripts de automatización</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Testing de APIs</span>
+            </div>
+          </div>
+          <div class="mt-4 text-center">
+            <button (click)="togglePlanQA(); $event.stopPropagation()" class="text-purple-600 font-semibold hover:text-purple-800 transition-colors">
+              👇 Click para ver todas las clases
+            </button>
+          </div>
+        </div>
+
         <!-- Contenido expandible -->
         <div *ngIf="planQAExpanded" class="p-6 bg-gray-50" [@slideDown]>
           <!-- Información general -->
@@ -124,6 +162,11 @@
             <li>✅ Arquitectura y mejores prácticas</li>
             <li>✅ Refactoring y documentación automatizada</li>
           </ul>
+          <div class="mt-4 text-center">
+            <span class="text-blue-600 font-semibold">
+              👇 Click para ver todas las clases
+            </span>
+          </div>
         </div>
       </div>
 
@@ -146,6 +189,11 @@
             <li>✅ Automatización RPA y optimización de procesos</li>
             <li>✅ Análisis y documentación de requisitos con IA</li>
           </ul>
+          <div class="mt-4 text-center">
+            <span class="text-orange-600 font-semibold">
+              👇 Click para ver todas las clases
+            </span>
+          </div>
         </div>
       </div>
 
@@ -168,6 +216,11 @@
             <li>✅ Estimaciones y planificación técnica con IA</li>
             <li>✅ Mentoring y documentación de decisiones técnicas</li>
           </ul>
+          <div class="mt-4 text-center">
+            <span class="text-red-600 font-semibold">
+              👇 Click para ver todas las clases
+            </span>
+          </div>
         </div>
       </div>
 
