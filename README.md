@@ -24,6 +24,32 @@ Este proyecto nace de una necesidad real: **aprender AWS de forma visual, intera
 
 ### 🌟 Lo que hace diferente a Cloud Cheatsheet:
 
+```mermaid
+graph TD
+    A[📚 Recursos de Aprendizaje AWS] --> B[📖 Docs Oficiales]
+    A --> C[📄 Cheatsheets PDF]
+    A --> D[✨ Cloud Cheatsheet]
+    
+    B --> B1[✅ Completas]
+    B --> B2[❌ Abrumadoras]
+    B --> B3[❌ Sin estructura de estudio]
+    
+    C --> C1[✅ Rápidas]
+    C --> C2[❌ Estáticas]
+    C --> C3[❌ Sin ejemplos prácticos]
+    
+    D --> D1[✅ Búsqueda instantánea]
+    D --> D2[✅ Ejemplos 4 lenguajes]
+    D --> D3[✅ Roadmaps certificación]
+    D --> D4[✅ Planes IA QA/DEV]
+    D --> D5[✅ Tracking progreso]
+    D --> D6[✅ Open Source]
+    
+    style D fill:#48bb78,stroke:#333,stroke-width:3px,color:#fff
+    style B fill:#ed8936,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#f56565,stroke:#333,stroke-width:2px,color:#fff
+```
+
 | Característica | Docs Oficiales | Cheatsheets PDF | Cloud Cheatsheet ✨ |
 |---------------|----------------|-----------------|---------------------|
 | Búsqueda instantánea | ✅ | ❌ | ✅ |
@@ -38,6 +64,44 @@ Este proyecto nace de una necesidad real: **aprender AWS de forma visual, intera
 
 ---
 
+## 🏗️ Arquitectura de la Aplicación
+
+```mermaid
+graph TB
+    A[🏠 Home/Dashboard] --> B[📊 AWS Services Dashboard]
+    A --> C[🗺️ AWS Roadmaps Hub]
+    A --> D[🤖 Planes de Estudio IA]
+    
+    B --> B1[🔍 Búsqueda en Tiempo Real]
+    B --> B2[🎯 Filtros por Categoría]
+    B --> B3[💻 Ejemplos Multi-lenguaje]
+    
+    C --> C1[☁️ CLF-C02 Cloud Practitioner]
+    C --> C2[🏗️ SAA-C03 Solutions Architect]
+    C --> C3[💻 DVA-C02 Developer]
+    C --> C4[⚙️ SOA-C02 SysOps Admin]
+    
+    C1 --> C5[📈 Progress Tracking]
+    C2 --> C5
+    C3 --> C5
+    C4 --> C5
+    
+    D --> D1[🧪 Plan QA - 9 Clases]
+    D --> D2[💻 Plan DEV - 11 Clases]
+    
+    D1 --> D3[📱 Vista Detallada]
+    D2 --> D3
+    
+    D3 --> D4[🎯 Clases Expandibles]
+    D3 --> D5[📝 Prompts & Ejemplos]
+    D3 --> D6[✅ Best Practices]
+    
+    style A fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+    style B fill:#48bb78,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#ed8936,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#9f7aea,stroke:#333,stroke-width:2px,color:#fff
+```
+
 ## ✨ Características Principales
 
 ### 📊 Dashboard Interactivo
@@ -48,23 +112,116 @@ Este proyecto nace de una necesidad real: **aprender AWS de forma visual, intera
 
 ### 🗺️ Roadmaps de Certificación AWS
 Planes de estudio estructurados con tracking de progreso:
+
+```mermaid
+graph LR
+    A[🎯 Elige tu Certificación] --> B{Nivel}
+    
+    B -->|Foundational| C[☁️ CLF-C02<br/>8 semanas]
+    B -->|Associate| D[🏗️ SAA-C03<br/>12 semanas]
+    B -->|Associate| E[💻 DVA-C02<br/>10 semanas]
+    B -->|Associate| F[⚙️ SOA-C02<br/>10 semanas]
+    
+    C --> G[📚 Timeline Semanal]
+    D --> G
+    E --> G
+    F --> G
+    
+    G --> H[✅ Marca Progreso]
+    H --> I[📊 Visualiza Avance]
+    I --> J[📖 Recursos & Práctica]
+    J --> K[🎓 ¡Listo para el Examen!]
+    
+    style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#38b2ac,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#ed8936,stroke:#333,stroke-width:2px,color:#fff
+    style E fill:#9f7aea,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#f56565,stroke:#333,stroke-width:2px,color:#fff
+    style K fill:#48bb78,stroke:#333,stroke-width:3px,color:#fff
+```
+
+**Certificaciones disponibles:**
 - **CLF-C02** - AWS Cloud Practitioner (8 semanas)
 - **SAA-C03** - Solutions Architect Associate (12 semanas)
 - **DVA-C02** - Developer Associate (10 semanas)
 - **SOA-C02** - SysOps Administrator Associate (10 semanas)
 
-Cada roadmap incluye:
+**Cada roadmap incluye:**
 - ✅ Timeline semanal con temas específicos
 - ✅ Progreso persistente (localStorage)
 - ✅ Recursos gratuitos y de pago recomendados
 - ✅ Información detallada del examen
 
-### 🤖 Plan de Estudio: IA Generativa para QA y Desarrollo
-Curso completo de **Prompt Engineering** aplicado a equipos técnicos:
-- 📚 **4 módulos en 20 días** (1 hora diaria)
-- 🎯 De usuario casual a **Prompt Engineer Profesional**
-- 💡 Casos prácticos reales de QA y desarrollo
-- 📥 **Descarga en PDF** con texto vectorial de alta calidad
+### 🤖 Planes de Estudio: IA Generativa para Equipos Técnicos
+Cursos completos de **Prompt Engineering** y desarrollo con IA para diferentes roles:
+
+#### 🧪 Plan para QA (Quality Assurance)
+- 📚 **9 clases estructuradas** con talleres prácticos
+- 🎯 Generación de test cases, datos de prueba y automatización
+- 💡 De tester manual a **QA con superpoderes de IA**
+- ⚡ Incrementa productividad x3-5 en testing
+
+#### 💻 Plan para Developers (Full Stack)
+
+```mermaid
+graph TD
+    A[💻 Plan DEV - 11 Clases] --> B[📘 Módulo 2: Backend<br/>Spring Boot]
+    A --> C[🎨 Módulo 3: Frontend<br/>Angular]
+    A --> D[🐍 Módulo 4: Python/Node.js<br/>+ AWS]
+    A --> E[🚀 Proyecto Final]
+    
+    B --> B1[Clase 2: Spring Boot 3<br/>60 min]
+    B --> B2[Clase 3: Legacy Migration<br/>90 min]
+    B --> B3[Clase 4: Testing APIs<br/>60 min]
+    B --> B4[Clase 5: Microservicios<br/>90 min]
+    
+    C --> C1[Clase 6: CRUD Angular<br/>90 min]
+    C --> C2[Clase 7: Legacy to Angular<br/>120 min]
+    C --> C3[Clase 8: Refactoring<br/>60 min]
+    C --> C4[Clase 9: E2E Testing<br/>60 min]
+    
+    D --> D1[Clase 10: FastAPI<br/>90 min]
+    D --> D2[Clase 11: AWS Lambda<br/>90 min]
+    
+    E --> E1[Clase 12: Proyecto Integrado<br/>120 min]
+    
+    B1 --> F[🎯 12 Horas Totales]
+    B2 --> F
+    B3 --> F
+    B4 --> F
+    C1 --> F
+    C2 --> F
+    C3 --> F
+    C4 --> F
+    D1 --> F
+    D2 --> F
+    E1 --> F
+    
+    F --> G[✨ Desarrollo Asistido por IA]
+    
+    style A fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+    style B fill:#f56565,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#ed8936,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#38b2ac,stroke:#333,stroke-width:2px,color:#fff
+    style E fill:#9f7aea,stroke:#333,stroke-width:2px,color:#fff
+    style G fill:#48bb78,stroke:#333,stroke-width:2px,color:#fff
+```
+
+**Características del plan:**
+- 📚 **11 clases intensivas** (12 horas totales)
+- 🏗️ **4 módulos**: Backend (Spring Boot), Frontend (Angular), Python/Node.js + AWS, Proyecto Final
+- 🛠️ Stack: Java, Angular, Python, FastAPI, Node.js, Lambda, DynamoDB
+- 🎯 De código manual a **desarrollo asistido por IA**
+- 📱 **Diseño responsive** con navegación expandible y breadcrumbs
+- ✨ Cards legibles con mejor UX y contraste optimizado
+
+**Características de los planes:**
+- ✅ Interfaz moderna con sidebar púrpura y navegación breadcrumb
+- ✅ Cards expandibles para preview rápido
+- ✅ Páginas detalladas con contenido completo de cada clase
+- ✅ Ejemplos de prompts profesionales vs casuales
+- ✅ Mejores prácticas DO's y DON'Ts
+- ✅ Herramientas y recursos recomendados
 
 ### 💻 Ejemplos de Código Multi-lenguaje
 Para cada servicio AWS:
@@ -77,6 +234,42 @@ Para cada servicio AWS:
 - **Tailwind CSS 3** - Diseño profesional
 - **Dark Mode Ready** - Interfaz amigable
 - **Mobile First** - Funciona en cualquier dispositivo
+
+### 🛠️ Stack Tecnológico
+
+```mermaid
+graph TB
+    subgraph Frontend
+        A[Angular 20] --> B[TypeScript 5.8]
+        A --> C[Tailwind CSS 3]
+        A --> D[Standalone Components]
+    end
+    
+    subgraph Routing
+        E[Angular Router] --> F[Lazy Loading]
+        E --> G[Breadcrumbs]
+        E --> H[Route Guards]
+    end
+    
+    subgraph Storage
+        I[localStorage] --> J[Progress Tracking]
+        I --> K[User Preferences]
+    end
+    
+    subgraph Deployment
+        L[GitHub Pages] --> M[Docs Folder]
+        L --> N[Automatic Deploy]
+    end
+    
+    A --> E
+    A --> I
+    M --> O[https://yamicueto.github.io/cloud-cheatsheet/]
+    
+    style A fill:#dd0031,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#38b2ac,stroke:#333,stroke-width:2px,color:#fff
+    style L fill:#181717,stroke:#333,stroke-width:2px,color:#fff
+    style O fill:#48bb78,stroke:#333,stroke-width:2px,color:#fff
+```
 
 ---
 
@@ -117,6 +310,58 @@ npm run build
 ---
 
 ## 📚 Servicios AWS Incluidos
+
+### 🗂️ Organización por Categorías
+
+```mermaid
+mindmap
+  root((AWS<br/>Services<br/>60+))
+    ☁️ Compute
+      EC2
+      Lambda
+      ECS/EKS
+      Elastic Beanstalk
+    💾 Storage
+      S3
+      EBS
+      EFS
+      Glacier
+    🗄️ Database
+      RDS
+      DynamoDB
+      Aurora
+      ElastiCache
+    🌐 Networking
+      VPC
+      CloudFront
+      Route 53
+      API Gateway
+    🔒 Security
+      IAM
+      KMS
+      Cognito
+      WAF
+    🤖 AI/ML
+      SageMaker
+      Rekognition
+      Comprehend
+      Lex
+    📊 Analytics
+      Athena
+      Redshift
+      Kinesis
+      EMR
+    🔧 DevOps
+      CloudFormation
+      CodePipeline
+      CloudWatch
+      X-Ray
+    🔔 Integration
+      SQS
+      SNS
+      EventBridge
+      Step Functions
+```
 
 ### ☁️ Compute
 - **EC2** - Elastic Compute Cloud (Virtual Servers)
@@ -234,9 +479,14 @@ Cada roadmap incluye links a:
 - [x] Búsqueda y filtros
 - [x] Ejemplos de código multi-lenguaje
 - [x] 4 Roadmaps de certificación (CLF, SAA, DVA, SOA)
-- [x] Plan de estudio IA Generativa
+- [x] Plan de estudio IA Generativa para QA (9 clases)
+- [x] Plan de estudio completo para Developers (11 clases, 4 módulos)
 - [x] Sistema de tracking de progreso
 - [x] Diseño responsivo con Tailwind
+- [x] Sidebar con gradiente púrpura
+- [x] Navegación breadcrumbs jerárquica
+- [x] Cards expandibles con preview
+- [x] Mejoras de legibilidad y contraste
 
 ### 🚧 En Desarrollo (v1.1)
 - [ ] Modo oscuro (Dark Mode)
