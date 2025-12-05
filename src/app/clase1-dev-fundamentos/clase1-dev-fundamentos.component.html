@@ -145,7 +145,7 @@
       <!-- Slide 6: Challenge -->
       <div *ngIf="slide.type === 'challenge'" class="slide-content">
         <h2>🎯 Ejercicio Práctico</h2>
-        <div class="challenge-card" [ngClass]="challenge.color">
+        <div class="challenge-container">
           <div class="challenge-header">
             <span class="badge-difficulty" [ngClass]="'badge-' + challenge.difficulty.toLowerCase()">
               {{ challenge.difficulty }}
