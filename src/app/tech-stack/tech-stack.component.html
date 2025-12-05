@@ -1,22 +1,25 @@
-<div class="mb-8">
+<div>
   <!-- Tech Stack Card (Clickable) -->
   <div (click)="toggleStack()"
-       class="block bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white rounded-lg shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer">
-    <div class="flex items-center gap-4">
-      <div class="text-6xl">🛠️</div>
-      <div class="flex-1">
-        <h2 class="text-2xl font-bold mb-2">Stack Tecnológico del Curso</h2>
-        <p class="text-indigo-100 mb-3">Herramientas, lenguajes, frameworks y tecnologías utilizadas en las 12 clases</p>
-        <div class="flex gap-2 flex-wrap">
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">VS Code</span>
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">GitHub Copilot</span>
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">Python</span>
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">Java</span>
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">Angular</span>
-          <span class="bg-indigo-700 px-3 py-1 rounded-full text-sm">+30 tecnologías</span>
+       class="block bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white rounded-lg shadow-xl p-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-pointer h-full">
+    <div class="flex flex-col h-full">
+      <div class="flex items-start gap-3 mb-3">
+        <div class="text-5xl">🛠️</div>
+        <div class="flex-1">
+          <h2 class="text-xl font-bold mb-1">Stack Tecnológico del Curso</h2>
+          <p class="text-indigo-100 text-sm mb-2">Herramientas, lenguajes, frameworks y tecnologías utilizadas en las 12 clases</p>
         </div>
       </div>
-      <div class="text-3xl transition-transform duration-300" [class.rotate-90]="showStack">→</div>
+      <div class="flex gap-2 flex-wrap mb-2">
+        <span class="bg-indigo-700 px-2 py-1 rounded-full text-xs">VS Code</span>
+        <span class="bg-indigo-700 px-2 py-1 rounded-full text-xs">Python</span>
+        <span class="bg-indigo-700 px-2 py-1 rounded-full text-xs">Java</span>
+        <span class="bg-indigo-700 px-2 py-1 rounded-full text-xs">Angular</span>
+        <span class="bg-indigo-700 px-2 py-1 rounded-full text-xs">+30 más</span>
+      </div>
+      <div class="text-center mt-auto">
+        <span class="text-indigo-200 text-xs" [class.rotate-90]="showStack">▼ Click para {{showStack ? 'ocultar' : 'ver detalles'}}</span>
+      </div>
     </div>
   </div>
 
@@ -65,7 +68,7 @@
 
       <!-- Category Content (Collapsible) -->
       <div *ngIf="isCategoryExpanded(category)"
-           class="mt-4 mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fadeIn">
+           class="mt-4 mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4 animate-fadeIn">
         <div *ngFor="let tech of getTechnologiesByCategory(category)"
              class="flip-card"
              (click)="toggleCard(tech.name, $event)">
@@ -117,22 +120,22 @@
     <!-- Summary Section -->
     <div class="mt-8 bg-gradient-to-r from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-lg p-6">
       <h4 class="text-xl font-bold text-indigo-800 mb-3">📊 Resumen del Stack</h4>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-        <div class="bg-white rounded-lg p-4 shadow">
-          <div class="text-3xl font-bold text-indigo-600">{{technologies.length}}</div>
-          <div class="text-sm text-gray-600 font-semibold">Tecnologías</div>
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="bg-white rounded-lg p-3 shadow">
+          <div class="text-2xl font-bold text-indigo-600">{{technologies.length}}</div>
+          <div class="text-xs text-gray-600 font-semibold">Tecnologías</div>
         </div>
-        <div class="bg-white rounded-lg p-4 shadow">
-          <div class="text-3xl font-bold text-blue-600">{{categories.length}}</div>
-          <div class="text-sm text-gray-600 font-semibold">Categorías</div>
+        <div class="bg-white rounded-lg p-3 shadow">
+          <div class="text-2xl font-bold text-blue-600">{{categories.length}}</div>
+          <div class="text-xs text-gray-600 font-semibold">Categorías</div>
         </div>
-        <div class="bg-white rounded-lg p-4 shadow">
-          <div class="text-3xl font-bold text-green-600">5+</div>
-          <div class="text-sm text-gray-600 font-semibold">Lenguajes</div>
+        <div class="bg-white rounded-lg p-3 shadow">
+          <div class="text-2xl font-bold text-green-600">5+</div>
+          <div class="text-xs text-gray-600 font-semibold">Lenguajes</div>
         </div>
-        <div class="bg-white rounded-lg p-4 shadow">
-          <div class="text-3xl font-bold text-purple-600">100%</div>
-          <div class="text-sm text-gray-600 font-semibold">Práctico</div>
+        <div class="bg-white rounded-lg p-3 shadow">
+          <div class="text-2xl font-bold text-purple-600">100%</div>
+          <div class="text-xs text-gray-600 font-semibold">Práctico</div>
         </div>
       </div>
     </div>

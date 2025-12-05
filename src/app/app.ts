@@ -10,11 +10,17 @@ export class App {
   protected title = 'cloud-cheatsheet';
   // Control del submenu de Roadmaps en el sidebar
   public roadmapsOpen = true;
+  // Control del submenu de Aprende IA en el sidebar
+  public aprendeIAOpen = false;
   // Control para colapsar/expandir el sidebar
   public sidebarCollapsed = false;
 
   public toggleRoadmaps(): void {
     this.roadmapsOpen = !this.roadmapsOpen;
+  }
+
+  public toggleAprendeIA(): void {
+    this.aprendeIAOpen = !this.aprendeIAOpen;
   }
 
   public toggleSidebar(): void {

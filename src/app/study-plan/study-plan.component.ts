@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TechStackComponent } from '../tech-stack/tech-stack.component';
 import { InstallationGuidesComponent } from '../installation-guides/installation-guides.component';
 
@@ -14,127 +15,206 @@ interface Clase {
   items: string[];
 }
 
+interface Categoria {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  icon: string;
+  colorFrom: string;
+  colorTo: string;
+  clases: Clase[];
+}
+
 @Component({
   selector: 'app-study-plan',
   standalone: true,
   imports: [CommonModule, RouterModule, TechStackComponent, InstallationGuidesComponent],
   templateUrl: './study-plan.component.html',
-  styleUrls: ['./study-plan.component.css']
+  styleUrls: ['./study-plan.component.css'],
+  animations: [
+    trigger('slideDown', [
+      transition(':enter', [
+        style({ height: '0', opacity: 0, overflow: 'hidden' }),
+        animate('300ms ease-out', style({ height: '*', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ height: '*', opacity: 1, overflow: 'hidden' }),
+        animate('300ms ease-in', style({ height: '0', opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class StudyPlanComponent {
-  currentPage = 1;
+  selectedCategoria: string | null = null;
+  currentPage: { [key: string]: number } = {};
   itemsPerPage = 3;
   Math = Math;
 
-  clases: Clase[] = [
+  // Estado de expansión de planes
+  planQAExpanded = true;
+  planDevExpanded = false;
+  planBusinessExpanded = false;
+  planLeadersExpanded = false;
+
+  categorias: Categoria[] = [
     {
-      route: '/clase1-ia-generativa',
-      numero: 1,
-      titulo: 'Introducción a IA Generativa',
-      subtitulo: 'Introducción a IA Generativa',
-      colorFrom: 'from-blue-500',
-      colorTo: 'to-blue-600',
-      items: ['Fundamentos de IA Generativa', 'Prompt Engineering', 'Casos de uso en testing', 'Taller práctico']
-    },
-    {
-      route: '/clase2-taller-test-cases',
-      numero: 2,
-      titulo: 'Generación de Casos de Prueba',
-      subtitulo: 'Generación de Casos de Prueba',
+      id: 'talleres-qa',
+      nombre: 'Talleres para QA',
+      descripcion: 'Aprende a automatizar pruebas y generar casos de test con IA Generativa',
+      icon: '🧪',
       colorFrom: 'from-green-500',
-      colorTo: 'to-green-600',
-      items: ['Test cases con IA', 'Escenarios de prueba', 'Optimización de cobertura', 'Taller práctico']
-    },
-    {
-      route: '/clase3-datos-prueba',
-      numero: 3,
-      titulo: 'Generación de Datos de Prueba',
-      subtitulo: 'Generación de Datos de Prueba',
-      colorFrom: 'from-purple-500',
-      colorTo: 'to-purple-600',
-      items: ['Estrategias de datos', 'Datos sintéticos con IA', 'Validación de datos', 'Taller práctico']
-    },
-    {
-      route: '/clase4-automatizacion',
-      numero: 4,
-      titulo: 'Automatización con IA',
-      subtitulo: 'Automatización con IA',
-      colorFrom: 'from-orange-500',
-      colorTo: 'to-orange-600',
-      items: ['Scripts de automatización', 'Generación de código', 'Mantenimiento inteligente', 'Taller práctico']
-    },
-    {
-      route: '/clase5-testing-apis',
-      numero: 5,
-      titulo: 'Testing de APIs',
-      subtitulo: 'Testing de APIs',
-      colorFrom: 'from-red-500',
-      colorTo: 'to-red-600',
-      items: ['Pruebas de APIs REST', 'Validación de responses', 'Automatización con IA', 'Taller práctico']
-    },
-    {
-      route: '/clase6-crud-backend',
-      numero: 6,
-      titulo: 'CRUD Backend con FastAPI',
-      subtitulo: 'CRUD Backend con FastAPI',
-      colorFrom: 'from-indigo-500',
-      colorTo: 'to-indigo-600',
-      items: ['Desarrollo de APIs', 'CRUD operations', 'Testing backend', 'Taller práctico']
-    },
-    {
-      route: '/clase7-frontend-legacy-vanilla',
-      numero: 7,
-      titulo: 'Frontend Legacy Vanilla',
-      subtitulo: 'Frontend Legacy Vanilla',
-      colorFrom: 'from-pink-500',
-      colorTo: 'to-pink-600',
-      items: ['JavaScript vanilla', 'Integración con backend', 'Testing frontend', 'Taller práctico']
-    },
-    {
-      route: '/clase8-migracion-angular',
-      numero: 8,
-      titulo: 'Migración a Angular',
-      subtitulo: 'Migración a Angular',
-      colorFrom: 'from-teal-500',
-      colorTo: 'to-teal-600',
-      items: ['Modernización frontend', 'Angular components', 'Testing en Angular', 'Taller práctico']
-    },
-    {
-      route: '/clase9-testing-e2e',
-      numero: 9,
-      titulo: 'Testing E2E',
-      subtitulo: 'Testing E2E',
-      colorFrom: 'from-yellow-500',
-      colorTo: 'to-yellow-600',
-      items: ['Pruebas end-to-end', 'Cypress/Playwright', 'Integración con IA', 'Taller práctico']
+      colorTo: 'to-emerald-600',
+      clases: [
+        {
+          route: '/clase1-ia-generativa',
+          numero: 1,
+          titulo: 'Introducción a IA Generativa',
+          subtitulo: 'Introducción a IA Generativa',
+          colorFrom: 'from-blue-500',
+          colorTo: 'to-blue-600',
+          items: ['Fundamentos de IA Generativa', 'Prompt Engineering', 'Casos de uso en testing', 'Taller práctico']
+        },
+        {
+          route: '/clase2-taller-test-cases',
+          numero: 2,
+          titulo: 'Generación de Casos de Prueba',
+          subtitulo: 'Generación de Casos de Prueba',
+          colorFrom: 'from-green-500',
+          colorTo: 'to-green-600',
+          items: ['Test cases con IA', 'Escenarios de prueba', 'Optimización de cobertura', 'Taller práctico']
+        },
+        {
+          route: '/clase3-datos-prueba',
+          numero: 3,
+          titulo: 'Generación de Datos de Prueba',
+          subtitulo: 'Generación de Datos de Prueba',
+          colorFrom: 'from-purple-500',
+          colorTo: 'to-purple-600',
+          items: ['Estrategias de datos', 'Datos sintéticos con IA', 'Validación de datos', 'Taller práctico']
+        },
+        {
+          route: '/clase4-automatizacion',
+          numero: 4,
+          titulo: 'Automatización con IA',
+          subtitulo: 'Automatización con IA',
+          colorFrom: 'from-orange-500',
+          colorTo: 'to-orange-600',
+          items: ['Scripts de automatización', 'Generación de código', 'Mantenimiento inteligente', 'Taller práctico']
+        },
+        {
+          route: '/clase5-testing-apis',
+          numero: 5,
+          titulo: 'Testing de APIs',
+          subtitulo: 'Testing de APIs',
+          colorFrom: 'from-red-500',
+          colorTo: 'to-red-600',
+          items: ['Pruebas de APIs REST', 'Validación de responses', 'Automatización con IA', 'Taller práctico']
+        },
+        {
+          route: '/clase6-crud-backend',
+          numero: 6,
+          titulo: 'CRUD Backend con FastAPI',
+          subtitulo: 'CRUD Backend con FastAPI',
+          colorFrom: 'from-indigo-500',
+          colorTo: 'to-indigo-600',
+          items: ['Desarrollo de APIs', 'CRUD operations', 'Testing backend', 'Taller práctico']
+        },
+        {
+          route: '/clase7-frontend-legacy-vanilla',
+          numero: 7,
+          titulo: 'Frontend Legacy Vanilla',
+          subtitulo: 'Frontend Legacy Vanilla',
+          colorFrom: 'from-pink-500',
+          colorTo: 'to-pink-600',
+          items: ['JavaScript vanilla', 'Integración con backend', 'Testing frontend', 'Taller práctico']
+        },
+        {
+          route: '/clase8-migracion-angular',
+          numero: 8,
+          titulo: 'Migración a Angular',
+          subtitulo: 'Migración a Angular',
+          colorFrom: 'from-teal-500',
+          colorTo: 'to-teal-600',
+          items: ['Modernización frontend', 'Angular components', 'Testing en Angular', 'Taller práctico']
+        },
+        {
+          route: '/clase9-testing-e2e',
+          numero: 9,
+          titulo: 'Testing E2E',
+          subtitulo: 'Testing E2E',
+          colorFrom: 'from-yellow-500',
+          colorTo: 'to-yellow-600',
+          items: ['Pruebas end-to-end', 'Cypress/Playwright', 'Integración con IA', 'Taller práctico']
+        }
+      ]
     }
   ];
 
-  get totalPages(): number {
-    return Math.ceil(this.clases.length / this.itemsPerPage);
+  constructor() {
+    // Inicializar currentPage para cada categoría
+    this.categorias.forEach(cat => {
+      this.currentPage[cat.id] = 1;
+    });
   }
 
-  get paginatedClases(): Clase[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.clases.slice(startIndex, startIndex + this.itemsPerPage);
+  selectCategoria(categoriaId: string): void {
+    this.selectedCategoria = this.selectedCategoria === categoriaId ? null : categoriaId;
   }
 
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  togglePlanQA(): void {
+    this.planQAExpanded = !this.planQAExpanded;
   }
 
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  togglePlanDev(): void {
+    this.planDevExpanded = !this.planDevExpanded;
+  }
+
+  togglePlanBusiness(): void {
+    this.planBusinessExpanded = !this.planBusinessExpanded;
+  }
+
+  togglePlanLeaders(): void {
+    this.planLeadersExpanded = !this.planLeadersExpanded;
+  }
+
+  getTotalPages(categoriaId: string): number {
+    const categoria = this.categorias.find(c => c.id === categoriaId);
+    if (!categoria) return 0;
+    return Math.ceil(categoria.clases.length / this.itemsPerPage);
+  }
+
+  getPaginatedClases(categoriaId: string): Clase[] {
+    const categoria = this.categorias.find(c => c.id === categoriaId);
+    if (!categoria) return [];
+
+    const page = this.currentPage[categoriaId] || 1;
+    const startIndex = (page - 1) * this.itemsPerPage;
+    return categoria.clases.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getPages(categoriaId: string): number[] {
+    const totalPages = this.getTotalPages(categoriaId);
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(categoriaId: string, page: number): void {
+    const totalPages = this.getTotalPages(categoriaId);
+    if (page >= 1 && page <= totalPages) {
+      this.currentPage[categoriaId] = page;
     }
   }
 
-  nextPage(): void {
-    this.goToPage(this.currentPage + 1);
+  nextPage(categoriaId: string): void {
+    const currentPageNum = this.currentPage[categoriaId] || 1;
+    this.goToPage(categoriaId, currentPageNum + 1);
   }
 
-  previousPage(): void {
-    this.goToPage(this.currentPage - 1);
+  previousPage(categoriaId: string): void {
+    const currentPageNum = this.currentPage[categoriaId] || 1;
+    this.goToPage(categoriaId, currentPageNum - 1);
+  }
+
+  getCurrentPage(categoriaId: string): number {
+    return this.currentPage[categoriaId] || 1;
   }
 }

@@ -1,86 +1,186 @@
 <div class="study-plan-page min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
   <div class="study-plan-container max-w-7xl mx-auto">
     <div class="text-center mb-12">
-      <h1 class="text-5xl font-bold text-gray-900 mb-4">Plan de Estudio</h1>
-      <p class="text-xl text-gray-600">Automatización de Pruebas con IA Generativa</p>
+      <h1 class="text-5xl font-bold text-gray-900 mb-4">IA CON CASOS REALES</h1>
+      <p class="text-xl text-gray-600">Aprende IA con talleres según tu rol</p>
     </div>
 
-    <!-- Plan de Estudio Overview Card -->
-    <div class="mb-12">
-      <a routerLink="/plan-detalle" class="block bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="flex items-center justify-between">
-          <div class="flex-1">
-            <h2 class="text-3xl font-bold mb-4">📚 Plan Completo del Curso</h2>
-            <p class="text-white/90 text-lg">
-              Descubre la estructura completa del programa, objetivos de aprendizaje y metodología.
-              Haz clic para ver los detalles completos del plan de estudio.
-            </p>
-          </div>
-          <div class="ml-6">
-            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
+    <!-- Plan de Estudio Overview Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+
+      <!-- Plan para QA -->
+      <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+        <!-- Header clickeable -->
+        <div (click)="togglePlanQA()" class="cursor-pointer bg-gradient-to-r from-purple-600 to-indigo-600 p-6 hover:shadow-2xl transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <span class="text-5xl">🧪</span>
+              <div>
+                <h2 class="text-3xl font-bold text-white">Plan de Estudio para QA</h2>
+                <p class="text-white/90 mt-1">Guía completa de capacitación en automatización y testing con IA</p>
+                <p class="text-white/80 text-sm mt-2">9 clases prácticas con talleres reales</p>
+              </div>
+            </div>
+            <div class="transform transition-transform duration-300" [class.rotate-180]="planQAExpanded">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
         </div>
-      </a>
+
+        <!-- Contenido expandible -->
+        <div *ngIf="planQAExpanded" class="p-6 bg-gray-50" [@slideDown]>
+          <!-- Información general -->
+          <div class="mb-6 p-4 bg-purple-50 border-l-4 border-purple-600 rounded">
+            <h3 class="font-bold text-purple-900 mb-2">📚 Sobre este plan</h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>✅ De usuario casual a Prompt Engineer profesional</li>
+              <li>✅ 9 clases prácticas con entregables reales</li>
+              <li>✅ Talleres orientados a QA y Testing</li>
+              <li>✅ Casos de uso bancarios colombianos</li>
+            </ul>
+            <div class="mt-4">
+              <a routerLink="/plan-detalle" class="inline-block bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-semibold">
+                📖 Ver Plan Completo Detallado
+              </a>
+            </div>
+          </div>
+
+          <!-- Lista de Clases (una debajo de otra) -->
+          <div class="space-y-4 mb-6">
+            <a *ngFor="let clase of getPaginatedClases('talleres-qa')"
+               [routerLink]="clase.route"
+               class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-[1.01]">
+              <div class="flex items-center">
+                <div class="bg-gradient-to-r p-4 flex items-center justify-center min-w-[120px]" [ngClass]="[clase.colorFrom, clase.colorTo]">
+                  <h3 class="text-xl font-bold text-white text-center">Clase {{ clase.numero }}</h3>
+                </div>
+                <div class="flex-1 p-4">
+                  <h4 class="text-lg font-bold text-gray-800 mb-2">{{ clase.subtitulo }}</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span *ngFor="let item of clase.items" class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
+                      ✅ {{ item }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Paginación -->
+          <div *ngIf="getTotalPages('talleres-qa') > 1" class="flex justify-center items-center gap-4 mt-6">
+            <button
+              (click)="previousPage('talleres-qa')"
+              [disabled]="getCurrentPage('talleres-qa') === 1"
+              class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+              ← Anterior
+            </button>
+
+            <div class="flex gap-2">
+              <button
+                *ngFor="let page of getPages('talleres-qa')"
+                (click)="goToPage('talleres-qa', page)"
+                [class.bg-purple-600]="getCurrentPage('talleres-qa') === page"
+                [class.text-white]="getCurrentPage('talleres-qa') === page"
+                [class.bg-white]="getCurrentPage('talleres-qa') !== page"
+                [class.text-gray-700]="getCurrentPage('talleres-qa') !== page"
+                class="w-10 h-10 rounded-lg hover:bg-purple-500 hover:text-white transition-colors shadow">
+                {{ page }}
+              </button>
+            </div>
+
+            <button
+              (click)="nextPage('talleres-qa')"
+              [disabled]="getCurrentPage('talleres-qa') === getTotalPages('talleres-qa')"
+              class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+              Siguiente →
+            </button>
+          </div>
+
+          <!-- Page Info -->
+          <div class="text-center mt-4 text-gray-600">
+            Mostrando clases {{ (getCurrentPage('talleres-qa') - 1) * itemsPerPage + 1 }} - {{ Math.min(getCurrentPage('talleres-qa') * itemsPerPage, getTotalPages('talleres-qa') * itemsPerPage) }} de 9
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan para DEV's -->
+      <div class="block bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="bg-gradient-to-r from-blue-600 to-cyan-600 p-6">
+          <div class="flex items-center gap-4">
+            <span class="text-5xl">💻</span>
+            <div>
+              <h2 class="text-3xl font-bold text-white">Plan de Estudio para DEV's</h2>
+              <p class="text-white/90 mt-1">Capacitación en desarrollo y arquitectura con IA Generativa</p>
+              <p class="text-white/80 text-sm mt-2">Desarrollo Full Stack con IA como copiloto</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 bg-gray-50">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Backend y APIs con IA</li>
+            <li>✅ Frontend moderno y migración de código</li>
+            <li>✅ Arquitectura y mejores prácticas</li>
+            <li>✅ Refactoring y documentación automatizada</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Plan para Facilitadores & Business Roles -->
+      <div class="block bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="bg-gradient-to-r from-orange-600 to-amber-600 p-6">
+          <div class="flex items-center gap-4">
+            <span class="text-5xl">🎯</span>
+            <div>
+              <h2 class="text-3xl font-bold text-white">Plan para Facilitadores & Business</h2>
+              <p class="text-white/90 mt-1">IA aplicada a gestión de proyectos y automatización de procesos</p>
+              <p class="text-white/80 text-sm mt-2">Para PO, Scrum Masters, RPA y Analistas de Procesos</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 bg-gray-50">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ IA para Product Owners y gestión de backlog</li>
+            <li>✅ Facilitación ágil con IA (Scrum Masters)</li>
+            <li>✅ Automatización RPA y optimización de procesos</li>
+            <li>✅ Análisis y documentación de requisitos con IA</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Plan para Líderes Técnicos -->
+      <div class="block bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="bg-gradient-to-r from-red-600 to-pink-600 p-6">
+          <div class="flex items-center gap-4">
+            <span class="text-5xl">🚀</span>
+            <div>
+              <h2 class="text-3xl font-bold text-white">Plan para Líderes Técnicos</h2>
+              <p class="text-white/90 mt-1">IA para arquitectura, decisiones técnicas y gestión de equipos</p>
+              <p class="text-white/80 text-sm mt-2">Tech Leads, Arquitectos y Engineering Managers</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 bg-gray-50">
+          <ul class="space-y-2 text-gray-600">
+            <li>✅ Arquitectura de software con asistencia de IA</li>
+            <li>✅ Code reviews y mejora de calidad automatizada</li>
+            <li>✅ Estimaciones y planificación técnica con IA</li>
+            <li>✅ Mentoring y documentación de decisiones técnicas</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
 
     <!-- Tech Stack Component -->
-    <app-tech-stack></app-tech-stack>
+    <div class="mb-8">
+      <app-tech-stack></app-tech-stack>
+    </div>
 
     <!-- Installation Guides Component -->
-    <app-installation-guides></app-installation-guides>
-
-    <!-- Classes Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
-      <a *ngFor="let clase of paginatedClases"
-         [routerLink]="clase.route"
-         class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div class="bg-gradient-to-r p-6" [ngClass]="[clase.colorFrom, clase.colorTo]">
-          <h3 class="text-2xl font-bold text-white">Clase {{ clase.numero }}</h3>
-          <p class="text-white/90 mt-2">{{ clase.subtitulo }}</p>
-        </div>
-        <div class="p-6">
-          <ul class="space-y-2 text-gray-600">
-            <li *ngFor="let item of clase.items">✅ {{ item }}</li>
-          </ul>
-        </div>
-      </a>
-    </div>
-
-    <!-- Pagination Controls -->
-    <div class="flex justify-center items-center gap-4 mt-8">
-      <button
-        (click)="previousPage()"
-        [disabled]="currentPage === 1"
-        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
-        ← Anterior
-      </button>
-
-      <div class="flex gap-2">
-        <button
-          *ngFor="let page of pages"
-          (click)="goToPage(page)"
-          [class.bg-indigo-600]="currentPage === page"
-          [class.text-white]="currentPage === page"
-          [class.bg-white]="currentPage !== page"
-          [class.text-gray-700]="currentPage !== page"
-          class="w-10 h-10 rounded-lg hover:bg-indigo-500 hover:text-white transition-colors shadow">
-          {{ page }}
-        </button>
-      </div>
-
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
-        Siguiente →
-      </button>
-    </div>
-
-    <!-- Page Info -->
-    <div class="text-center mt-4 text-gray-600">
-      Mostrando clases {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, clases.length) }} de {{ clases.length }}
+    <div class="mb-12">
+      <app-installation-guides></app-installation-guides>
     </div>
   </div>
 </div>
