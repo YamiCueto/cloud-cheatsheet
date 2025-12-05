@@ -96,21 +96,44 @@
 							<mat-icon class="text-gray-400">filter_8</mat-icon>
 							<span *ngIf="!sidebarCollapsed">Clase 8: Migración Angular</span>
 						</a>
-						<a routerLink="/clase9-testing-e2e" class="hover:underline flex items-center gap-2">
-							<mat-icon class="text-gray-400">filter_9</mat-icon>
-							<span *ngIf="!sidebarCollapsed">Clase 9: Testing E2E</span>
-						</a>
-					</nav>
-				</div>
+					<a routerLink="/clase9-testing-e2e" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">filter_9</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 9: Testing E2E</span>
+					</a>
+					<div class="border-t border-gray-600 my-2"></div>
+					<div *ngIf="!sidebarCollapsed" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold py-2 px-3 rounded-lg mb-2 flex items-center gap-2">
+						<span>💻</span>
+						<span>CLASES DEV</span>
+					</div>
+					<a routerLink="/clase1-dev-fundamentos" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">looks_one</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 1: Fundamentos IA</span>
+					</a>
+					<a routerLink="/clase2-dev-spring-boot" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">looks_two</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 2: Spring Boot</span>
+					</a>
+					<a routerLink="/clase3-dev-migracion-legacy" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">looks_3</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 3: Migración Legacy</span>
+					</a>
+					<a routerLink="/clase4-dev-integracion-apis" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">looks_4</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 4: Integración APIs</span>
+					</a>
+					<a routerLink="/clase5-dev-testing-avanzado" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">looks_5</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Clase 5: Testing Avanzado</span>
+					</a>
+				</nav>
 			</div>
-		</nav>
-		<div class="mt-auto text-sm text-gray-400">
-			<p>AWS Services Cheatsheet</p>
-			<p class="mt-2"><a href="https://github.com/YamiCueto" target="_blank" rel="noopener" class="text-orange-500 hover:underline">Yamid Cueto</a></p>
 		</div>
-	</aside>
-
-	<!-- Mobile header (shown on small screens) -->
+	</nav>
+	<div class="mt-auto text-sm text-gray-400">
+		<p>AWS Services Cheatsheet</p>
+		<p class="mt-2"><a href="https://github.com/YamiCueto" target="_blank" rel="noopener" class="text-orange-500 hover:underline">Yamid Cueto</a></p>
+	</div>
+</aside>	<!-- Mobile header (shown on small screens) -->
 	<div class="flex-1 flex flex-col">
 		<header class="md:hidden p-4 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 text-white border-b-2 border-purple-500">
 			<div class="container mx-auto flex items-center gap-4">

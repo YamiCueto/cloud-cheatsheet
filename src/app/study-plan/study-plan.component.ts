@@ -147,6 +147,61 @@ export class StudyPlanComponent {
           items: ['Pruebas end-to-end', 'Cypress/Playwright', 'Integración con IA', 'Taller práctico']
         }
       ]
+    },
+    {
+      id: 'talleres-dev',
+      nombre: 'Talleres para Developers',
+      descripcion: 'Aprende desarrollo full-stack con IA Generativa - Spring Boot, Angular, AWS',
+      icon: '💻',
+      colorFrom: 'from-indigo-500',
+      colorTo: 'to-purple-600',
+      clases: [
+        {
+          route: '/clase1-dev-fundamentos',
+          numero: 1,
+          titulo: 'Fundamentos IA Generativa',
+          subtitulo: 'De Usuario Casual a Prompt Engineer',
+          colorFrom: 'from-purple-500',
+          colorTo: 'to-indigo-600',
+          items: ['IA, ML y GenIA', 'LLMs y herramientas', 'Prompt Engineering', 'Limitaciones']
+        },
+        {
+          route: '/clase2-dev-spring-boot',
+          numero: 2,
+          titulo: 'Spring Boot Microservicio',
+          subtitulo: 'Generación Completa con IA',
+          colorFrom: 'from-green-500',
+          colorTo: 'to-emerald-600',
+          items: ['Arquitectura hexagonal', 'Prompt estructurado', 'Código production-ready', 'Testing automático']
+        },
+        {
+          route: '/clase3-dev-migracion-legacy',
+          numero: 3,
+          titulo: 'Migración Legacy VB6',
+          subtitulo: 'De Visual Basic a Spring Boot',
+          colorFrom: 'from-orange-500',
+          colorTo: 'to-red-600',
+          items: ['Análisis de código legacy', 'Traducción inteligente', 'Preservar lógica de negocio', 'Tests de equivalencia']
+        },
+        {
+          route: '/clase4-dev-integracion-apis',
+          numero: 4,
+          titulo: 'Integración APIs Externas',
+          subtitulo: 'Bureau de Crédito y Servicios REST',
+          colorFrom: 'from-blue-500',
+          colorTo: 'to-cyan-600',
+          items: ['WebClient + Circuit Breaker', 'DTOs y validaciones', 'Resilience4j + Cache', 'Tests con WireMock']
+        },
+        {
+          route: '/clase5-dev-testing-avanzado',
+          numero: 5,
+          titulo: 'Testing Avanzado',
+          subtitulo: 'Suite Completa con JUnit y JaCoCo',
+          colorFrom: 'from-teal-500',
+          colorTo: 'to-green-600',
+          items: ['JUnit 5 + Mockito', 'Testcontainers', 'Cobertura con JaCoCo', 'Tests E2E con WireMock']
+        }
+      ]
     }
   ];
 

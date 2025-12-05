@@ -79,6 +79,26 @@ const routes: Routes = [
     path: 'clase9-testing-e2e',
     loadComponent: () => import('./clase9-testing-e2e/clase9-testing-e2e.component').then(m => m.Clase9TestingE2eComponent)
   },
+  {
+    path: 'clase1-dev-fundamentos',
+    loadComponent: () => import('./clase1-dev-fundamentos/clase1-dev-fundamentos.component').then(m => m.Clase1DevFundamentosComponent)
+  },
+  {
+    path: 'clase2-dev-spring-boot',
+    loadComponent: () => import('./clase2-dev-spring-boot/clase2-dev-spring-boot.component').then(m => m.Clase2DevSpringBootComponent)
+  },
+  {
+    path: 'clase3-dev-migracion-legacy',
+    loadComponent: () => import('./clase3-dev-migracion-legacy/clase3-dev-migracion-legacy.component').then(m => m.Clase3DevMigracionLegacyComponent)
+  },
+  {
+    path: 'clase4-dev-integracion-apis',
+    loadComponent: () => import('./clase4-dev-integracion-apis/clase4-dev-integracion-apis.component').then(m => m.Clase4DevIntegracionApisComponent)
+  },
+  {
+    path: 'clase5-dev-testing-avanzado',
+    loadComponent: () => import('./clase5-dev-testing-avanzado/clase5-dev-testing-avanzado.component').then(m => m.Clase5DevTestingAvanzadoComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

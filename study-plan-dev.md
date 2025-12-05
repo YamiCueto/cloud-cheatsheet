@@ -8,7 +8,7 @@
 **Duración:** 1 hora diaria  
 **Modalidad:** Teórico-Práctica  
 **Stack Tecnológico:** Java + Spring Boot | Angular | Python | Node.js | AWS  
-**Dirigido a:** Equipo de Desarrollo del Proyecto Banistmo
+**Dirigido a:** Equipo de Desarrollo del Proyecto BancoFiel
 
 ---
 
@@ -38,7 +38,7 @@ Capacitar al equipo de desarrollo en el uso profesional de IA Generativa para:
 
 ---
 
-## 🏗️ Contexto del Proyecto HCIS - Banistmo
+## 🏗️ Contexto del Proyecto MyLegacyApp - BancoFiel
 
 ### Stack Tecnológico Actual:
 - **Backend:** Java 11/17, Spring Boot 2.7/3.x, Spring Data JPA, Spring Security
@@ -98,7 +98,7 @@ Capacitar al equipo de desarrollo en el uso profesional de IA Generativa para:
 [ROL] Actúa como arquitecto de software senior especializado en Spring Boot
 
 [CONTEXTO]
-- Proyecto: Sistema bancario HCIS - Banistmo
+- Proyecto: Sistema bancario MyLegacyApp - BancoFiel
 - Stack: Java 17, Spring Boot 3.2.x, Spring Data JPA, Oracle 19c
 - Arquitectura: Microservicios con arquitectura hexagonal
 - Estándares: Lombok, MapStruct, validaciones JSR-380
@@ -323,7 +323,7 @@ Código completo + application.yml con configuraciones
 [ROL] Actúa como desarrollador Angular senior especializado en aplicaciones empresariales
 
 [CONTEXTO]
-- Proyecto: Frontend sistema bancario HCIS
+- Proyecto: Frontend sistema bancario MyLegacyApp
 - Stack: Angular 16, TypeScript, RxJS, Angular Material
 - API Backend: Spring Boot REST (endpoints de Clase 2)
 - Estándares: Reactive Forms, lazy loading, standalone components opcional
@@ -1109,4 +1109,4 @@ Este curso te da las herramientas para multiplicar tu productividad x3-5 sin sac
 
 **Última actualización:** Diciembre 2024
 **Versión:** 1.0
-**Autor:** Yamid Cueto - Tech Lead HCIS Banistmo
+**Autor:** Yamid Cueto - Tech Lead MyLegacyApp BancoFiel

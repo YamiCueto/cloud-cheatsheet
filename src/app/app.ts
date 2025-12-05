@@ -57,6 +57,11 @@ export class App {
       '/clase7-frontend-legacy-vanilla': 'Aprende IA / Clase 7: Frontend Legacy',
       '/clase8-migracion-angular': 'Aprende IA / Clase 8: Migración Angular',
       '/clase9-testing-e2e': 'Aprende IA / Clase 9: Testing E2E',
+      '/clase1-dev-fundamentos': 'Aprende IA / Clase 1 DEV: Fundamentos IA',
+      '/clase2-dev-spring-boot': 'Aprende IA / Clase 2 DEV: Spring Boot',
+      '/clase3-dev-migracion-legacy': 'Aprende IA / Clase 3 DEV: Migración Legacy',
+      '/clase4-dev-integracion-apis': 'Aprende IA / Clase 4 DEV: Integración APIs',
+      '/clase5-dev-testing-avanzado': 'Aprende IA / Clase 5 DEV: Testing Avanzado',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
@@ -92,21 +97,38 @@ export class App {
       } else if (this.currentRoute === '/plan-dev-detallado') {
         breadcrumbs.push({ label: 'Plan de DEV' });
       } else if (this.currentRoute.startsWith('/clase')) {
-        breadcrumbs.push({ label: 'Plan de QA', url: '/plan-detalle' });
+        // Clases DEV
+        if (this.currentRoute.includes('-dev-')) {
+          breadcrumbs.push({ label: 'Plan de DEV', url: '/plan-dev-detallado' });
 
-        const claseNames: { [key: string]: string } = {
-          '/clase1-ia-generativa': 'Clase 1: IA Generativa',
-          '/clase2-taller-test-cases': 'Clase 2: Test Cases',
-          '/clase3-datos-prueba': 'Clase 3: Datos de Prueba',
-          '/clase4-automatizacion': 'Clase 4: Automatización',
-          '/clase5-testing-apis': 'Clase 5: Testing APIs',
-          '/clase6-crud-backend': 'Clase 6: CRUD Backend',
-          '/clase7-frontend-legacy-vanilla': 'Clase 7: Frontend Legacy',
-          '/clase8-migracion-angular': 'Clase 8: Migración Angular',
-          '/clase9-testing-e2e': 'Clase 9: Testing E2E'
-        };
+          const claseDevNames: { [key: string]: string } = {
+            '/clase1-dev-fundamentos': 'Clase 1: Fundamentos IA',
+            '/clase2-dev-spring-boot': 'Clase 2: Spring Boot',
+            '/clase3-dev-migracion-legacy': 'Clase 3: Migración Legacy',
+            '/clase4-dev-integracion-apis': 'Clase 4: Integración APIs',
+            '/clase5-dev-testing-avanzado': 'Clase 5: Testing Avanzado'
+          };
 
-        breadcrumbs.push({ label: claseNames[this.currentRoute] || 'Clase' });
+          breadcrumbs.push({ label: claseDevNames[this.currentRoute] || 'Clase' });
+        }
+        // Clases QA
+        else {
+          breadcrumbs.push({ label: 'Plan de QA', url: '/plan-detalle' });
+
+          const claseNames: { [key: string]: string } = {
+            '/clase1-ia-generativa': 'Clase 1: IA Generativa',
+            '/clase2-taller-test-cases': 'Clase 2: Test Cases',
+            '/clase3-datos-prueba': 'Clase 3: Datos de Prueba',
+            '/clase4-automatizacion': 'Clase 4: Automatización',
+            '/clase5-testing-apis': 'Clase 5: Testing APIs',
+            '/clase6-crud-backend': 'Clase 6: CRUD Backend',
+            '/clase7-frontend-legacy-vanilla': 'Clase 7: Frontend Legacy',
+            '/clase8-migracion-angular': 'Clase 8: Migración Angular',
+            '/clase9-testing-e2e': 'Clase 9: Testing E2E'
+          };
+
+          breadcrumbs.push({ label: claseNames[this.currentRoute] || 'Clase' });
+        }
       }
     }
     // Roadmaps hub
