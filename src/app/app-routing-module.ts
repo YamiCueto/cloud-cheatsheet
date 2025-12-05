@@ -107,6 +107,14 @@ const routes: Routes = [
     path: 'clase7-dev-frontend-legacy',
     loadComponent: () => import('./clase7-dev-frontend-legacy/clase7-dev-frontend-legacy.component').then(m => m.Clase7DevFrontendLegacyComponent)
   },
+  {
+    path: 'clase8-dev-estado-rxjs',
+    loadComponent: () => import('./clase8-dev-estado-rxjs/clase8-dev-estado-rxjs.component').then(m => m.Clase8DevEstadoRxjsComponent)
+  },
+  {
+    path: 'clase9-dev-testing-e2e',
+    loadComponent: () => import('./clase9-dev-testing-e2e/clase9-dev-testing-e2e.component').then(m => m.Clase9DevTestingE2eComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

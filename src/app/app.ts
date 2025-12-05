@@ -64,6 +64,8 @@ export class App {
       '/clase5-dev-testing-avanzado': 'Aprende IA / Clase 5 DEV: Testing Avanzado',
       '/clase6-dev-modulo-angular': 'Aprende IA / Clase 6 DEV: Módulo Angular',
       '/clase7-dev-frontend-legacy': 'Aprende IA / Clase 7 DEV: Frontend Legacy',
+      '/clase8-dev-estado-rxjs': 'Aprende IA / Clase 8 DEV: Estado RxJS',
+      '/clase9-dev-testing-e2e': 'Aprende IA / Clase 9 DEV: Testing E2E',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
@@ -110,7 +112,9 @@ export class App {
             '/clase4-dev-integracion-apis': 'Clase 4: Integración APIs',
             '/clase5-dev-testing-avanzado': 'Clase 5: Testing Avanzado',
             '/clase6-dev-modulo-angular': 'Clase 6: Módulo Angular',
-            '/clase7-dev-frontend-legacy': 'Clase 7: Frontend Legacy'
+            '/clase7-dev-frontend-legacy': 'Clase 7: Frontend Legacy',
+            '/clase8-dev-estado-rxjs': 'Clase 8: Estado RxJS',
+            '/clase9-dev-testing-e2e': 'Clase 9: Testing E2E'
           };
 
           breadcrumbs.push({ label: claseDevNames[this.currentRoute] || 'Clase' });

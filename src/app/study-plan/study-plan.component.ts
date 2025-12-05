@@ -218,6 +218,24 @@ export class StudyPlanComponent {
           colorFrom: 'from-indigo-500',
           colorTo: 'to-purple-600',
           items: ['OnPush + takeUntil', 'Smart/Dumb pattern', 'Memory leaks', 'Change Detection']
+        },
+        {
+          route: '/clase8-dev-estado-rxjs',
+          numero: 8,
+          titulo: 'Estado RxJS',
+          subtitulo: 'BehaviorSubject + Operators',
+          colorFrom: 'from-teal-500',
+          colorTo: 'to-cyan-600',
+          items: ['BehaviorSubject', 'shareReplay', 'combineLatest', 'State Service']
+        },
+        {
+          route: '/clase9-dev-testing-e2e',
+          numero: 9,
+          titulo: 'Testing E2E',
+          subtitulo: 'Cypress + Page Objects',
+          colorFrom: 'from-emerald-500',
+          colorTo: 'to-green-600',
+          items: ['Cypress setup', 'Page Object pattern', 'cy.intercept()', 'CI/CD integration']
         }
       ]
     }
