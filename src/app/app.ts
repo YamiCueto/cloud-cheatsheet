@@ -63,6 +63,7 @@ export class App {
       '/clase4-dev-integracion-apis': 'Aprende IA / Clase 4 DEV: Integración APIs',
       '/clase5-dev-testing-avanzado': 'Aprende IA / Clase 5 DEV: Testing Avanzado',
       '/clase6-dev-modulo-angular': 'Aprende IA / Clase 6 DEV: Módulo Angular',
+      '/clase7-dev-frontend-legacy': 'Aprende IA / Clase 7 DEV: Frontend Legacy',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
@@ -108,7 +109,8 @@ export class App {
             '/clase3-dev-migracion-legacy': 'Clase 3: Migración Legacy',
             '/clase4-dev-integracion-apis': 'Clase 4: Integración APIs',
             '/clase5-dev-testing-avanzado': 'Clase 5: Testing Avanzado',
-            '/clase6-dev-modulo-angular': 'Clase 6: Módulo Angular'
+            '/clase6-dev-modulo-angular': 'Clase 6: Módulo Angular',
+            '/clase7-dev-frontend-legacy': 'Clase 7: Frontend Legacy'
           };
 
           breadcrumbs.push({ label: claseDevNames[this.currentRoute] || 'Clase' });

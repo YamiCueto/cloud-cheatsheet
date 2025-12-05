@@ -209,6 +209,15 @@ export class StudyPlanComponent {
           colorFrom: 'from-pink-500',
           colorTo: 'to-rose-600',
           items: ['Lazy loading + routing', 'Reactive Forms', 'HttpClient + interceptores', 'Angular Material']
+        },
+        {
+          route: '/clase7-dev-frontend-legacy',
+          numero: 7,
+          titulo: 'Frontend Legacy',
+          subtitulo: 'Refactoring Angular Moderno',
+          colorFrom: 'from-indigo-500',
+          colorTo: 'to-purple-600',
+          items: ['OnPush + takeUntil', 'Smart/Dumb pattern', 'Memory leaks', 'Change Detection']
         }
       ]
     }

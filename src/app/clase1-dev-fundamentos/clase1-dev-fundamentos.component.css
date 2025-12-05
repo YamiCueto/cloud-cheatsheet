@@ -257,15 +257,38 @@
 }
 
 .summary-card {
+  background: white;
   border-radius: 12px;
-  padding: 1.5rem;
-  border: 2px solid rgba(0, 0, 0, 0.05);
+  padding: 1.75rem;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .summary-card h3 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.25rem 0;
   font-size: 1.25rem;
-  color: #2d3748;
+  color: #1f2937;
+  font-weight: 700;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.summary-card p {
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.summary-card p strong {
+  color: #1f2937;
+  font-weight: 700;
 }
 
 .summary-card ul {
@@ -275,39 +298,59 @@
 }
 
 .summary-card ul li {
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
+  padding: 0.75rem 0;
+  padding-left: 2rem;
   position: relative;
+  color: #374151;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.summary-card ul li:last-child {
+  border-bottom: none;
 }
 
 .summary-card ul li:before {
   content: "▸";
   position: absolute;
-  left: 0;
+  left: 0.5rem;
   color: #667eea;
   font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .quote-box {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
   border-radius: 12px;
-  padding: 2rem;
+  padding: 2.5rem;
   margin-top: 2rem;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
 }
 
 .quote {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 1.5rem 0 !important;
   font-style: italic;
+  line-height: 1.4;
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: transparent !important;
 }
 
 .quote-author {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin: 0;
+  font-size: 1.1rem !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  line-height: 1.6;
+  color: white !important;
+  font-weight: 500 !important;
+  max-width: 800px;
+  margin: 0 auto !important;
+  background: transparent !important;
 }
 
 .highlight-box {

@@ -103,6 +103,10 @@ const routes: Routes = [
     path: 'clase6-dev-modulo-angular',
     loadComponent: () => import('./clase6-dev-modulo-angular/clase6-dev-modulo-angular.component').then(m => m.Clase6DevModuloAngularComponent)
   },
+  {
+    path: 'clase7-dev-frontend-legacy',
+    loadComponent: () => import('./clase7-dev-frontend-legacy/clase7-dev-frontend-legacy.component').then(m => m.Clase7DevFrontendLegacyComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 
