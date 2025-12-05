@@ -236,6 +236,15 @@ export class StudyPlanComponent {
           colorFrom: 'from-emerald-500',
           colorTo: 'to-green-600',
           items: ['Cypress setup', 'Page Object pattern', 'cy.intercept()', 'CI/CD integration']
+        },
+        {
+          route: '/clase10-dev-fastapi',
+          numero: 10,
+          titulo: 'FastAPI Python',
+          subtitulo: 'API REST de Alto Performance',
+          colorFrom: 'from-green-500',
+          colorTo: 'to-emerald-600',
+          items: ['Pydantic schemas', 'Async/await', 'Swagger auto', 'Pytest tests']
         }
       ]
     }

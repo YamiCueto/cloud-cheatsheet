@@ -115,6 +115,10 @@ const routes: Routes = [
     path: 'clase9-dev-testing-e2e',
     loadComponent: () => import('./clase9-dev-testing-e2e/clase9-dev-testing-e2e.component').then(m => m.Clase9DevTestingE2eComponent)
   },
+  {
+    path: 'clase10-dev-fastapi',
+    loadComponent: () => import('./clase10-dev-fastapi/clase10-dev-fastapi.component').then(m => m.Clase10DevFastapiComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 
