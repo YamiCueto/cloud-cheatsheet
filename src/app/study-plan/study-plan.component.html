@@ -144,28 +144,87 @@
       </div>
 
       <!-- Plan para DEV's -->
-      <div class="block bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="bg-gradient-to-r from-blue-600 to-cyan-600 p-6">
-          <div class="flex items-center gap-4">
-            <span class="text-5xl">💻</span>
-            <div>
-              <h2 class="text-3xl font-bold text-white">Plan de Estudio para DEV's</h2>
-              <p class="text-white/90 mt-1">Capacitación en desarrollo y arquitectura con IA Generativa</p>
-              <p class="text-white/80 text-sm mt-2">Desarrollo Full Stack con IA como copiloto</p>
+      <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+        <!-- Header clickeable -->
+        <div (click)="togglePlanDev()" class="cursor-pointer bg-gradient-to-r from-blue-600 to-cyan-600 p-6 hover:shadow-2xl transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <span class="text-5xl">💻</span>
+              <div>
+                <h2 class="text-3xl font-bold text-white">Plan de Estudio para DEV's</h2>
+                <p class="text-white/90 mt-1">Capacitación en desarrollo y arquitectura con IA Generativa</p>
+                <p class="text-white/80 text-sm mt-2">Desarrollo Full Stack con IA como copiloto</p>
+              </div>
+            </div>
+            <div class="transform transition-transform duration-300" [class.rotate-180]="planDevExpanded">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </div>
           </div>
         </div>
-        <div class="p-6 bg-gray-50">
-          <ul class="space-y-2 text-gray-600">
-            <li>✅ Backend y APIs con IA</li>
-            <li>✅ Frontend moderno y migración de código</li>
-            <li>✅ Arquitectura y mejores prácticas</li>
-            <li>✅ Refactoring y documentación automatizada</li>
-          </ul>
-          <div class="mt-4 text-center">
-            <span class="text-blue-600 font-semibold">
-              👇 Click para ver todas las clases
+
+        <!-- Preview cuando está colapsado -->
+        <div *ngIf="!planDevExpanded" class="p-6 bg-gradient-to-br from-blue-50 to-cyan-50">
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-blue-700 shadow-sm">
+              ⏱️ 12 horas de práctica
             </span>
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-cyan-700 shadow-sm">
+              📋 11 talleres completos
+            </span>
+            <span class="bg-white px-4 py-2 rounded-full text-sm font-semibold text-indigo-700 shadow-sm">
+              🎯 Nivel: Intermedio a Avanzado
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-sm text-gray-700">
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Backend y APIs con IA</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Frontend moderno</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Migración de código legacy</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600">✅</span>
+              <span>Arquitectura y refactoring</span>
+            </div>
+          </div>
+          <div class="mt-4 text-center">
+            <button (click)="togglePlanDev(); $event.stopPropagation()" class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+              👇 Click para ver todas las clases
+            </button>
+          </div>
+        </div>
+
+        <!-- Contenido expandible -->
+        <div *ngIf="planDevExpanded" class="p-6 bg-gray-50" [@slideDown]>
+          <!-- Información general -->
+          <div class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-600 rounded">
+            <h3 class="font-bold text-blue-900 mb-2">📚 Sobre este plan</h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>✅ De usuario casual a Prompt Engineer profesional</li>
+              <li>✅ 11 clases prácticas con entregables reales</li>
+              <li>✅ Stack completo: Java, Angular, Python, Node.js, AWS</li>
+              <li>✅ Migración de código legacy a arquitectura moderna</li>
+            </ul>
+            <div class="mt-4">
+              <a routerLink="/plan-dev-detallado" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-semibold">
+                📖 Ver Plan Completo Detallado
+              </a>
+            </div>
+          </div>
+
+          <!-- Nota de clases en construcción -->
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-6">
+            <p class="text-yellow-800 text-sm">
+              <strong>📝 En construcción:</strong> Las clases individuales con slides están en desarrollo. Por ahora puedes ver el plan completo haciendo click en el botón de arriba.
+            </p>
           </div>
         </div>
       </div>

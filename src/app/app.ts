@@ -57,7 +57,8 @@ export class App {
       '/clase7-frontend-legacy-vanilla': 'Aprende IA / Clase 7: Frontend Legacy',
       '/clase8-migracion-angular': 'Aprende IA / Clase 8: Migración Angular',
       '/clase9-testing-e2e': 'Aprende IA / Clase 9: Testing E2E',
-      '/roadmaps': 'AWS Roadmaps'
+      '/roadmaps': 'AWS Roadmaps',
+      '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
 
     return routeTitles[this.currentRoute] || 'Página actual';
@@ -88,6 +89,8 @@ export class App {
 
       if (this.currentRoute === '/plan-detalle') {
         breadcrumbs.push({ label: 'Plan de QA' });
+      } else if (this.currentRoute === '/plan-dev-detallado') {
+        breadcrumbs.push({ label: 'Plan de DEV' });
       } else if (this.currentRoute.startsWith('/clase')) {
         breadcrumbs.push({ label: 'Plan de QA', url: '/plan-detalle' });
 
