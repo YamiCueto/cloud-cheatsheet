@@ -99,6 +99,10 @@ const routes: Routes = [
     path: 'clase5-dev-testing-avanzado',
     loadComponent: () => import('./clase5-dev-testing-avanzado/clase5-dev-testing-avanzado.component').then(m => m.Clase5DevTestingAvanzadoComponent)
   },
+  {
+    path: 'clase6-dev-modulo-angular',
+    loadComponent: () => import('./clase6-dev-modulo-angular/clase6-dev-modulo-angular.component').then(m => m.Clase6DevModuloAngularComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

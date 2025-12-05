@@ -62,6 +62,7 @@ export class App {
       '/clase3-dev-migracion-legacy': 'Aprende IA / Clase 3 DEV: Migración Legacy',
       '/clase4-dev-integracion-apis': 'Aprende IA / Clase 4 DEV: Integración APIs',
       '/clase5-dev-testing-avanzado': 'Aprende IA / Clase 5 DEV: Testing Avanzado',
+      '/clase6-dev-modulo-angular': 'Aprende IA / Clase 6 DEV: Módulo Angular',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
@@ -106,7 +107,8 @@ export class App {
             '/clase2-dev-spring-boot': 'Clase 2: Spring Boot',
             '/clase3-dev-migracion-legacy': 'Clase 3: Migración Legacy',
             '/clase4-dev-integracion-apis': 'Clase 4: Integración APIs',
-            '/clase5-dev-testing-avanzado': 'Clase 5: Testing Avanzado'
+            '/clase5-dev-testing-avanzado': 'Clase 5: Testing Avanzado',
+            '/clase6-dev-modulo-angular': 'Clase 6: Módulo Angular'
           };
 
           breadcrumbs.push({ label: claseDevNames[this.currentRoute] || 'Clase' });

@@ -200,6 +200,15 @@ export class StudyPlanComponent {
           colorFrom: 'from-teal-500',
           colorTo: 'to-green-600',
           items: ['JUnit 5 + Mockito', 'Testcontainers', 'Cobertura con JaCoCo', 'Tests E2E con WireMock']
+        },
+        {
+          route: '/clase6-dev-modulo-angular',
+          numero: 6,
+          titulo: 'Módulo Angular',
+          subtitulo: 'CRUD Completo con Material',
+          colorFrom: 'from-pink-500',
+          colorTo: 'to-rose-600',
+          items: ['Lazy loading + routing', 'Reactive Forms', 'HttpClient + interceptores', 'Angular Material']
         }
       ]
     }
