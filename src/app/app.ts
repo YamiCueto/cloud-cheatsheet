@@ -11,7 +11,7 @@ export class App {
   // Control del submenu de Roadmaps en el sidebar
   public roadmapsOpen = true;
   // Control del submenu de Aprende IA en el sidebar
-  public aprendeIAOpen = false;
+  public aprendeIAOpen = true;
   // Control para colapsar/expandir el sidebar
   public sidebarCollapsed = false;
 

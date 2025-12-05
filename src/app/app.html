@@ -47,15 +47,19 @@
 						<mat-icon class="ml-auto text-gray-400" [class.rotate-90]="!aprendeIAOpen" *ngIf="!sidebarCollapsed">chevron_right</mat-icon>
 					</button>
 					<nav *ngIf="aprendeIAOpen" class="ml-3 mt-2 flex flex-col gap-2 text-sm">
-						<a routerLink="/study-plan" class="hover:underline flex items-center gap-2">
-							<mat-icon class="text-gray-400">home</mat-icon>
-							<span *ngIf="!sidebarCollapsed">Inicio</span>
-						</a>
-						<a routerLink="/plan-detalle" class="hover:underline flex items-center gap-2">
-							<mat-icon class="text-gray-400">description</mat-icon>
-							<span *ngIf="!sidebarCollapsed">Plan Completo</span>
-						</a>
-						<div class="border-t border-gray-600 my-2"></div>
+					<a routerLink="/study-plan" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">home</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Inicio</span>
+					</a>
+					<a routerLink="/plan-detalle" class="hover:underline flex items-center gap-2">
+						<mat-icon class="text-gray-400">science</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Plan de QA</span>
+					</a>
+					<div class="border-t border-gray-600 my-2"></div>
+					<div *ngIf="!sidebarCollapsed" class="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold py-2 px-3 rounded-lg mb-2 flex items-center gap-2">
+						<span>🧪</span>
+						<span>CLASES QA</span>
+					</div>
 						<a routerLink="/clase1-ia-generativa" class="hover:underline flex items-center gap-2">
 							<mat-icon class="text-gray-400">looks_one</mat-icon>
 							<span *ngIf="!sidebarCollapsed">Clase 1: IA Generativa</span>
