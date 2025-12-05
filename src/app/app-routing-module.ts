@@ -119,6 +119,14 @@ const routes: Routes = [
     path: 'clase10-dev-fastapi',
     loadComponent: () => import('./clase10-dev-fastapi/clase10-dev-fastapi.component').then(m => m.Clase10DevFastapiComponent)
   },
+  {
+    path: 'clase11-dev-lambda-serverless',
+    loadComponent: () => import('./clase11-dev-lambda-serverless/clase11-dev-lambda-serverless.component').then(m => m.Clase11DevLambdaServerlessComponent)
+  },
+  {
+    path: 'clase12-dev-proyecto-final',
+    loadComponent: () => import('./clase12-dev-proyecto-final/clase12-dev-proyecto-final.component').then(m => m.Clase12DevProyectoFinalComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

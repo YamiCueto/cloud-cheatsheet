@@ -67,6 +67,8 @@ export class App {
       '/clase8-dev-estado-rxjs': 'Aprende IA / Clase 8 DEV: Estado RxJS',
       '/clase9-dev-testing-e2e': 'Aprende IA / Clase 9 DEV: Testing E2E',
       '/clase10-dev-fastapi': 'Aprende IA / Clase 10 DEV: FastAPI Python',
+      '/clase11-dev-lambda-serverless': 'Aprende IA / Clase 11 DEV: Lambda Serverless',
+      '/clase12-dev-proyecto-final': 'Aprende IA / Clase 12 DEV: Proyecto Final Integrado',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
     };
@@ -116,7 +118,9 @@ export class App {
             '/clase7-dev-frontend-legacy': 'Clase 7: Frontend Legacy',
             '/clase8-dev-estado-rxjs': 'Clase 8: Estado RxJS',
             '/clase9-dev-testing-e2e': 'Clase 9: Testing E2E',
-            '/clase10-dev-fastapi': 'Clase 10: FastAPI Python'
+            '/clase10-dev-fastapi': 'Clase 10: FastAPI Python',
+            '/clase11-dev-lambda-serverless': 'Clase 11: Lambda Serverless',
+            '/clase12-dev-proyecto-final': 'Clase 12: Proyecto Final'
           };
 
           breadcrumbs.push({ label: claseDevNames[this.currentRoute] || 'Clase' });

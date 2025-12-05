@@ -245,6 +245,24 @@ export class StudyPlanComponent {
           colorFrom: 'from-green-500',
           colorTo: 'to-emerald-600',
           items: ['Pydantic schemas', 'Async/await', 'Swagger auto', 'Pytest tests']
+        },
+        {
+          route: '/clase11-dev-lambda-serverless',
+          numero: 11,
+          titulo: 'Lambda Serverless',
+          subtitulo: 'AWS + Node.js + TypeScript',
+          colorFrom: 'from-cyan-500',
+          colorTo: 'to-blue-600',
+          items: ['Lambda + SAM', 'S3 triggers', 'DynamoDB', 'CloudWatch']
+        },
+        {
+          route: '/clase12-dev-proyecto-final',
+          numero: 12,
+          titulo: 'Proyecto Final Integrado',
+          subtitulo: 'Full-Stack + Microservicios + Cloud',
+          colorFrom: 'from-purple-500',
+          colorTo: 'to-pink-600',
+          items: ['4 microservicios', 'Angular SPA', 'Lambda orchestrator', 'Tests E2E']
         }
       ]
     }
