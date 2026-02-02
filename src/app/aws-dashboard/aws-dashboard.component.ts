@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { translations, categoryTranslations } from './translations';
 import { serviceTranslations } from './service-translations';
 
@@ -24,7 +25,7 @@ interface AwsService {
 @Component({
   selector: 'app-aws-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIconModule],
   templateUrl: './aws-dashboard.component.html',
   styleUrls: ['./aws-dashboard.component.css']
 })
@@ -1151,6 +1152,45 @@ DescribeAlarmsResponse response =
     setTimeout(() => {
       this.selectedService = null;
     }, 300);
+  }
+
+  getCategoryIcon(category: string): string {
+    const iconMap: { [key: string]: string } = {
+      'all': 'apps',
+      'Compute': 'computer',
+      'Storage': 'storage',
+      'Database': 'database',
+      'Networking': 'lan',
+      'Security': 'security',
+      'DevOps': 'code',
+      'Machine Learning': 'psychology',
+      'Serverless': 'functions'
+    };
+    return iconMap[category] || 'category';
+  }
+
+  getServiceIcon(service: AwsService): string {
+    const iconMap: { [key: string]: string } = {
+      'EC2': 'computer',
+      'Lambda': 'functions',
+      'S3': 'storage',
+      'RDS': 'database',
+      'DynamoDB': 'table_chart',
+      'VPC': 'lan',
+      'CloudFront': 'cloud',
+      'Route 53': 'dns',
+      'IAM': 'security',
+      'CloudWatch': 'monitoring',
+      'ECS': 'view_in_ar',
+      'EKS': 'view_in_ar',
+      'SageMaker': 'psychology',
+      'SNS': 'notifications',
+      'SQS': 'queue',
+      'API Gateway': 'api',
+      'CloudFormation': 'account_tree',
+      'Elastic Beanstalk': 'cloud_upload'
+    };
+    return iconMap[service.name] || 'cloud';
   }
 
 }

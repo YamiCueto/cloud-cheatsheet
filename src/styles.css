@@ -31,6 +31,8 @@ html, body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #1a1d29;
+  color: #e5e7eb;
 }
 
 /* Prevent horizontal scroll globally */
@@ -44,6 +46,79 @@ app-root {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+}
+
+/* Smooth transitions for route changes */
+router-outlet ~ * {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1d29;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3348;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF9900;
+}
+
+/* Material Icons adjustments */
+.mat-icon {
+  vertical-align: middle;
+}
+
+/* Links in dark mode */
+a {
+  color: #FF9900;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffad33;
+}
+
+/* Code blocks in dark mode */
+code {
+  background: #232837;
+  color: #FF9900;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+pre {
+  background: #232837;
+  color: #e5e7eb;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #2d3348;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
 }
 
 /* -----------------------------

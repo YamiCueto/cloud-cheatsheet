@@ -1,1 +1,136 @@
 /* DVA Roadmap Styles */
+
+:root {
+  --aws-orange: #FF9900;
+  --aws-dark: #232F3E;
+  --dark-bg: #1a1d29;
+  --dark-card: #232837;
+  --dark-sidebar: #1e2230;
+  --dark-border: #2d3348;
+}
+
+#roadmap-dva {
+  background: var(--dark-bg);
+}
+
+/* Material Stepper Dark Theme */
+::ng-deep mat-horizontal-stepper {
+  background: transparent !important;
+}
+
+::ng-deep .mat-stepper-horizontal {
+  background: transparent !important;
+}
+
+::ng-deep .mat-step-header {
+  background: transparent !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: var(--dark-sidebar) !important;
+  color: #9ca3af !important;
+  border: 2px solid var(--dark-border);
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: var(--aws-orange) !important;
+  color: white !important;
+  border-color: var(--aws-orange);
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-done {
+  background-color: #10b981 !important;
+  color: white !important;
+  border-color: #10b981;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+  color: #9ca3af !important;
+}
+
+::ng-deep .mat-step-header .mat-step-label-selected {
+  color: white !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  background: var(--dark-sidebar) !important;
+  border-radius: 0.75rem;
+  padding: 1rem 0.5rem;
+  margin-bottom: 2rem;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+  border-top-color: var(--dark-border) !important;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  padding: 1.5rem 0 !important;
+}
+
+/* Material Checkbox Dark Theme */
+::ng-deep .mat-mdc-checkbox {
+  --mdc-checkbox-unselected-icon-color: var(--dark-border);
+  --mdc-checkbox-selected-icon-color: var(--aws-orange);
+  --mdc-checkbox-selected-focus-icon-color: var(--aws-orange);
+  --mdc-checkbox-selected-hover-icon-color: var(--aws-orange);
+  --mdc-checkbox-selected-pressed-icon-color: var(--aws-orange);
+}
+
+::ng-deep .mat-mdc-checkbox label {
+  color: #e5e7eb !important;
+}
+
+/* Material Progress Bar Dark Theme */
+::ng-deep .mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-height: 8px;
+  --mdc-linear-progress-track-height: 8px;
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+  border-color: var(--aws-orange) !important;
+}
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__buffer-bar {
+  background-color: var(--dark-sidebar) !important;
+}
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__buffer-dots {
+  background-color: var(--dark-sidebar) !important;
+}
+
+/* Material Buttons */
+::ng-deep .mat-mdc-raised-button.mat-primary,
+::ng-deep .mat-mdc-raised-button.mat-accent {
+  --mdc-protected-button-container-color: var(--aws-orange);
+  --mdc-protected-button-label-text-color: white;
+}
+
+::ng-deep .mat-mdc-button {
+  --mdc-text-button-label-text-color: #9ca3af;
+}
+
+::ng-deep .mat-mdc-button:hover {
+  --mdc-text-button-label-text-color: white;
+}
+
+::ng-deep .mat-mdc-raised-button:hover {
+  --mdc-protected-button-container-color: #ff8800;
+}
+
+/* Stepper content */
+::ng-deep .mat-horizontal-stepper-content {
+  padding: 1rem 0 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    padding: 0.5rem;
+  }
+
+  ::ng-deep .mat-step-label {
+    font-size: 0.875rem !important;
+  }
+}

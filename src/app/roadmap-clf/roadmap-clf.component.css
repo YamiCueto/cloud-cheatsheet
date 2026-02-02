@@ -1,11 +1,106 @@
 :root {
   --aws-orange: #FF9900;
   --aws-dark: #232F3E;
-  --aws-light-gray: #F2F3F3;
+  --dark-bg: #1a1d29;
+  --dark-card: #232837;
+  --dark-sidebar: #1e2230;
+  --dark-border: #2d3348;
 }
 
 #aws-roadmap {
-  background: var(--aws-light-gray);
+  background: var(--dark-bg);
+}
+
+/* Material Stepper Dark Theme */
+::ng-deep .roadmap-stepper {
+  background: var(--dark-card) !important;
+}
+
+::ng-deep .roadmap-stepper .mat-step-header {
+  background: transparent !important;
+}
+
+::ng-deep .roadmap-stepper .mat-step-header .mat-step-icon {
+  background-color: var(--dark-sidebar) !important;
+  color: #9ca3af !important;
+  border: 2px solid var(--dark-border);
+}
+
+::ng-deep .roadmap-stepper .mat-step-header .mat-step-icon-selected {
+  background-color: var(--aws-orange) !important;
+  color: white !important;
+  border-color: var(--aws-orange);
+}
+
+::ng-deep .roadmap-stepper .mat-step-header .mat-step-icon-state-done {
+  background-color: #10b981 !important;
+  color: white !important;
+  border-color: #10b981;
+}
+
+::ng-deep .roadmap-stepper .mat-step-header .mat-step-label {
+  color: #9ca3af !important;
+}
+
+::ng-deep .roadmap-stepper .mat-step-header .mat-step-label-selected {
+  color: white !important;
+}
+
+::ng-deep .roadmap-stepper .mat-horizontal-stepper-header-container {
+  background: var(--dark-sidebar) !important;
+  border-radius: 0.75rem;
+  padding: 1rem 0.5rem;
+  margin-bottom: 2rem;
+}
+
+::ng-deep .roadmap-stepper .mat-stepper-horizontal-line {
+  border-top-color: var(--dark-border) !important;
+}
+
+/* Material Checkbox Dark Theme */
+::ng-deep .roadmap-checkbox .mat-checkbox-frame {
+  border-color: var(--dark-border) !important;
+}
+
+::ng-deep .roadmap-checkbox .mat-checkbox-label {
+  color: #e5e7eb !important;
+}
+
+::ng-deep .roadmap-checkbox.mat-checkbox-checked .mat-checkbox-background {
+  background-color: var(--aws-orange) !important;
+}
+
+::ng-deep .roadmap-checkbox .mat-checkbox-checkmark-path {
+  stroke: white !important;
+}
+
+/* Material Progress Bar Dark Theme */
+::ng-deep .mat-progress-bar {
+  border-radius: 0.5rem !important;
+  height: 8px !important;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: var(--aws-orange) !important;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background-color: var(--dark-sidebar) !important;
+}
+
+/* Material Buttons */
+::ng-deep .mat-mdc-raised-button.mat-primary,
+::ng-deep .mat-mdc-raised-button.mat-accent {
+  background-color: var(--aws-orange) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-button {
+  color: #9ca3af !important;
+}
+
+::ng-deep .mat-mdc-button:hover {
+  color: white !important;
 }
 
 .bg-aws-orange {
