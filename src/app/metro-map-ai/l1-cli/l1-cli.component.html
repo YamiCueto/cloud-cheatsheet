@@ -1,0 +1,494 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+
+  <!-- Back button -->
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button
+          *ngFor="let slide of slides; let i = index"
+          (click)="goToSlide(i)"
+          class="w-2.5 h-2.5 rounded-full transition-all duration-200"
+          [class.bg-accent-orange]="i === currentSlide"
+          [class.bg-gray-300]="i !== currentSlide"
+          [attr.aria-label]="'Ir a diapositiva ' + (i + 1)"
+        ></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 1: TITLE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Command Line<br><span style="color: #f59e0b">Tools</span></h1>
+        <h2 class="subtitle">Estación 9 de 9 · Terminal, shell scripting y herramientas CLI para ML</h2>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon">⏱️</span>
+            <div><strong>Duración</strong><span>3–4 horas</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🎯</span>
+            <div><strong>Objetivo</strong><span>Productividad en terminal para ML</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🛠️</span>
+            <div><strong>Herramientas</strong><span>Bash · awk · sed · tmux · rsync</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📋</span>
+            <div><strong>Prerequisito</strong><span>Python básico · Git</span></div>
+          </div>
+        </div>
+
+        <div class="agenda-preview">
+          <h3>📋 Agenda</h3>
+          <div class="agenda-grid">
+            <span>🤔 ¿Por qué CLI en ML?</span>
+            <span>📁 Navegación de archivos</span>
+            <span>📝 Texto y archivos</span>
+            <span>🔗 Pipes y redirección</span>
+            <span>⚙️ Procesos y entorno</span>
+            <span>📜 Shell scripting</span>
+            <span>🐍 Herramientas ML</span>
+            <span>🏋️ Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2: WHY CLI
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'why-cli'" class="slide-content">
+        <h2>🤔 ¿Por qué dominar la terminal en ML?</h2>
+        <p class="slide-intro">
+          Los servidores de entrenamiento no tienen interfaz gráfica. SSH, tmux, y scripts bash son
+          <strong>tus únicos aliados</strong> cuando entrenas en la nube o en clusters de GPU.
+        </p>
+
+        <div class="theory-grid">
+          <div class="theory-card">
+            <div class="theory-icon">🖥️</div>
+            <h4>Servidores remotos</h4>
+            <p>AWS EC2, GCP VMs, HPC clusters — todos son Linux sin GUI. La terminal es la única interfaz.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">🤖</div>
+            <h4>Automatización</h4>
+            <p>Un script corre 100 experimentos mientras duermes. Clic a clic es imposible a esa escala.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">📊</div>
+            <h4>Procesamiento de datos</h4>
+            <p><code class="inline-code">grep | awk | sort</code> procesan GBs en segundos sin cargar nada en memoria Python.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">🔍</div>
+            <h4>Debug de producción</h4>
+            <p><code class="inline-code">tail -f</code>, <code class="inline-code">grep</code> en logs, <code class="inline-code">top</code> — diagnóstico en tiempo real sin reiniciar nada.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">🚀</div>
+            <h4>CI/CD pipelines</h4>
+            <p>GitHub Actions, Docker, Kubernetes — todos ejecutan scripts bash. Entenderlos es clave.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">⚡</div>
+            <h4>Velocidad</h4>
+            <p>Un experto en terminal es 5–10× más rápido que uno que depende de GUI para operaciones de archivos.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          💡 <strong>La realidad:</strong> Cuando preguntas en Stack Overflow por cómo hacer X en Python, la respuesta CLI de una línea muchas veces es 100× más rápida. <code class="inline-code">wc -l archivo.csv</code> vs un script Python que carga el CSV entero.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 3: NAVIGATION
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'navigation'" class="slide-content">
+        <h2>📁 Navegación y Sistema de Archivos</h2>
+        <p class="slide-intro">
+          Antes de cualquier otra cosa, muévete con confianza por el sistema de archivos.
+          Estos comandos los usarás <strong>decenas de veces al día</strong>.
+        </p>
+
+        <div class="theory-grid">
+          <div *ngFor="let cmd of navCommands" class="mini-card">
+            <strong><code>{{ cmd.cmd }}</code></strong>
+            <p>{{ cmd.desc }}</p>
+            <div class="output-block mt-1">
+              <pre style="font-size: 0.72rem;">{{ cmd.example }}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Atajos imprescindibles:</strong>
+          <code class="inline-code">Tab</code> autocompleta ·
+          <code class="inline-code">Ctrl+R</code> búsqueda en historial ·
+          <code class="inline-code">!!</code> repite último comando ·
+          <code class="inline-code">Ctrl+L</code> limpia pantalla ·
+          <code class="inline-code">Ctrl+C</code> interrumpe proceso
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4: FILES & TEXT
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'files-text'" class="slide-content">
+        <h2>📝 Manejo de Archivos y Texto</h2>
+        <p class="slide-intro">
+          En ML manejas datasets, logs, configuraciones y modelos constantemente.
+          Estos comandos te permiten inspeccionarlos y transformarlos sin abrir Python.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># ── Inspección rápida ─────────────────────────────────
+cat archivo.csv           # Print completo (cuidado con archivos grandes)
+head -5 datos.csv         # Primeras 5 líneas (muy útil para CSVs)
+tail -20 training.log     # Últimas 20 líneas del log
+less datos.csv            # Lector paginado (tecla q para salir)
+
+# ── Contar ────────────────────────────────────────────
+wc -l datos.csv           # Número de líneas (= filas del dataset)
+wc -w archivo.txt         # Palabras
+wc -c archivo.bin         # Bytes
+
+# ── Buscar ────────────────────────────────────────────
+grep "val_loss" training.log             # Buscar patrón
+grep -c "ERROR" training.log             # Contar coincidencias
+grep -v "DEBUG" training.log             # Invertir búsqueda (excluir)
+grep -E "epoch [0-9]+" training.log      # Regex extendida
+
+# ── Comparar ──────────────────────────────────────────
+diff modelo_v1.py modelo_v2.py           # Diferencias entre archivos
+diff -u modelo_v1.py modelo_v2.py        # Formato unificado (como git diff)
+
+# ── Comprimir y descomprimir ──────────────────────────
+tar -czf backup.tar.gz modelos/          # Comprimir directorio
+tar -xzf backup.tar.gz                   # Descomprimir
+gzip datos.csv                           # Comprimir un archivo
+gunzip datos.csv.gz                      # Descomprimir
+zip -r proyecto.zip src/ data/processed/ # Crear zip
+
+# ── Copiar, mover, eliminar pasivos ───────────────────
+cp -r data/processed/ backups/           # Copiar directorio recursivo
+mv experimento_v1/ experimento_final/    # Mover / renombrar
+rm -rf logs/old/                         # ⚠️ Borrar recursivo — sin papelera</code></pre>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ <code class="inline-code">rm -rf</code> no tiene papelera de reciclaje. Ante la duda usa
+          <code class="inline-code">mv</code> a una carpeta <code class="inline-code">trash/</code> temporal.
+          En producción, siempre prefiere <code class="inline-code">-i</code> (interactivo) para confirmar.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5: PIPES & REDIRECTS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pipes-redirects'" class="slide-content">
+        <h2>🔗 Pipes, Redirección y Procesamiento de Texto</h2>
+        <p class="slide-intro">
+          El <strong>pipe <code>|</code></strong> es la filosofía UNIX: programas pequeños que hacen una cosa bien,
+          conectados para construir pipelines poderosos. Es literalmente el origen del nombre "pipeline" en ML.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of pipeExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activePipeTab === ti"
+            (click)="activePipeTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ pipeExamples[activePipeTab].code }}</code></pre>
+          <div *ngIf="pipeExamples[activePipeTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ pipeExamples[activePipeTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Regla de oro UNIX:</strong> "Do one thing and do it well."
+          Conecta herramientas simples en lugar de escribir scripts complejos cuando sea posible.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6: PROCESS & ENV
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'process-env'" class="slide-content">
+        <h2>⚙️ Procesos y Variables de Entorno</h2>
+        <p class="slide-intro">
+          Al entrenar modelos necesitas manejar <strong>procesos en background</strong>, revisar uso de GPU/CPU,
+          y configurar el entorno con variables que Python leerá en tiempo de ejecución.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># ── Gestión de procesos ───────────────────────────────
+ps aux | grep python              # Ver procesos Python corriendo
+kill 12345                        # Terminar proceso por PID
+kill -9 12345                     # Forzar terminación (SIGKILL)
+pkill -f "train.py"               # Matar por nombre del script
+
+# Background y foreground
+python train.py &                 # Correr en background
+jobs                              # Ver procesos background de esta shell
+fg %1                             # Traer proceso 1 al foreground
+Ctrl+Z                            # Suspender proceso actual
+bg %1                             # Continuar proceso 1 en background
+
+# ── Variables de entorno ───────────────────────────────
+export MI_VAR="valor"             # Definir variable de entorno
+echo $MI_VAR                      # Usar variable
+printenv                          # Ver todas las variables
+env | grep PYTHON                 # Filtrar variables
+
+# Variables críticas para ML
+export PYTHONPATH="$PWD/src:$PYTHONPATH"
+export CUDA_VISIBLE_DEVICES="0,1"       # Usar GPU 0 y 1
+export TF_CPP_MIN_LOG_LEVEL="3"         # Silenciar logs TensorFlow
+export TOKENIZERS_PARALLELISM="false"   # HuggingFace warning
+
+# ── .env files — secrets y config del proyecto ────────
+cat > .env << 'EOF'
+WANDB_API_KEY=tu_api_key_aqui
+DATABASE_URL=postgresql://user:pass@localhost/ml_db
+MODEL_CACHE=/data/models
+EOF
+
+# Cargar en bash
+set -a; source .env; set +a
+
+# En Python con python-dotenv
+# from dotenv import load_dotenv
+# load_dotenv()</code></pre>
+          <div class="output-block">
+            <span class="output-label">ps aux | grep python</span>
+            <pre>usuario  12345  98.2  2.1  python train.py --epochs 100
+usuario  12346  0.0   0.1  grep --color=auto python</pre>
+          </div>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ Nunca hagas <code class="inline-code">export API_KEY=...</code> en un script que commitees a Git.
+          Usa un <code class="inline-code">.env</code> listado en <code class="inline-code">.gitignore</code> y compártelo de forma segura (1Password, AWS Secrets Manager, etc.).
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7: SHELL SCRIPTING
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'shell-scripting'" class="slide-content">
+        <h2>📜 Shell Scripting para ML</h2>
+        <p class="slide-intro">
+          Un script bash bien escrito reemplaza decenas de comandos manuales.
+          En ML, los usarás para automatizar pipelines de datos, grid searches y despliegues.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of scriptExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeScriptTab === ti"
+            (click)="activeScriptTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ scriptExamples[activeScriptTab].code }}</code></pre>
+          <div *ngIf="scriptExamples[activeScriptTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ scriptExamples[activeScriptTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Siempre empieza con:</strong>
+          <code class="inline-code">#!/usr/bin/env bash</code> (shebang portable) y
+          <code class="inline-code">set -euo pipefail</code> (salir en error, detectar variables sin definir).
+          Usa <a href="https://www.shellcheck.net/" target="_blank" rel="noopener noreferrer" class="resource-link">ShellCheck</a> para validar tus scripts.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8: ML CLI TOOLS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'ml-cli-tools'" class="slide-content">
+        <h2>🐍 Herramientas CLI para el Flujo ML</h2>
+        <p class="slide-intro">
+          El ecosistema ML tiene herramientas de terminal que van más allá de Python básico:
+          gestores de paquetes modernos, monitoreo de GPU, sesiones persistentes y transferencia de datos.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of mlToolsExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeMlToolsTab === ti"
+            (click)="activeMlToolsTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ mlToolsExamples[activeMlToolsTab].code }}</code></pre>
+          <div *ngIf="mlToolsExamples[activeMlToolsTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ mlToolsExamples[activeMlToolsTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Tmux es indispensable en servidores:</strong> Si tu SSH se cae, el proceso sigue corriendo en su sesión tmux.
+          Álias útil: <code class="inline-code">alias tt="tmux new -s"</code> · <code class="inline-code">alias ta="tmux attach -t"</code>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9: CHALLENGE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Pon a prueba tus habilidades en la terminal. Elige tu nivel:</p>
+
+        <div class="challenge-tabs">
+          <button
+            *ngFor="let ch of challenges; let ci = index"
+            class="challenge-tab-btn"
+            [class.active]="selectedChallenge === ci"
+            (click)="selectedChallenge = ci"
+          >
+            <span class="text-lg">{{ ci === 0 ? '🟢' : ci === 1 ? '🟡' : '🔴' }}</span>
+            <span>{{ ch.difficulty }}</span>
+          </button>
+        </div>
+
+        <div class="challenge-card" [style.border-left-color]="challenges[selectedChallenge].difficultyColor.includes('green') ? '#4ade80' : challenges[selectedChallenge].difficultyColor.includes('yellow') ? '#facc15' : '#f87171'">
+          <div class="challenge-header">
+            <span class="badge" [ngClass]="challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
+          <div class="code-block-wrapper mb-3">
+            <pre class="code-block"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul>
+              <li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10: SUMMARY
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <h2>✅ Resumen — Command Line Tools</h2>
+        <p class="slide-intro">
+          🎉 ¡Completaste la Línea 1: Foundations! Ahora dominas el toolkit de un ML Engineer:
+        </p>
+
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-icon">📁</span>
+            <div>
+              <strong>Navegación</strong>
+              <p>pwd · ls · cd · find · tree · du · mkdir · cp · mv · rm</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📝</span>
+            <div>
+              <strong>Texto y archivos</strong>
+              <p>cat · head · tail · grep · wc · diff · tar · gzip</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🔗</span>
+            <div>
+              <strong>Pipes y redirección</strong>
+              <p>| · &gt; · &gt;&gt; · 2&gt; · tee · awk · sed · xargs</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">⚙️</span>
+            <div>
+              <strong>Procesos y entorno</strong>
+              <p>ps · kill · bg/fg · export · .env · nohup · &amp;</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📜</span>
+            <div>
+              <strong>Shell scripting</strong>
+              <p>set -euo pipefail · variables · bucles · condicionales · funciones</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🐍</span>
+            <div>
+              <strong>Herramientas ML</strong>
+              <p>python -m · uv · tmux · nvidia-smi · rsync · pre-commit</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-station-card mt-6">
+          <div class="next-station-label">🚉 Siguiente Línea</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">
+            Ver en el MetroMap <span>→</span>
+          </a>
+        </div>
+
+        <div class="tip-box mt-4">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://tldr.sh/" target="_blank" rel="noopener noreferrer" class="resource-link">tldr-pages (ayuda rápida)</a> ·
+            <a href="https://explainshell.com/" target="_blank" rel="noopener noreferrer" class="resource-link">explainshell.com</a> ·
+            <a href="https://www.shellcheck.net/" target="_blank" rel="noopener noreferrer" class="resource-link">ShellCheck</a>
+          </span>
+        </div>
+      </div>
+
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
+</div>

@@ -135,6 +135,38 @@ const routes: Routes = [
     path: 'metro-map-ai/l1-python-basics',
     loadComponent: () => import('./metro-map-ai/l1-python-basics/l1-python-basics.component').then(m => m.L1PythonBasicsComponent)
   },
+  {
+    path: 'metro-map-ai/l1-numpy-pandas',
+    loadComponent: () => import('./metro-map-ai/l1-numpy-pandas/l1-numpy-pandas.component').then(m => m.L1NumpyPandasComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-dsa',
+    loadComponent: () => import('./metro-map-ai/l1-dsa/l1-dsa.component').then(m => m.L1DsaComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-linear-algebra',
+    loadComponent: () => import('./metro-map-ai/l1-linear-algebra/l1-linear-algebra.component').then(m => m.L1LinearAlgebraComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-probability-stats',
+    loadComponent: () => import('./metro-map-ai/l1-probability-stats/l1-probability-stats.component').then(m => m.L1ProbabilityStatsComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-calculus',
+    loadComponent: () => import('./metro-map-ai/l1-calculus/l1-calculus.component').then(m => m.L1CalculusComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-data-viz',
+    loadComponent: () => import('./metro-map-ai/l1-data-viz/l1-data-viz.component').then(m => m.L1DataVizComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-git',
+    loadComponent: () => import('./metro-map-ai/l1-git/l1-git.component').then(m => m.L1GitComponent)
+  },
+  {
+    path: 'metro-map-ai/l1-cli',
+    loadComponent: () => import('./metro-map-ai/l1-cli/l1-cli.component').then(m => m.L1CliComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

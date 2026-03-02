@@ -1,0 +1,490 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+
+  <!-- Back button -->
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button
+          *ngFor="let slide of slides; let i = index"
+          (click)="goToSlide(i)"
+          class="w-2.5 h-2.5 rounded-full transition-all duration-200"
+          [class.bg-accent-orange]="i === currentSlide"
+          [class.bg-gray-300]="i !== currentSlide"
+          [attr.aria-label]="'Ir a diapositiva ' + (i + 1)"
+        ></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 1: TITLE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Data Wrangling<br><span style="color: #f59e0b">&amp; Visualization</span></h1>
+        <h2 class="subtitle">Estación 8 de 9 · Del dato crudo al insight accionable</h2>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon">⏱️</span>
+            <div><strong>Duración</strong><span>4–6 horas</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🎯</span>
+            <div><strong>Objetivo</strong><span>Dominar EDA y visualización</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🛠️</span>
+            <div><strong>Herramientas</strong><span>Pandas · Matplotlib · Seaborn</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📋</span>
+            <div><strong>Prerequisito</strong><span>NumPy · Pandas básico</span></div>
+          </div>
+        </div>
+
+        <div class="agenda-preview">
+          <h3>📋 Agenda</h3>
+          <div class="agenda-grid">
+            <span>📊 ¿Por qué EDA?</span>
+            <span>🕳️ Valores faltantes</span>
+            <span>📐 Outliers</span>
+            <span>⚙️ Feature Engineering</span>
+            <span>🎨 Matplotlib</span>
+            <span>🌊 Seaborn</span>
+            <span>🤖 Pandas Profiling</span>
+            <span>🏋️ Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2: WHY DATA VIZ
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'why-dataviz'" class="slide-content">
+        <h2>📊 ¿Por qué EDA antes de modelar?</h2>
+        <p class="slide-intro">
+          El <strong>Análisis Exploratorio de Datos (EDA)</strong> es la fase donde un 80% del trabajo real de Data Science ocurre.
+          Modelos entrenados sobre datos sucios producen predicciones incorrectas — <em>garbage in, garbage out</em>.
+        </p>
+
+        <div class="theory-grid">
+          <div class="theory-card">
+            <div class="theory-icon">🐛</div>
+            <h4>Detectar errores</h4>
+            <p>Valores imposibles, fechas incoherentes, labels mal codificadas — invisibles sin EDA.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">📐</div>
+            <h4>Entender distribuciones</h4>
+            <p>¿Normal? ¿Sesgada? ¿Multimodal? Esto dicta normalización y elección de modelo.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">🔗</div>
+            <h4>Revelar correlaciones</h4>
+            <p>Features redundantes aumentan overfitting; features correladas con el target son oro.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">⚖️</div>
+            <h4>Detectar desbalance</h4>
+            <p>Un modelo sobre el 99% de clase A y 1% de clase B necesita estrategias especiales.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">💡</div>
+            <h4>Guiar features</h4>
+            <p>EDA visual sugiere transformaciones: log, polinomios, binning, interacciones.</p>
+          </div>
+          <div class="theory-card">
+            <div class="theory-icon">🤝</div>
+            <h4>Comunicar</h4>
+            <p>Gráficos claros permiten validar suposiciones con stakeholders antes de modelar.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          💡 <strong>Regla práctica:</strong> Antes de entrenar cualquier modelo, genera al menos: (1) distribución de cada variable, (2) heatmap de correlación, (3) conteo de missing values, (4) distribución del target.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 3: MISSING VALUES
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'missing-values'" class="slide-content">
+        <h2>🕳️ Valores Faltantes (Missing Values)</h2>
+        <p class="slide-intro">
+          Un dataset real siempre tiene missing values. La estrategia correcta depende del <strong>mecanismo de missing</strong>:
+          MCAR (aleatorio), MAR (relacionado con otros datos) o MNAR (relacionado con el valor mismo).
+        </p>
+
+        <div class="theory-grid">
+          <div
+            *ngFor="let s of missingStrategies"
+            class="theory-card"
+          >
+            <div class="theory-icon">{{ s.icon }}</div>
+            <h4>{{ s.name }}</h4>
+            <code class="inline-code">{{ s.code }}</code>
+            <p class="mt-1 text-xs text-gray-500"><strong>Cuándo:</strong> {{ s.when }}</p>
+            <p class="text-xs text-orange-600"><strong>Riesgo:</strong> {{ s.risk }}</p>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Detectar missing:</strong>
+          <code class="inline-code">df.isna().sum()</code> ·
+          <code class="inline-code">df.isna().mean() * 100</code> → porcentaje por columna.
+          Visualiza con <code class="inline-code">msno.matrix(df)</code> (librería missingno).
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4: OUTLIERS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'outliers'" class="slide-content">
+        <h2>📐 Detección y Tratamiento de Outliers</h2>
+        <p class="slide-intro">
+          Los outliers pueden ser errores de medición <em>o</em> señales valiosas. Antes de eliminarlos,
+          <strong>entiende su causa</strong>. En ML supervisado, un outlier en el target puede sesgar completamente el modelo.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of outlierExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeOutlierTab === ti"
+            (click)="activeOutlierTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ outlierExamples[activeOutlierTab].code }}</code></pre>
+          <div *ngIf="outlierExamples[activeOutlierTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ outlierExamples[activeOutlierTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ <strong>No elimines outliers automáticamente.</strong> Un salario de $500k puede ser real.
+          Primero verifica con el negocio; luego decide entre eliminar, winsorizar o transformar con log.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5: FEATURE ENGINEERING
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'feature-engineering'" class="slide-content">
+        <h2>⚙️ Feature Engineering</h2>
+        <p class="slide-intro">
+          Feature engineering es el arte de crear <strong>representaciones más informativas</strong> para el modelo.
+          Un buen feature supera muchas veces a un modelo más complejo.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>import pandas as pd
+import numpy as np
+
+df = pd.read_csv('datos.csv', parse_dates=['fecha'])
+
+# ── 1. Features temporales ─────────────────────────────
+df['mes']         = df['fecha'].dt.month
+df['dia_semana']  = df['fecha'].dt.dayofweek
+df['es_finde']    = df['dia_semana'].isin([5, 6]).astype(int)
+df['trimestre']   = df['fecha'].dt.quarter
+
+# Encoding cíclico (evita salto 11→0 en meses)
+df['mes_sin'] = np.sin(2 * np.pi * df['mes'] / 12)
+df['mes_cos'] = np.cos(2 * np.pi * df['mes'] / 12)
+
+# ── 2. Features de lag y rolling ──────────────────────
+df = df.sort_values('fecha')
+df['lag_7']        = df['ventas'].shift(7)
+df['lag_30']       = df['ventas'].shift(30)
+df['rolling_7']    = df['ventas'].rolling(7).mean()
+df['rolling_30']   = df['ventas'].rolling(30).mean()
+
+# ── 3. Transformaciones numéricas ─────────────────────
+df['log_precio'] = np.log1p(df['precio'])   # log(1+x) para ceros
+df['precio_bin'] = pd.cut(df['precio'], bins=5, labels=False)
+
+# ── 4. Interacciones ──────────────────────────────────
+df['ratio_precio_area'] = df['precio'] / (df['area'] + 1)
+
+# ── 5. Encoding categórico ─────────────────────────────
+df = pd.get_dummies(df, columns=['ciudad'], drop_first=True)  # OHE
+df['target_enc'] = df.groupby('categoria')['target'].transform('mean')  # Target enc</code></pre>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Regla de oro:</strong> Primero entiende el dominio — las mejores features vienen del negocio,
+          no de combinaciones matemáticas aleatorias. Usa <code class="inline-code">SelectKBest</code> o
+          <code class="inline-code">feature_importances_</code> para validar su utilidad.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6: MATPLOTLIB BASICS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'matplotlib-basics'" class="slide-content">
+        <h2>🎨 Matplotlib — Visualización Fundamental</h2>
+        <p class="slide-intro">
+          Matplotlib es la librería base. Aunque Seaborn y Plotly son más cómodos para EDA,
+          entender Matplotlib te da <strong>control total</strong> sobre cada elemento del gráfico.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of matplotlibExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeMatplotlibTab === ti"
+            (click)="activeMatplotlibTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ matplotlibExamples[activeMatplotlibTab].code }}</code></pre>
+          <div *ngIf="matplotlibExamples[activeMatplotlibTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ matplotlibExamples[activeMatplotlibTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Anatomía:</strong> <code class="inline-code">Figure</code> es el lienzo completo;
+          <code class="inline-code">Axes</code> es cada gráfico individual.
+          Siempre usa <code class="inline-code">fig, ax = plt.subplots()</code> en lugar de la API de estado global.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7: SEABORN CHARTS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'seaborn-charts'" class="slide-content">
+        <h2>🌊 Seaborn — EDA Estadístico</h2>
+        <p class="slide-intro">
+          Seaborn está construido sobre Matplotlib pero añade <strong>semántica estadística</strong>:
+          agrupa por categoría, calcula intervalos de confianza y elige paletas accesibles automáticamente.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of seabornExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeSeabornTab === ti"
+            (click)="activeSeabornTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ seabornExamples[activeSeabornTab].code }}</code></pre>
+          <div *ngIf="seabornExamples[activeSeabornTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ seabornExamples[activeSeabornTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Cheat sheet de elección:</strong>
+          Distribución → <code class="inline-code">histplot</code> / <code class="inline-code">kdeplot</code> ·
+          Relación → <code class="inline-code">scatterplot</code> / <code class="inline-code">regplot</code> ·
+          Categoría → <code class="inline-code">boxplot</code> / <code class="inline-code">violinplot</code> ·
+          Correlación → <code class="inline-code">heatmap</code>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8: PANDAS PROFILING
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pandas-profiling'" class="slide-content">
+        <h2>🤖 EDA Automatizado</h2>
+        <p class="slide-intro">
+          Para exploración inicial rápida existen herramientas que generan un reporte completo en
+          una sola línea. Son exploratorias — <strong>nunca sustituyen el EDA manual</strong> para datos de producción.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># ── Opción 1: ydata-profiling (antes pandas-profiling) ────────────
+pip install ydata-profiling
+
+from ydata_profiling import ProfileReport
+import pandas as pd
+
+df = pd.read_csv('dataset.csv')
+report = ProfileReport(df, title='EDA Report', explorative=True)
+report.to_file('eda_report.html')   # Abre en el navegador
+# o en Jupyter:
+report.to_notebook_iframe()
+
+# ── Opción 2: sweetviz ─────────────────────────────────────────────
+pip install sweetviz
+
+import sweetviz as sv
+reporte = sv.analyze(df, target_feat='precio')
+reporte.show_html('sweetviz_report.html')
+
+# ── Opción 3: dtale (interactivo) ──────────────────────────────────
+pip install dtale
+
+import dtale
+d = dtale.show(df)
+d.open_browser()   # UI interactiva con filtros, correlaciones, etc.
+
+# ── EDA mínimo propio (sin dependencias) ───────────────────────────
+def eda_rapido(df):
+    print(f"Shape: {df.shape}")
+    print(f"\nDtypes:\n{df.dtypes}")
+    print(f"\nMissing (%):\n{df.isna().mean().mul(100).round(1)}")
+    print(f"\nDescribe:\n{df.describe().T}")
+    print(f"\nDuplicados: {df.duplicated().sum()}")
+
+eda_rapido(df)</code></pre>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ <strong>En producción</strong> estos reportes pueden tardar minutos en datasets grandes.
+          Úsalos en la fase inicial de exploración, luego escribe EDA específico para las preguntas de negocio.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9: CHALLENGE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Pon a prueba lo aprendido. Selecciona tu nivel y resuelve el desafío en tu IDE.</p>
+
+        <div class="challenge-tabs">
+          <button
+            *ngFor="let ch of challenges; let ci = index"
+            class="challenge-tab-btn"
+            [class.active]="selectedChallenge === ci"
+            (click)="selectedChallenge = ci"
+          >
+            <span class="text-lg">{{ ci === 0 ? '🟢' : ci === 1 ? '🟡' : '🔴' }}</span>
+            <span>{{ ch.difficulty }}</span>
+          </button>
+        </div>
+
+        <div class="challenge-card" [style.border-left-color]="challenges[selectedChallenge].difficultyColor.includes('green') ? '#4ade80' : challenges[selectedChallenge].difficultyColor.includes('yellow') ? '#facc15' : '#f87171'">
+          <div class="challenge-header">
+            <span class="badge" [ngClass]="challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
+          <div class="code-block-wrapper mb-3">
+            <pre class="code-block"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul>
+              <li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10: SUMMARY
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <h2>✅ Resumen — Data Wrangling &amp; Viz</h2>
+        <p class="slide-intro">Lo que dominas ahora como Data Scientist:</p>
+
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-icon">🕳️</span>
+            <div>
+              <strong>Missing Values</strong>
+              <p>MCAR/MAR/MNAR · dropna · fillna · KNNImputer · IterativeImputer</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📐</span>
+            <div>
+              <strong>Outliers</strong>
+              <p>IQR método · Z-score · Winsorizing · clip() · visualización con boxplot</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">⚙️</span>
+            <div>
+              <strong>Feature Engineering</strong>
+              <p>Temporales · Lags · Rolling · Log transform · OHE · Target encoding</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🎨</span>
+            <div>
+              <strong>Matplotlib</strong>
+              <p>fig/ax API · histograma · KDE · subplots · scatter · bar</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🌊</span>
+            <div>
+              <strong>Seaborn</strong>
+              <p>heatmap · pairplot · violinplot · hue semántico · CI automático</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🤖</span>
+            <div>
+              <strong>EDA Automatizado</strong>
+              <p>ydata-profiling · sweetviz · dtale · eda propio sin dependencias</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-station-card mt-6">
+          <div class="next-station-label">🚉 Siguiente Estación</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">
+            Ver en el MetroMap <span>→</span>
+          </a>
+        </div>
+
+        <div class="tip-box mt-4">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://pandas.pydata.org/docs/user_guide/visualization.html"
+               target="_blank" rel="noopener noreferrer" class="resource-link">Pandas Visualization</a> ·
+            <a href="https://matplotlib.org/stable/gallery/index.html"
+               target="_blank" rel="noopener noreferrer" class="resource-link">Matplotlib Gallery</a> ·
+            <a href="https://seaborn.pydata.org/examples/index.html"
+               target="_blank" rel="noopener noreferrer" class="resource-link">Seaborn Examples</a>
+          </span>
+        </div>
+      </div>
+
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
+</div>

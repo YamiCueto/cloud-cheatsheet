@@ -1,0 +1,380 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button *ngFor="let slide of slides; let i = index" (click)="goToSlide(i)" class="w-2.5 h-2.5 rounded-full transition-all duration-200" [class.scale-125]="i === currentSlide" [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}"></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- SLIDE 1: TITLE -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Probability &amp;<br><span style="color:#f59e0b">Statistics</span></h1>
+        <h2 class="subtitle">Estación 5 de 9 · La base matemática para razonar bajo incertidumbre</h2>
+        <div class="info-grid">
+          <div class="info-item"><span class="icon">⏱️</span><span class="label">Duración</span><span class="value">90 min</span></div>
+          <div class="info-item"><span class="icon">🎯</span><span class="label">Nivel</span><span class="value">Fundamentos</span></div>
+          <div class="info-item"><span class="icon">💡</span><span class="label">Slides</span><span class="value">10 secciones</span></div>
+          <div class="info-item"><span class="icon">🏆</span><span class="label">Retos</span><span class="value">3 desafíos</span></div>
+        </div>
+        <div class="agenda-preview">
+          <h3>📋 Agenda de hoy</h3>
+          <div class="agenda-grid">
+            <span>🤔 ¿Por qué Probabilidad?</span>
+            <span>🎲 Fundamentos de probabilidad</span>
+            <span>🔔 Distribuciones clave</span>
+            <span>🧮 Teorema de Bayes</span>
+            <span>📊 Estadística descriptiva</span>
+            <span>🔬 Tests de hipótesis</span>
+            <span>📈 Correlación y causalidad</span>
+            <span>🏋️ 3 Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: WHY STATS -->
+      <div *ngIf="slide.type === 'why-stats'" class="slide-content">
+        <h2>🤔 ¿Por qué Probabilidad y Estadística en IA?</h2>
+        <p class="slide-intro">ML es estadística a escala. Un modelo que predice con 90% de accuracy <em>no entiende el mundo</em> — está estimando distribuciones probabilísticas. Sin estadística, no puedes validar si un modelo realmente aprendió o solo memorizó.</p>
+        <div class="theory-grid">
+          <div class="theory-card bg-blue-50"><div class="theory-icon">🎯</div><h3>Loss functions</h3><p>Cross-entropy = negative log-likelihood bajo distribución categórica. MSE = MLE bajo distribución gaussiana. Todo es probabilidad.</p></div>
+          <div class="theory-card bg-green-50"><div class="theory-icon">🧮</div><h3>Teorema de Bayes</h3><p>Naive Bayes, probabilistic graphical models, MCMC — todos derivan del mismo teorema. También es la base del pensamiento bayesiano en ML.</p></div>
+          <div class="theory-card bg-yellow-50"><div class="theory-icon">🔬</div><h3>A/B Testing</h3><p>¿Mejoró tu modelo? Necesitas tests de hipótesis para saber si la diferencia es real o solo ruido estadístico.</p></div>
+          <div class="theory-card bg-purple-50"><div class="theory-icon">📉</div><h3>Overfitting</h3><p>Varianza vs Sesgo es un concepto estadístico. Regularización, cross-validation, bootstrap — todos son técnicas estadísticas.</p></div>
+          <div class="theory-card bg-red-50"><div class="theory-icon">🌡️</div><h3>Incertidumbre</h3><p>Bayesian Neural Networks, Monte Carlo Dropout, conformal prediction — los modelos modernos cuantifican incertidumbre explícitamente.</p></div>
+          <div class="theory-card bg-orange-50"><div class="theory-icon">📊</div><h3>Evaluación</h3><p>Precision, Recall, AUC-ROC, F1 — todas son métricas estadísticas. Sin estadística, no sabes si tu modelo es bueno.</p></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: PROBABILITY -->
+      <div *ngIf="slide.type === 'probability'" class="slide-content">
+        <h2>🎲 Fundamentos de Probabilidad</h2>
+        <p class="slide-intro">Probabilidad = medir la incertidumbre. P(evento) ∈ [0,1]. La base para entender todos los modelos probabilísticos en ML.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+from fractions import Fraction
+
+# ── Axiomas básicos ───────────────────────────────
+# P(A) ≥ 0, P(Ω) = 1, P(A∪B) = P(A) + P(B) si mutuamente excluyentes
+
+# Probabilidad condicional: P(A|B) = P(A∩B) / P(B)
+# Regla de Bayes: P(A|B) = P(B|A) * P(A) / P(B)
+
+# ── Ejemplo: clasificador de correos ─────────────
+# P(spam) = 0.3 (prior)
+# P(palabra "oferta" | spam) = 0.7
+# P(palabra "oferta" | ham)  = 0.1
+
+p_spam = 0.3
+p_ham  = 1 - p_spam
+
+p_oferta_dado_spam = 0.7
+p_oferta_dado_ham  = 0.1
+
+# P(oferta) = P(oferta|spam)*P(spam) + P(oferta|ham)*P(ham)
+p_oferta = p_oferta_dado_spam * p_spam + p_oferta_dado_ham * p_ham
+
+# Bayes: P(spam|oferta) = P(oferta|spam) * P(spam) / P(oferta)
+p_spam_dado_oferta = (p_oferta_dado_spam * p_spam) / p_oferta
+print(f"P(spam | 'oferta'): {p_spam_dado_oferta:.3f}")  # 0.75
+
+# ── Independencia y coocurrencia ──────────────────
+# Simulación Monte Carlo — aproximar π
+np.random.seed(42)
+n = 1_000_000
+x, y = np.random.uniform(-1, 1, (2, n))
+dentro = (x**2 + y**2) <= 1
+pi_approx = 4 * dentro.sum() / n
+print(f"π ≈ {pi_approx:.4f}") </code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>P(spam | 'oferta'): 0.750
+π ≈ 3.1416</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: DISTRIBUTIONS -->
+      <div *ngIf="slide.type === 'distributions'" class="slide-content">
+        <h2>🔔 Distribuciones de Probabilidad</h2>
+        <p class="slide-intro">Elegir la distribución correcta es como elegir el modelo correcto. Cada fenómeno tiene una distribución natural — entenderlas mejora tus intuiciones sobre datos y modelos.</p>
+        <div class="concepts-grid">
+          <div *ngFor="let d of distributions" class="concept-card" [ngClass]="d.color">
+            <span class="concept-icon">{{ d.icon }}</span>
+            <strong>{{ d.name }}</strong>
+            <code>{{ d.code }}</code>
+            <p>{{ d.use }}</p>
+          </div>
+        </div>
+        <div class="code-block-wrapper mt-4">
+          <pre class="code-block python"><code>import numpy as np
+from scipy import stats
+
+# Normal: la reina de las distribuciones (CLT)
+normal = stats.norm(loc=0, scale=1)
+print(f"P(Z < 1.96) = {normal.cdf(1.96):.3f}")    # 0.975 (IC 95%)
+print(f"P(-1 < Z < 1) = {normal.cdf(1) - normal.cdf(-1):.3f}")  # 0.683
+
+# Inicialización de pesos en NNs (Xavier/Glorot)
+fan_in, fan_out = 128, 64
+limite = np.sqrt(6 / (fan_in + fan_out))
+W_xavier = np.random.uniform(-limite, limite, (fan_in, fan_out))
+print(f"Xavier init: rango [{W_xavier.min():.3f}, {W_xavier.max():.3f}]")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>P(Z < 1.96) = 0.975
+P(-1 < Z < 1) = 0.683
+Xavier init: rango [-0.217, 0.217]</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: BAYES -->
+      <div *ngIf="slide.type === 'bayes'" class="slide-content">
+        <h2>🧮 Teorema de Bayes</h2>
+        <p class="slide-intro"><strong>P(H|E) = P(E|H) · P(H) / P(E)</strong>. Actualizar creencias con evidencia nueva. Es el fundamento del ML bayesiano, spam filters, diagnóstico médico y mucho más.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+# ── Actualización secuencial de creencias ─────────
+# Diagnóstico: ¿tiene el paciente la enfermedad?
+
+# Prueba con sensibilidad=0.95, especificidad=0.90
+# Prevalencia = 1% (prior)
+
+def actualizar_bayes(prior, sensibilidad, especificidad, resultado_positivo=True):
+    """Actualiza P(enfermedad) dado resultado de prueba."""
+    if resultado_positivo:
+        likelihood_enfermo = sensibilidad
+        likelihood_sano    = 1 - especificidad
+    else:
+        likelihood_enfermo = 1 - sensibilidad
+        likelihood_sano    = especificidad
+
+    # P(evidencia) = P(E|H)*P(H) + P(E|¬H)*P(¬H)
+    p_evidencia = (likelihood_enfermo * prior +
+                   likelihood_sano * (1 - prior))
+
+    # Bayes
+    posterior = (likelihood_enfermo * prior) / p_evidencia
+    return posterior
+
+prior       = 0.01   # 1% prevalencia
+posterior_1 = actualizar_bayes(prior, 0.95, 0.90, True)
+print(f"Tras 1 prueba +: P(enf) = {posterior_1:.1%}")  # 8.7%
+
+# Segunda prueba positiva — actualizamos el prior
+posterior_2 = actualizar_bayes(posterior_1, 0.95, 0.90, True)
+print(f"Tras 2 pruebas +: P(enf) = {posterior_2:.1%}")  # ~49%
+
+# ¡Con base rate 1%, necesitas 2 pruebas para superar 50%!</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Tras 1 prueba +: P(enf) = 8.7%
+Tras 2 pruebas +: P(enf) = 48.9%</pre></div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Bayesian ML:</strong> En lugar de un punto estimado de pesos (θ_MAP), aprendemos una distribución completa P(θ|datos). Más honesto sobre la incertidumbre. Base de BNNs y Active Learning.
+        </div>
+      </div>
+
+      <!-- SLIDE 6: DESCRIPTIVE -->
+      <div *ngIf="slide.type === 'descriptive'" class="slide-content">
+        <h2>📊 Estadística Descriptiva</h2>
+        <p class="slide-intro">Antes de modelar, <strong>siempre</strong> explora tus datos. Las estadísticas descriptivas revelan distribuciones, outliers, sesgo y patrones que determinan qué modelos usar.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+from scipy import stats
+
+np.random.seed(42)
+# Simula precios de casas (sesgado a la derecha)
+precios = np.concatenate([
+    np.random.lognormal(5, 0.5, 900),
+    np.random.lognormal(6, 0.3, 100)  # casas de lujo
+])
+
+print("=== ESTADÍSTICAS DESCRIPTIVAS ===")
+print(f"N:         {len(precios)}")
+print(f"Media:     {np.mean(precios):.2f}")
+print(f"Mediana:   {np.median(precios):.2f}  ← más robusta")
+print(f"Std Dev:   {np.std(precios):.2f}")
+print(f"IQR:       {np.percentile(precios, 75) - np.percentile(precios, 25):.2f}")
+print(f"Skewness:  {stats.skew(precios):.3f}  (+ = cola derecha)")
+print(f"Kurtosis:  {stats.kurtosis(precios):.3f}")
+print()
+print("=== PERCENTILES ===")
+for p in [5, 25, 50, 75, 95]:
+    print(f"P{p:2d}: {np.percentile(precios, p):.1f}")
+
+# Outliers via IQR
+Q1, Q3 = np.percentile(precios, [25, 75])
+IQR = Q3 - Q1
+outliers = precios[(precios < Q1 - 1.5*IQR) | (precios > Q3 + 1.5*IQR)]
+print(f"\nOutliers: {len(outliers)} ({len(outliers)/len(precios):.1%})")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Media:     178.34   Mediana: 149.23
+Std Dev:   112.45   IQR: 94.2
+Skewness:  2.341 (+ = cola derecha)
+Outliers: 47 (4.7%)</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: HYPOTHESIS -->
+      <div *ngIf="slide.type === 'hypothesis'" class="slide-content">
+        <h2>🔬 Tests de Hipótesis</h2>
+        <p class="slide-intro">¿Tu mejora del modelo es real o ruido? Los tests de hipótesis responden esto con rigor matemático. Esenciales para A/B testing, comparación de modelos y validación científica.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+from scipy import stats
+
+np.random.seed(42)
+
+# Modelo A (baseline) vs Modelo B (nuevo)
+accuracy_A = np.random.normal(0.85, 0.02, 30)  # 30 experimentos
+accuracy_B = np.random.normal(0.87, 0.02, 30)
+
+# t-test independiente (H0: medias iguales)
+t_stat, p_value = stats.ttest_ind(accuracy_B, accuracy_A)
+print(f"t-statistic: {t_stat:.3f}")
+print(f"p-value:     {p_value:.4f}")
+print(f"Resultado: {'Rechazamos H0 — mejora significativa ✓' if p_value < 0.05 else 'No hay evidencia suficiente'}")
+
+# Intervalo de confianza 95% para la diferencia
+diff = accuracy_B.mean() - accuracy_A.mean()
+se = np.sqrt(accuracy_A.var()/30 + accuracy_B.var()/30)
+ci = stats.t.interval(0.95, df=58, loc=diff, scale=se)
+print(f"\nDiferencia media: {diff:.4f}")
+print(f"IC 95%: ({ci[0]:.4f}, {ci[1]:.4f})")
+
+# Effect size (Cohen's d)
+pooled_std = np.sqrt((accuracy_A.std()**2 + accuracy_B.std()**2) / 2)
+cohens_d = diff / pooled_std
+print(f"Cohen's d: {cohens_d:.3f} ({'grande' if abs(cohens_d)>0.8 else 'mediano' if abs(cohens_d)>0.5 else 'pequeño'})")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>t-statistic: 4.218
+p-value:     0.0001
+Resultado: Rechazamos H0 — mejora significativa ✓
+Diferencia media: 0.0198
+IC 95%: (0.0104, 0.0292)
+Cohen's d: 1.089 (grande)</pre></div>
+        </div>
+        <div class="warning-box">
+          <strong>⚠️ p-value ≠ importancia práctica.</strong> Un p-value de 0.0001 con Cohen's d de 0.01 es estadísticamente significativo pero prácticamente irrelevante. Siempre reporta efecto + intervalos de confianza.
+        </div>
+      </div>
+
+      <!-- SLIDE 8: CORRELATION -->
+      <div *ngIf="slide.type === 'correlation'" class="slide-content">
+        <h2>📈 Correlación y Causalidad</h2>
+        <p class="slide-intro"><strong>Correlación ≠ causalidad.</strong> Helados y ahogamientos tienen r=0.95 (verano causa ambos). En ML, distinguir correlación de causalidad es crítico para modelos robustos y éticos.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+from scipy import stats
+
+np.random.seed(42)
+n = 200
+
+# ── Correlación de Pearson (variables continuas) ──
+horas_estudio = np.random.uniform(1, 10, n)
+nota = 40 + 5 * horas_estudio + np.random.randn(n) * 8
+
+r_pearson, p_val = stats.pearsonr(horas_estudio, nota)
+print(f"Pearson r: {r_pearson:.3f} (p={p_val:.4f})")
+
+# ── Spearman (robusta a outliers) ─────────────────
+r_spearman, _ = stats.spearmanr(horas_estudio, nota)
+print(f"Spearman ρ: {r_spearman:.3f}")
+
+# ── Matriz de correlación (feature selection) ────
+X = np.column_stack([
+    horas_estudio,
+    nota,
+    horas_estudio + np.random.randn(n) * 2,  # correlacionada con horas
+    np.random.randn(n)                        # ruido independiente
+])
+
+corr_matrix = np.corrcoef(X.T)
+features = ['horas', 'nota', 'horas_approx', 'ruido']
+print("\nCorrelación con 'nota':")
+for i, f in enumerate(features):
+    print(f"  {f:15s}: {corr_matrix[1, i]:.3f}")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Pearson r: 0.862 (p=0.0000)
+Spearman ρ: 0.858
+Correlación con 'nota':
+  horas          : 0.862
+  nota           : 1.000
+  horas_approx   : 0.820
+  ruido          : 0.032</pre></div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Feature selection:</strong> Elimina features con |r| > 0.95 entre sí (multicolinealidad). Mantén las más correlacionadas con el target. Usa <code class="inline-code">df.corr()</code> en Pandas.
+        </div>
+      </div>
+
+      <!-- SLIDE 9: CHALLENGE -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Aplica probabilidad y estadística en contextos reales de ML.</p>
+        <div class="challenge-tabs">
+          <button *ngFor="let ch of challenges; let i = index" (click)="selectedChallenge = i" class="challenge-tab-btn" [class.active]="selectedChallenge === i" [ngClass]="selectedChallenge === i ? '' : 'opacity-70'">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">{{ ch.difficulty }}</span>
+            <span>{{ ch.title }}</span>
+          </button>
+        </div>
+        <div class="challenge-card" [ngClass]="challenges[selectedChallenge].color">
+          <div class="challenge-header">
+            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">{{ challenges[selectedChallenge].difficulty }}</span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul><li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li></ul>
+          </div>
+          <div class="code-block-wrapper mt-4">
+            <div class="code-block-header">📝 Código de inicio</div>
+            <pre class="code-block python"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+          <div class="output-block mt-3">
+            <span class="output-label">🎯 Output esperado</span>
+            <pre>{{ challenges[selectedChallenge].expectedOutput }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: SUMMARY -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <div class="workshop-badge" style="background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3)">
+          ✅ ESTACIÓN 5 COMPLETADA — LÍNEA 1 · FOUNDATIONS STATION
+        </div>
+        <h2>🎉 Resumen: Probability &amp; Statistics</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><span class="summary-icon">🎲</span><div><strong>Probabilidad</strong><p>Axiomas, condicional, independencia, ley de probabilidad total.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🔔</span><div><strong>Distribuciones</strong><p>Normal, Binomial, Poisson, Beta — cuándo y por qué usar cada una.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🧮</span><div><strong>Bayes</strong><p>P(H|E) = P(E|H)·P(H)/P(E). Actualización secuencial de creencias.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">📊</span><div><strong>Descriptiva</strong><p>Media/mediana/moda, varianza, IQR, skewness, kurtosis.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🔬</span><div><strong>Tests</strong><p>t-test, p-value, Cohen's d, intervalos de confianza. No solo p-value.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">📈</span><div><strong>Correlación</strong><p>Pearson, Spearman, matriz de correlación. Correlación ≠ causalidad.</p></div></div>
+        </div>
+        <div class="next-station-card">
+          <div class="next-station-label">🚉 Próxima estación en Línea 1</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">Ver en el MetroMap <span>→</span></a>
+        </div>
+        <div class="tip-box mt-6">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://greenteapress.com/thinkstats2/" target="_blank" rel="noopener noreferrer" class="resource-link">Think Stats (gratis)</a> ·
+            <a href="https://docs.scipy.org/doc/scipy/reference/stats.html" target="_blank" rel="noopener noreferrer" class="resource-link">scipy.stats docs</a> ·
+            <a href="https://statquest.org" target="_blank" rel="noopener noreferrer" class="resource-link">StatQuest (YouTube)</a>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,408 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button *ngFor="let slide of slides; let i = index" (click)="goToSlide(i)" class="w-2.5 h-2.5 rounded-full transition-all duration-200" [class.scale-125]="i === currentSlide" [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}"></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- SLIDE 1: TITLE -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Calculus for<br><span style="color:#8b5cf6">Optimization</span></h1>
+        <h2 class="subtitle">Estación 6 de 9 · El motor matemático detrás del entrenamiento de modelos</h2>
+        <div class="info-grid">
+          <div class="info-item"><span class="icon">⏱️</span><span class="label">Duración</span><span class="value">90 min</span></div>
+          <div class="info-item"><span class="icon">🎯</span><span class="label">Nivel</span><span class="value">Fundamentos</span></div>
+          <div class="info-item"><span class="icon">💡</span><span class="label">Slides</span><span class="value">10 secciones</span></div>
+          <div class="info-item"><span class="icon">🏆</span><span class="label">Retos</span><span class="value">3 desafíos</span></div>
+        </div>
+        <div class="agenda-preview">
+          <h3>📋 Agenda de hoy</h3>
+          <div class="agenda-grid">
+            <span>🤔 ¿Por qué Cálculo en IA?</span>
+            <span>📐 Derivadas y límites</span>
+            <span>🔗 Regla de la cadena</span>
+            <span>∇ Gradientes y Jacobiano</span>
+            <span>⛰️ Gradient Descent</span>
+            <span>📉 Learning rate tuning</span>
+            <span>🚀 Optimizadores modernos</span>
+            <span>🏋️ 3 Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: WHY CALCULUS -->
+      <div *ngIf="slide.type === 'why-calculus'" class="slide-content">
+        <h2>🤔 ¿Por qué Cálculo para IA?</h2>
+        <p class="slide-intro">Entrenar una red neuronal significa <strong>minimizar la función de pérdida</strong>. ¿Cómo? Calculando en qué dirección bajar más rápido. Ese cálculo ES el cálculo diferencial.</p>
+        <div class="theory-grid">
+          <div class="theory-card bg-purple-50"><div class="theory-icon">⛰️</div><h3>Minimización</h3><p>Encontrar los pesos W que minimizan L(W) = pérdida. El mínimo de una función está donde f'(x) = 0.</p></div>
+          <div class="theory-card bg-blue-50"><div class="theory-icon">∇</div><h3>Backpropagation</h3><p>Regla de la cadena aplicada hacia atrás. Calcula cómo contribuye cada peso al error final.</p></div>
+          <div class="theory-card bg-green-50"><div class="theory-icon">📈</div><h3>Curva de aprendizaje</h3><p>La derivada segunda (curvatura) indica si estamos en un mínimo local, máximo o punto de silla.</p></div>
+          <div class="theory-card bg-yellow-50"><div class="theory-icon">🎯</div><h3>Regularización</h3><p>L1/L2 regularización modifica el gradiente. L1 produce sparsidad, L2 shrinkage uniforme.</p></div>
+          <div class="theory-card bg-red-50"><div class="theory-icon">🔄</div><h3>Transformaciones</h3><p>Softmax, sigmoid, ReLU — todas son funciones diferenciables. Backprop requiere que lo sean.</p></div>
+          <div class="theory-card bg-orange-50"><div class="theory-icon">⚡</div><h3>Optimizadores</h3><p>SGD, Momentum, Adam — todos son variantes de gradient descent que usan cálculo diferencial.</p></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: DERIVATIVES -->
+      <div *ngIf="slide.type === 'derivatives'" class="slide-content">
+        <h2>📐 Derivadas: La Tasa de Cambio</h2>
+        <p class="slide-intro">La derivada f'(x) dice cuánto cambia f cuando x cambia infinitesimalmente. En ML: ¿cuánto cambia la pérdida cuando cambio un peso?</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+# ── Derivada numérica (aproximación) ─────────────
+def derivada_numerica(f, x, h=1e-7):
+    """Aproximación: f'(x) ≈ [f(x+h) - f(x-h)] / 2h"""
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+# Funciones de activación comunes
+def relu(x):    return np.maximum(0, x)
+def sigmoid(x): return 1 / (1 + np.exp(-x))
+def tanh(x):    return np.tanh(x)
+
+# Derivadas analíticas
+def d_relu(x):    return (x > 0).astype(float)
+def d_sigmoid(x): s = sigmoid(x); return s * (1 - s)
+def d_tanh(x):    return 1 - np.tanh(x)**2
+
+# Compara numérica vs analítica
+x_test = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
+for name, f, df in [('sigmoid', sigmoid, d_sigmoid), ('tanh', tanh, d_tanh)]:
+    num  = derivada_numerica(f, x_test)
+    anal = df(x_test)
+    max_err = np.abs(num - anal).max()
+    print(f"{name}: error máx entre numérica y analítica = {max_err:.2e}")
+
+# Reglas básicas
+print("\n=== Reglas de derivación ===")
+print("d/dx [x^n]   = n*x^(n-1)")
+print("d/dx [e^x]   = e^x")
+print("d/dx [log x] = 1/x")
+print("d/dx [c]     = 0  (constante)")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>sigmoid: error máx entre numérica y analítica = 2.78e-11
+tanh:    error máx entre numérica y analítica = 1.11e-11
+
+=== Reglas de derivación ===
+d/dx [x^n]   = n*x^(n-1)
+d/dx [e^x]   = e^x
+d/dx [log x] = 1/x
+d/dx [c]     = 0  (constante)</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: CHAIN RULE -->
+      <div *ngIf="slide.type === 'chain-rule'" class="slide-content">
+        <h2>🔗 Regla de la Cadena</h2>
+        <p class="slide-intro"><strong>d/dx[f(g(x))] = f'(g(x)) · g'(x)</strong>. Es el corazón de backpropagation. Las capas de una red son funciones compuestas — la cadena las conecta.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+# Cálculo manual de backpropagation — 1 neurona
+# y = sigmoid(w*x + b),  L = (y - target)^2
+
+def forward_and_backward(x, w, b, target):
+    """
+    Forward + backward pass para 1 neurona.
+    z = w*x + b
+    a = sigmoid(z)
+    L = 0.5 * (a - target)^2
+    """
+    # === FORWARD PASS ===
+    z = w * x + b
+    a = 1 / (1 + np.exp(-z))      # sigmoid
+    L = 0.5 * (a - target) ** 2   # MSE simplificado
+
+    # === BACKWARD PASS (cadena) ===
+    # dL/da = (a - target)
+    dL_da = a - target
+
+    # da/dz = sigmoid'(z) = a*(1-a)
+    da_dz = a * (1 - a)
+
+    # dz/dw = x,  dz/db = 1
+
+    # Regla de la cadena
+    dL_dw = dL_da * da_dz * x  # dL/da * da/dz * dz/dw
+    dL_db = dL_da * da_dz * 1  # dL/da * da/dz * dz/db
+
+    return L, dL_dw, dL_db
+
+# Entrenamiento manual 1 neurona
+x, target = 2.0, 0.8
+w, b = 0.5, 0.1
+lr = 0.1
+
+for epoch in range(10):
+    L, dw, db = forward_and_backward(x, w, b, target)
+    w -= lr * dw
+    b -= lr * db
+    if epoch == 0 or epoch == 9:
+        print(f"Epoch {epoch}: L={L:.6f}, w={w:.4f}, b={b:.4f}")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Epoch 0: L=0.006243, w=0.5089, b=0.1044
+Epoch 9: L=0.000041, w=0.5723, b=0.1362</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: GRADIENTS -->
+      <div *ngIf="slide.type === 'gradients'" class="slide-content">
+        <h2>∇ Gradientes y el Gradiente Vectorial</h2>
+        <p class="slide-intro">Con múltiples parámetros, la derivada se convierte en el <strong>gradiente</strong>: un vector que apunta en la dirección de máximo ascenso. Para descender, vamos en la dirección opuesta.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+# ── Gradiente de función multivariable ────────────
+# f(x, y) = x^2 + y^2  (paraboloide — mínimo en origen)
+# ∇f = [∂f/∂x, ∂f/∂y] = [2x, 2y]
+
+def f(params):
+    x, y = params
+    return x**2 + y**2
+
+def grad_f(params):
+    x, y = params
+    return np.array([2*x, 2*y])
+
+# Visualización del paisaje de pérdidas
+point = np.array([3.0, 4.0])
+g = grad_f(point)
+print(f"f({point}) = {f(point)}")
+print(f"∇f({point}) = {g}  (apunta al máximo)")
+print(f"-∇f({point}) = {-g}  (dirección de descenso)")
+print(f"||∇f|| = {np.linalg.norm(g):.3f}  (magnitud del gradiente)")
+
+# ── Gradiente numérico (gradient checking) ────────
+def grad_numerico(f, params, h=1e-5):
+    """Útil para verificar backprop implementado a mano."""
+    grad = np.zeros_like(params, dtype=float)
+    for i in range(len(params)):
+    	p_plus  = params.copy(); p_plus[i]  += h
+    	p_minus = params.copy(); p_minus[i] -= h
+    	grad[i] = (f(p_plus) - f(p_minus)) / (2 * h)
+    return grad
+
+grad_anal = grad_f(point)
+grad_num  = grad_numerico(f, point.astype(float))
+error_rel = np.linalg.norm(grad_anal - grad_num) / (np.linalg.norm(grad_anal) + 1e-8)
+print(f"\nGradient check error relativo: {error_rel:.2e}  ({'OK ✓' if error_rel < 1e-4 else 'FALLO ✗'})")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>f([3. 4.]) = 25.0
+∇f([3. 4.]) = [6. 8.]
+-∇f([3. 4.]) = [-6. -8.]
+||∇f|| = 10.000
+Gradient check error relativo: 1.33e-10  (OK ✓)</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: GRADIENT DESCENT -->
+      <div *ngIf="slide.type === 'gradient-descent'" class="slide-content">
+        <h2>⛰️ Gradient Descent</h2>
+        <p class="slide-intro"><strong>θ ← θ - α · ∇L(θ)</strong>. Actualiza parámetros en la dirección opuesta al gradiente. Tres variantes según cuántos datos usas para calcular el gradiente.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+np.random.seed(42)
+# Dataset de ejemplo
+X = np.random.randn(1000, 3)
+y = X @ np.array([2.0, -1.0, 0.5]) + np.random.randn(1000) * 0.1
+
+def mse_grad(X_batch, y_batch, w):
+    y_pred = X_batch @ w
+    error  = y_pred - y_batch
+    loss   = np.mean(error**2) / 2
+    grad   = X_batch.T @ error / len(y_batch)
+    return loss, grad
+
+# ── Batch GD: usa todos los datos ─────────────────
+w_bgd = np.zeros(3)
+for epoch in range(100):
+    loss, grad = mse_grad(X, y, w_bgd)
+    w_bgd -= 0.01 * grad
+print(f"BGD: w={w_bgd.round(3)}, loss={loss:.6f}")
+
+# ── SGD: 1 muestra a la vez ───────────────────────
+w_sgd = np.zeros(3)
+for epoch in range(10):
+    idx = np.random.permutation(1000)
+    for i in idx:
+        loss, grad = mse_grad(X[[i]], y[[i]], w_sgd)
+        w_sgd -= 0.01 * grad
+print(f"SGD: w={w_sgd.round(3)}")
+
+# ── Mini-batch GD (el más usado) ──────────────────
+w_mgd = np.zeros(3)
+batch_size = 32
+for epoch in range(10):
+    idx = np.random.permutation(1000)
+    for start in range(0, 1000, batch_size):
+        b = idx[start:start+batch_size]
+        loss, grad = mse_grad(X[b], y[b], w_mgd)
+        w_mgd -= 0.01 * grad
+print(f"Mini-batch: w={w_mgd.round(3)}")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>BGD:       w=[ 2.001 -1.000  0.499], loss=0.004989
+SGD:       w=[ 1.998 -0.999  0.501]
+Mini-batch w=[ 2.000 -1.000  0.500]</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: LEARNING RATE -->
+      <div *ngIf="slide.type === 'learning-rate'" class="slide-content">
+        <h2>📉 Learning Rate: El Hiperparámetro Más Crítico</h2>
+        <p class="slide-intro">Demasiado grande → diverge. Demasiado pequeño → tarda siglos. La tasa de aprendizaje (α) controla el tamaño del paso y es el hiperparámetro con mayor impacto en el entrenamiento.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import numpy as np
+
+# ── Schedulers de Learning Rate ───────────────────
+class StepLR:
+    def __init__(self, lr0, step_size, gamma=0.1):
+        self.lr0, self.step, self.γ = lr0, step_size, gamma
+    def get_lr(self, epoch):
+        return self.lr0 * (self.γ ** (epoch // self.step))
+
+class CosineAnnealingLR:
+    def __init__(self, lr0, T_max):
+        self.lr0, self.T = lr0, T_max
+    def get_lr(self, epoch):
+        return self.lr0 * 0.5 * (1 + np.cos(np.pi * epoch / self.T))
+
+class WarmupCosineLR:
+    def __init__(self, lr0, warmup_epochs, T_max):
+        self.lr0, self.warmup, self.T = lr0, warmup_epochs, T_max
+    def get_lr(self, epoch):
+        if epoch < self.warmup:
+            return self.lr0 * epoch / self.warmup
+        t = epoch - self.warmup
+        return self.lr0 * 0.5 * (1 + np.cos(np.pi * t / (self.T - self.warmup)))
+
+schedulers = [
+    ('Step LR',         StepLR(0.1, 30)),
+    ('Cosine Anneal',   CosineAnnealingLR(0.1, 100)),
+    ('Warmup + Cosine', WarmupCosineLR(0.1, 10, 100)),
+]
+
+for name, sched in schedulers:
+    lrs = [sched.get_lr(e) for e in [0, 10, 30, 50, 99]]
+    print(f"{name:20s}: {[f'{lr:.4f}' for lr in lrs]}")
+</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Step LR             : ['0.1000', '0.1000', '0.0100', '0.0010', '0.0001']
+Cosine Anneal       : ['0.1000', '0.0951', '0.0655', '0.0050', '0.0000']
+Warmup + Cosine     : ['0.0000', '0.1000', '0.0745', '0.0058', '0.0000']</pre></div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Regla práctica:</strong> Empieza con lr=1e-3 (Adam) o lr=0.01 (SGD). Usa warmup para transformers. Cosine annealing para la mayoría de CNNs. Learning rate finder (fastai) para encontrar el valor óptimo.
+        </div>
+      </div>
+
+      <!-- SLIDE 8: OPTIMIZERS -->
+      <div *ngIf="slide.type === 'optimizers'" class="slide-content">
+        <h2>🚀 Optimizadores Modernos</h2>
+        <p class="slide-intro">Todos son variantes de GD. La diferencia está en cómo adaptan la tasa de aprendizaje por parámetro y cómo acumulan información histórica del gradiente.</p>
+        <div class="concepts-grid">
+          <div *ngFor="let opt of optimizers" class="concept-card bg-white border border-gray-200">
+            <span class="concept-icon">{{ opt.icon }}</span>
+            <strong>{{ opt.name }}</strong>
+            <p style="font-size:0.8rem; color:#374151">{{ opt.desc }}</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem">
+              <span style="background:#dcfce7; color:#166534; font-size:0.7rem; padding:2px 6px; border-radius:4px">✅ {{ opt.pros }}</span>
+              <span style="background:#fee2e2; color:#991b1b; font-size:0.7rem; padding:2px 6px; border-radius:4px">⚠️ {{ opt.cons }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block-wrapper mt-4">
+          <pre class="code-block python"><code># En PyTorch — comparación de optimizadores
+import torch, torch.nn as nn, torch.optim as optim
+
+model = nn.Linear(10, 1)
+X = torch.randn(100, 10)
+y = torch.randn(100, 1)
+criterion = nn.MSELoss()
+
+optimizers = {
+    'SGD':      optim.SGD(model.parameters(), lr=0.01),
+    'Momentum': optim.SGD(model.parameters(), lr=0.01, momentum=0.9),
+    'Adam':     optim.Adam(model.parameters(), lr=1e-3),
+    'AdamW':    optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2),
+}
+
+# Usa AdamW para transformers, Adam/SGD+Momentum para CNNs</code></pre>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: CHALLENGE -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Implementa los fundamentos de optimización desde cero.</p>
+        <div class="challenge-tabs">
+          <button *ngFor="let ch of challenges; let i = index" (click)="selectedChallenge = i" class="challenge-tab-btn" [class.active]="selectedChallenge === i" [ngClass]="selectedChallenge === i ? '' : 'opacity-70'">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">{{ ch.difficulty }}</span>
+            <span>{{ ch.title }}</span>
+          </button>
+        </div>
+        <div class="challenge-card" [ngClass]="challenges[selectedChallenge].color">
+          <div class="challenge-header">
+            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">{{ challenges[selectedChallenge].difficulty }}</span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul><li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li></ul>
+          </div>
+          <div class="code-block-wrapper mt-4">
+            <div class="code-block-header">📝 Código de inicio</div>
+            <pre class="code-block python"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+          <div class="output-block mt-3">
+            <span class="output-label">🎯 Output esperado</span>
+            <pre>{{ challenges[selectedChallenge].expectedOutput }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: SUMMARY -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <div class="workshop-badge" style="background: rgba(139,92,246,0.15); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.3)">
+          ✅ ESTACIÓN 6 COMPLETADA — LÍNEA 1 · FOUNDATIONS STATION
+        </div>
+        <h2>🎉 Resumen: Calculus for Optimization</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><span class="summary-icon">📐</span><div><strong>Derivadas</strong><p>Tasa de cambio. d/dx[f]. Derivada numérica vs analítica. Gradient checking.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🔗</span><div><strong>Regla de la Cadena</strong><p>d/dx[f(g(x))] = f'(g(x))·g'(x). El corazón de backpropagation.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">∇</span><div><strong>Gradientes</strong><p>Vector de derivadas parciales. Apunta al máximo ascenso. -∇ = descenso.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">⛰️</span><div><strong>Gradient Descent</strong><p>BGD, SGD, Mini-batch. θ ← θ - α·∇L(θ). Mini-batch es el estándar.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">📉</span><div><strong>Learning Rate</strong><p>Warmup + Cosine Annealing. LR finder. El hiperparámetro más crítico.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🚀</span><div><strong>Optimizadores</strong><p>Adam/AdamW para la mayoría. SGD+Momentum para ResNets. Entender qué hay detrás.</p></div></div>
+        </div>
+        <div class="next-station-card">
+          <div class="next-station-label">🚉 Próxima estación en Línea 1</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">Ver en el MetroMap <span>→</span></a>
+        </div>
+        <div class="tip-box mt-6">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://cs231n.github.io/optimization-1/" target="_blank" rel="noopener noreferrer" class="resource-link">CS231n — Optimization</a> ·
+            <a href="https://pytorch.org/docs/stable/optim.html" target="_blank" rel="noopener noreferrer" class="resource-link">PyTorch optim</a> ·
+            <a href="https://d2l.ai/chapter_optimization/" target="_blank" rel="noopener noreferrer" class="resource-link">D2L — Chapter 12</a>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,348 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button *ngFor="let slide of slides; let i = index" (click)="goToSlide(i)" class="w-2.5 h-2.5 rounded-full transition-all duration-200" [class.scale-125]="i === currentSlide" [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}"></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- SLIDE 1: TITLE -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Data Structures <br><span style="color:#f59e0b">&amp; Algorithms</span></h1>
+        <h2 class="subtitle">Estación 3 de 9 · El vocabulario de la eficiencia computacional</h2>
+        <div class="info-grid">
+          <div class="info-item"><span class="icon">⏱️</span><span class="label">Duración</span><span class="value">90 min</span></div>
+          <div class="info-item"><span class="icon">🎯</span><span class="label">Nivel</span><span class="value">Fundamentos</span></div>
+          <div class="info-item"><span class="icon">💡</span><span class="label">Slides</span><span class="value">10 secciones</span></div>
+          <div class="info-item"><span class="icon">🏆</span><span class="label">Retos</span><span class="value">3 desafíos</span></div>
+        </div>
+        <div class="agenda-preview">
+          <h3>📋 Agenda de hoy</h3>
+          <div class="agenda-grid">
+            <span>🤔 ¿Por qué DSA en IA?</span>
+            <span>⏱️ Big O Notation</span>
+            <span>📦 Arrays y HashMaps</span>
+            <span>🌳 Árboles y Grafos</span>
+            <span>⚡ Algoritmos de Sorting</span>
+            <span>🔍 Algoritmos de Búsqueda</span>
+            <span>🧩 Patrones para ML</span>
+            <span>🏋️ 3 Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: WHY DSA -->
+      <div *ngIf="slide.type === 'why-dsa'" class="slide-content">
+        <h2>🤔 ¿Por qué DSA es esencial en IA?</h2>
+        <p class="slide-intro">No es solo para entrevistas FAANG. DSA determina si tu pipeline de ML puede escalar de 1K a 10M de ejemplos, o si encontrar los 100 vecinos más cercanos tarda 0.001s o 100s.</p>
+        <div class="theory-grid">
+          <div class="theory-card bg-blue-50"><div class="theory-icon">🔍</div><h3>KNN & Búsqueda</h3><p>K-Nearest Neighbors necesita búsqueda eficiente. FAISS usa árboles KD y clustering para buscar en millones de vectores en ms.</p></div>
+          <div class="theory-card bg-green-50"><div class="theory-icon">🗂️</div><h3>Índices y HashMaps</h3><p>Vocabularios de NLP, embeddings lookups, cache de inferencia — todos son HashMaps. O(1) vs O(n) puede ser la diferencia.</p></div>
+          <div class="theory-card bg-yellow-50"><div class="theory-icon">🌳</div><h3>Decision Trees</h3><p>Random Forest y XGBoost son literalmente árboles de decisión. Entender BSTs y heaps te ayuda a optimizarlos.</p></div>
+          <div class="theory-card bg-red-50"><div class="theory-icon">📊</div><h3>Sorting en pipelines</h3><p>Ordenar por confianza, ranking de recomendaciones, top-K results — sorting es ubicuo en los outputs de ML.</p></div>
+          <div class="theory-card bg-purple-50"><div class="theory-icon">🕸️</div><h3>Graph Algorithms</h3><p>Graph Neural Networks, PageRank, Community Detection, Knowledge Graphs — grafos están en el núcleo de IA moderna.</p></div>
+          <div class="theory-card bg-orange-50"><div class="theory-icon">⚡</div><h3>Divide & Conquer</h3><p>Merge sort → convolutions en CNNs. Programación dinámica → Viterbi algorithm → CRFs en NLP. Mismos principios.</p></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: BIG O -->
+      <div *ngIf="slide.type === 'big-o'" class="slide-content">
+        <h2>⏱️ Notación Big O</h2>
+        <p class="slide-intro">Big O describe cómo crece el tiempo/espacio de un algoritmo en función del tamaño de entrada <strong>n</strong>. No mide segundos — mide la <em>tasa de crecimiento</em> en el peor caso.</p>
+        <div class="concepts-grid">
+          <div *ngFor="let c of bigOConcepts" class="concept-card" [ngClass]="c.color" [ngStyle]="{'borderLeft': '3px solid ' + c.border}">
+            <span class="concept-icon">{{ c.icon }}</span>
+            <strong>{{ c.name }} — {{ c.label }}</strong>
+            <p>{{ c.example }}</p>
+          </div>
+        </div>
+        <div class="code-block-wrapper mt-4">
+          <pre class="code-block python"><code># ── Comparación práctica ──────────────────────────
+import time
+
+n = 1_000_000
+lista = list(range(n))
+diccionario = {i: i for i in range(n)}
+
+# O(n): buscar en lista — escanea todo
+t0 = time.perf_counter()
+resultado = 999_999 in lista
+print(f"O(n) lista:      {(time.perf_counter()-t0)*1000:.2f}ms")
+
+# O(1): buscar en dict — acceso directo
+t0 = time.perf_counter()
+resultado = 999_999 in diccionario
+print(f"O(1) diccionario: {(time.perf_counter()-t0)*1000:.4f}ms")</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>O(n) lista:       12.34ms
+O(1) diccionario:  0.0012ms</pre></div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Regla práctica:</strong> Para n = 10⁶ datos: O(1) = instantáneo, O(log n) = ~20 pasos, O(n) = 1 millón de pasos, O(n²) = 10¹² pasos (¡horas!).
+        </div>
+      </div>
+
+      <!-- SLIDE 4: ARRAYS & HASHMAPS -->
+      <div *ngIf="slide.type === 'arrays-hashmaps'" class="slide-content">
+        <h2>📦 Arrays y HashMaps</h2>
+        <p class="slide-intro">Arrays = acceso O(1) por índice. HashMaps (dict en Python) = búsqueda e inserción O(1) amortizado. Son las estructuras más usadas en implementaciones de ML.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>from collections import defaultdict, OrderedDict, Counter
+
+# ── HashMap: Vocabulario NLP ─────────────────────
+corpus = ["el gato come", "el perro duerme", "el gato duerme"]
+
+vocab: dict[str, int] = {}
+for texto in corpus:
+    for palabra in texto.split():
+        if palabra not in vocab:
+            vocab[palabra] = len(vocab)  # índice único
+
+print("Vocabulario:", vocab)
+# {'el': 0, 'gato': 1, 'come': 2, 'perro': 3, 'duerme': 4}
+
+# Encode de oraciones (Bag of Words)
+def encode(texto, vocab):
+    bow = [0] * len(vocab)
+    for palabra in texto.split():
+        if palabra in vocab:
+            bow[vocab[palabra]] = 1
+    return bow
+
+print(encode("el gato duerme", vocab))
+# [1, 1, 0, 0, 1]
+
+# ── defaultdict: contar coocurrencias ────────────
+coocurrencias = defaultdict(Counter)
+for texto in corpus:
+    palabras = texto.split()
+    for i, p1 in enumerate(palabras):
+        for p2 in palabras[i+1:]:
+            coocurrencias[p1][p2] += 1
+
+print(dict(coocurrencias['gato']))</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Vocabulario: {'el': 0, 'gato': 1, 'come': 2, 'perro': 3, 'duerme': 4}
+[1, 1, 0, 0, 1]
+{'come': 1, 'duerme': 1}</pre></div>
+        </div>
+        <div class="comparison-row">
+          <div class="mini-card"><strong>dict / defaultdict</strong><p>Vocabularios, caches, configuraciones. O(1) promedio.</p></div>
+          <div class="mini-card"><strong>set</strong><p>Stop-words lookup, deduplicación rápida. O(1) contain.</p></div>
+          <div class="mini-card"><strong>list / deque</strong><p>Buffers, sliding windows, BFS queue. O(1) append.</p></div>
+          <div class="mini-card"><strong>heapq</strong><p>Top-K resultados, priority scheduling. O(log n) push/pop.</p></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: TREES & GRAPHS -->
+      <div *ngIf="slide.type === 'trees-graphs'" class="slide-content">
+        <h2>🌳 Árboles y Grafos</h2>
+        <p class="slide-intro">Árboles = grafos sin ciclos. Son la base de Decision Trees, Tries para NLP, y Heaps para priority queues. Los grafos son la representación natural de Knowledge Graphs y GNNs.</p>
+        <div class="code-tabs">
+          <button *ngFor="let ex of treeExamples; let i = index" (click)="activeTreeTab = i" class="tab-btn" [class.active]="activeTreeTab === i">{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ treeExamples[activeTreeTab].code }}</code></pre>
+          <div *ngIf="treeExamples[activeTreeTab].output" class="output-block">
+            <span class="output-label">▶ Output</span><pre>{{ treeExamples[activeTreeTab].output }}</pre>
+          </div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 En ML:</strong> <code class="inline-code">sklearn.tree.DecisionTreeClassifier</code> construye internamente un BST de condiciones. Random Forest = ensemble de BSTs. Gradient Boosting = BSTs en serie.
+        </div>
+      </div>
+
+      <!-- SLIDE 6: SORTING -->
+      <div *ngIf="slide.type === 'sorting'" class="slide-content">
+        <h2>⚡ Algoritmos de Ordenamiento</h2>
+        <p class="slide-intro">Python usa <strong>Timsort</strong> (híbrido Merge+Insertion) — estable, O(n log n). Entender los algoritmos te permite elegir el correcto según el contexto.</p>
+        <div class="code-tabs">
+          <button *ngFor="let ex of sortingExamples; let i = index" (click)="activeSortTab = i" class="tab-btn" [class.active]="activeSortTab === i">{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ sortingExamples[activeSortTab].code }}</code></pre>
+          <div *ngIf="sortingExamples[activeSortTab].output" class="output-block">
+            <span class="output-label">▶ Output</span><pre>{{ sortingExamples[activeSortTab].output }}</pre>
+          </div>
+        </div>
+        <div class="warning-box">
+          <strong>⚠️ No reimplementes sort en código de producción ML.</strong> Usa Python <code class="inline-code">sorted()</code> o <code class="inline-code">numpy.argsort()</code>. Reimplementar solo tiene sentido para aprender.
+        </div>
+      </div>
+
+      <!-- SLIDE 7: SEARCHING -->
+      <div *ngIf="slide.type === 'searching'" class="slide-content">
+        <h2>🔍 Algoritmos de Búsqueda</h2>
+        <p class="slide-intro">Buscar es fundamental: desde encontrar hiperparámetros óptimos (grid search) hasta recuperar los K documentos más similares (ANN search).</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>import bisect
+
+# ── Binary Search: O(log n) ──────────────────────
+def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if   arr[mid] == target: return mid
+        elif arr[mid] < target:  low  = mid + 1
+        else:                    high = mid - 1
+    return -1
+
+# bisect: binary search + insert en O(log n)
+umbrales = [0.1, 0.3, 0.5, 0.7, 0.9]
+nuevo = 0.45
+pos = bisect.bisect_left(umbrales, nuevo)
+print(f"Insertar {nuevo} en posición {pos}")  # 2
+
+# ── Grid Search: búsqueda de hiperparámetros ─────
+import itertools
+
+param_grid = {
+    'learning_rate': [0.001, 0.01, 0.1],
+    'n_layers':      [2, 4, 8],
+    'dropout':       [0.1, 0.3],
+}
+keys = list(param_grid.keys())
+combinaciones = list(itertools.product(*param_grid.values()))
+print(f"Total combinaciones: {len(combinaciones)}")
+
+for combo in combinaciones[:3]:
+    params = dict(zip(keys, combo))
+    print(params)</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Insertar 0.45 en posición 2
+Total combinaciones: 18
+{'learning_rate': 0.001, 'n_layers': 2, 'dropout': 0.1}
+{'learning_rate': 0.001, 'n_layers': 2, 'dropout': 0.3}
+{'learning_rate': 0.001, 'n_layers': 4, 'dropout': 0.1}</pre></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: ML PATTERNS -->
+      <div *ngIf="slide.type === 'ml-patterns'" class="slide-content">
+        <h2>🧩 Patrones DSA en ML</h2>
+        <p class="slide-intro">Los mismos patrones de DSA aparecen constantemente en implementaciones de ML. Reconocerlos te hace más eficiente.</p>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>from collections import deque
+import heapq
+
+# ── Sliding Window: media móvil para time-series ──
+def moving_average(datos, ventana):
+    result = []
+    window = deque()
+    total = 0
+    for x in datos:
+        window.append(x)
+        total += x
+        if len(window) > ventana:
+            total -= window.popleft()
+        if len(window) == ventana:
+            result.append(total / ventana)
+    return result
+
+serie = [1, 3, 5, 7, 9, 11, 13]
+print("Media móvil k=3:", moving_average(serie, 3))
+# [3.0, 5.0, 7.0, 9.0, 11.0]
+
+# ── Two Pointers: detección de anomalías ─────────
+def detectar_anomalias(datos, umbral=2.0):
+    """Busca pares con diferencia > umbral en O(n)."""
+    datos_ord = sorted(datos)
+    anomalias = []
+    i, j = 0, len(datos_ord) - 1
+    while i < j:
+        diff = datos_ord[j] - datos_ord[i]
+        if diff > umbral:
+            anomalias.append((datos_ord[i], datos_ord[j]))
+            j -= 1
+        else:
+            i += 1
+    return anomalias
+
+scores = [0.1, 0.9, 0.2, 0.85, 0.15, 0.92]
+print("Anomalías:", detectar_anomalias(scores, umbral=0.7))</code></pre>
+          <div class="output-block"><span class="output-label">▶ Output</span><pre>Media móvil k=3: [3.0, 5.0, 7.0, 9.0, 11.0]
+Anomalías: [(0.1, 0.92), (0.15, 0.9), (0.2, 0.85)]</pre></div>
+        </div>
+        <div class="concepts-grid" style="margin-top:1rem">
+          <div class="concept-card"><span class="concept-icon">🪟</span><strong>Sliding Window</strong><p>Media móvil, detección de anomalías en series temporales.</p></div>
+          <div class="concept-card"><span class="concept-icon">👆👇</span><strong>Two Pointers</strong><p>Búsqueda de pares, deduplicación en arrays ordenados.</p></div>
+          <div class="concept-card"><span class="concept-icon">🔢</span><strong>Memoización</strong><p>Cache de computaciones — base de DP y attention caching.</p></div>
+          <div class="concept-card"><span class="concept-icon">⛏️</span><strong>Divide & Conquer</strong><p>Merge sort, FFT, convolutions en CNNs — mismo paradigma.</p></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: CHALLENGE -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Selecciona tu nivel y aplica DSA en contexto de IA.</p>
+        <div class="challenge-tabs">
+          <button *ngFor="let ch of challenges; let i = index" (click)="selectedChallenge = i" class="challenge-tab-btn" [class.active]="selectedChallenge === i" [ngClass]="selectedChallenge === i ? '' : 'opacity-70'">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">{{ ch.difficulty }}</span>
+            <span>{{ ch.title }}</span>
+          </button>
+        </div>
+        <div class="challenge-card" [ngClass]="challenges[selectedChallenge].color">
+          <div class="challenge-header">
+            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">{{ challenges[selectedChallenge].difficulty }}</span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul><li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li></ul>
+          </div>
+          <div class="code-block-wrapper mt-4">
+            <div class="code-block-header">📝 Código de inicio</div>
+            <pre class="code-block python"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+          <div class="output-block mt-3">
+            <span class="output-label">🎯 Output esperado</span>
+            <pre>{{ challenges[selectedChallenge].expectedOutput }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: SUMMARY -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <div class="workshop-badge" style="background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3)">
+          ✅ ESTACIÓN 3 COMPLETADA — LÍNEA 1 · FOUNDATIONS STATION
+        </div>
+        <h2>🎉 Resumen: Data Structures &amp; Algorithms</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><span class="summary-icon">⏱️</span><div><strong>Big O Notation</strong><p>O(1), O(log n), O(n), O(n log n), O(n²) — tasa de crecimiento, no segundos.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">📦</span><div><strong>Arrays & HashMaps</strong><p>dict O(1), list O(n) búsqueda. Vocabularios NLP, caches, contadores.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🌳</span><div><strong>Árboles</strong><p>BST, Heap, Decision Trees. Base de Random Forest y XGBoost.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">⚡</span><div><strong>Sorting</strong><p>Timsort O(n log n) en Python. Sorting custom con key= para rankings ML.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🔍</span><div><strong>Searching</strong><p>Binary search O(log n), grid search, bisect para arrays ordenados.</p></div></div>
+          <div class="summary-item"><span class="summary-icon">🧩</span><div><strong>Patrones ML</strong><p>Sliding window, two pointers, memoización, divide & conquer.</p></div></div>
+        </div>
+        <div class="next-station-card">
+          <div class="next-station-label">🚉 Próxima estación en Línea 1</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">Ver en el MetroMap <span>→</span></a>
+        </div>
+        <div class="tip-box mt-6">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://neetcode.io" target="_blank" rel="noopener noreferrer" class="resource-link">NeetCode (roadmap visual)</a> ·
+            <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="resource-link">LeetCode</a> ·
+            <a href="https://visualgo.net" target="_blank" rel="noopener noreferrer" class="resource-link">VisuAlgo (animaciones)</a>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

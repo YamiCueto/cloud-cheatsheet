@@ -72,7 +72,15 @@ export class App {
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV',
       '/metro-map-ai': 'MetroMap to Master AI',
-      '/metro-map-ai/l1-python-basics': 'MetroMap AI / L1: Python Programming Basics'
+      '/metro-map-ai/l1-python-basics': 'MetroMap AI / L1: Python Programming Basics',
+      '/metro-map-ai/l1-numpy-pandas': 'MetroMap AI / L1: NumPy & Pandas',
+      '/metro-map-ai/l1-dsa': 'MetroMap AI / L1: Data Structures & Algorithms',
+      '/metro-map-ai/l1-linear-algebra': 'MetroMap AI / L1: Linear Algebra for ML',
+      '/metro-map-ai/l1-probability-stats': 'MetroMap AI / L1: Probability & Statistics',
+      '/metro-map-ai/l1-calculus': 'MetroMap AI / L1: Calculus for Optimization',
+      '/metro-map-ai/l1-data-viz': 'MetroMap AI / L1: Data Cleaning & Visualization',
+      '/metro-map-ai/l1-git': 'MetroMap AI / L1: Git & Version Control',
+      '/metro-map-ai/l1-cli': 'MetroMap AI / L1: Command Line Tools'
     };
 
     return routeTitles[this.currentRoute] || 'Página actual';
@@ -157,9 +165,19 @@ export class App {
     }
     else if (this.currentRoute.startsWith('/metro-map-ai/')) {
       breadcrumbs.push({ label: 'MetroMap to Master AI', url: '/metro-map-ai' });
-      if (this.currentRoute === '/metro-map-ai/l1-python-basics') {
-        breadcrumbs.push({ label: 'L1: Python Programming Basics' });
-      }
+      const l1Labels: { [key: string]: string } = {
+        '/metro-map-ai/l1-python-basics': 'L1: Python Programming Basics',
+        '/metro-map-ai/l1-numpy-pandas': 'L1: NumPy & Pandas',
+        '/metro-map-ai/l1-dsa': 'L1: Data Structures & Algorithms',
+        '/metro-map-ai/l1-linear-algebra': 'L1: Linear Algebra for ML',
+        '/metro-map-ai/l1-probability-stats': 'L1: Probability & Statistics',
+        '/metro-map-ai/l1-calculus': 'L1: Calculus for Optimization',
+        '/metro-map-ai/l1-data-viz': 'L1: Data Cleaning & Visualization',
+        '/metro-map-ai/l1-git': 'L1: Git & Version Control',
+        '/metro-map-ai/l1-cli': 'L1: Command Line Tools'
+      };
+      const label = l1Labels[this.currentRoute];
+      if (label) breadcrumbs.push({ label });
     }
 
     return breadcrumbs;

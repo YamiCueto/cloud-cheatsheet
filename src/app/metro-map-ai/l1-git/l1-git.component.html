@@ -1,0 +1,515 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+
+  <!-- Back button -->
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <div class="flex gap-1.5">
+        <button
+          *ngFor="let slide of slides; let i = index"
+          (click)="goToSlide(i)"
+          class="w-2.5 h-2.5 rounded-full transition-all duration-200"
+          [class.bg-accent-orange]="i === currentSlide"
+          [class.bg-gray-300]="i !== currentSlide"
+          [attr.aria-label]="'Ir a diapositiva ' + (i + 1)"
+        ></button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 1: TITLE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Git &amp; Version<br><span style="color: #f59e0b">Control</span></h1>
+        <h2 class="subtitle">Estación 9 de 9 · Control de versiones para proyectos de ML profesionales</h2>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon">⏱️</span>
+            <div><strong>Duración</strong><span>3–4 horas</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🎯</span>
+            <div><strong>Objetivo</strong><span>Git profesional para equipos de ML</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🛠️</span>
+            <div><strong>Herramientas</strong><span>Git · GitHub · DVC · pre-commit</span></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📋</span>
+            <div><strong>Prerequisito</strong><span>Terminal básica · Python</span></div>
+          </div>
+        </div>
+
+        <div class="agenda-preview">
+          <h3>📋 Agenda</h3>
+          <div class="agenda-grid">
+            <span>🤔 ¿Por qué Git en ML?</span>
+            <span>🚀 Git básico</span>
+            <span>🌿 Branching</span>
+            <span>☁️ Colaboración remota</span>
+            <span>🚫 .gitignore &amp; LFS</span>
+            <span>📦 DVC intro</span>
+            <span>🧪 Workflow ML</span>
+            <span>🏋️ Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2: WHY GIT ML
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'why-git-ml'" class="slide-content">
+        <h2>🤔 ¿Por qué Git es crítico en ML?</h2>
+        <p class="slide-intro">
+          En desarrollo de software tradicional Git es útil. En ML es <strong>indispensable</strong>:
+          los experimentos son no-lineales, los datasets cambian, y los modelos evolucionan constantemente.
+        </p>
+
+        <div class="theory-grid">
+          <div class="theory-card" *ngFor="let r of whyReasons">
+            <div class="theory-icon">{{ r.icon }}</div>
+            <h4>{{ r.title }}</h4>
+            <p>{{ r.desc }}</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          💡 <strong>El problema sin Git:</strong> "¿Cuál versión de train.py generó ese 94% de accuracy que vimos hace 3 semanas?" — Sin control de versiones, esta pregunta no tiene respuesta.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 3: GIT BASICS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'git-basics'" class="slide-content">
+        <h2>🚀 Git Básico — El flujo esencial</h2>
+        <p class="slide-intro">
+          Todo en Git empieza con tres áreas: <strong>Working Tree</strong> (tus archivos),
+          <strong>Staging Area</strong> (lo que vas a commitear) y el
+          <strong>Repository</strong> (historial permanente).
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of basicsExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeBasicsTab === ti"
+            (click)="activeBasicsTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ basicsExamples[activeBasicsTab].code }}</code></pre>
+          <div *ngIf="basicsExamples[activeBasicsTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ basicsExamples[activeBasicsTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Convención de commits:</strong> Usa
+          <a href="https://www.conventionalcommits.org/" target="_blank" rel="noopener noreferrer" class="resource-link">Conventional Commits</a>:
+          <code class="inline-code">feat:</code> · <code class="inline-code">fix:</code> · <code class="inline-code">exp:</code> · <code class="inline-code">data:</code> · <code class="inline-code">model:</code>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4: BRANCHING
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'branching'" class="slide-content">
+        <h2>🌿 Branching — Experimentos paralelos</h2>
+        <p class="slide-intro">
+          Las ramas son la herramienta clave para experimentación en ML. Cada hipótesis tiene su rama;
+          si funciona, se mergea. Si no, queda como referencia histórica sin ensuciar <code class="inline-code">main</code>.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of branchExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeBranchTab === ti"
+            (click)="activeBranchTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ branchExamples[activeBranchTab].code }}</code></pre>
+          <div *ngIf="branchExamples[activeBranchTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ branchExamples[activeBranchTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ <strong>Nunca hagas rebase de ramas públicas.</strong> Si otros ya jalaron la rama, rebase reescribe el historial y causa conflictos. Usa <code class="inline-code">rebase</code> solo en ramas locales personales.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5: REMOTE COLLAB
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'remote-collab'" class="slide-content">
+        <h2>☁️ Colaboración Remota &amp; Pull Requests</h2>
+        <p class="slide-intro">
+          GitHub / GitLab son el hub central donde el equipo converge. Los <strong>Pull Requests</strong>
+          son el mecanismo de revisión — en ML esto incluye revisar no solo código sino también métricas y experimentos.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># ── Conectar con remoto ───────────────────────────────
+git remote add origin https://github.com/user/proyecto-ml.git
+git push -u origin main            # Primer push con tracking
+
+# ── Sincronización diaria ─────────────────────────────
+git fetch origin                   # Descarga cambios sin aplicar
+git pull origin main               # fetch + merge (o rebase con --rebase)
+git pull --rebase origin main      # Mantiene historial lineal
+
+# ── Subir experimento para revisión ───────────────────
+git switch -c exp/attention-v2
+# ... desarrollas y committeas ...
+git push origin exp/attention-v2   # Sube la rama
+
+# ── GitHub CLI (recomendado) ──────────────────────────
+gh pr create \
+  --title "exp: Attention V2 → accuracy=95.1% (+1%)" \
+  --body "## Cambios\n- Multi-head attention con 8 heads\n- Dropout 0.1\n\n## Resultados\n| Métrica | Baseline | V2 |\n|---------|----------|----|\n| Accuracy | 94.2% | 95.1% |\n| F1 | 93.8% | 94.9% |" \
+  --reviewer @equipo-ml
+
+gh pr list --state open
+gh pr merge 42 --squash --delete-branch</code></pre>
+          <div class="output-block">
+            <span class="output-label">Output</span>
+            <pre>Creating pull request for exp/attention-v2 into main in user/proyecto-ml
+https://github.com/user/proyecto-ml/pull/42</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Code Review en ML:</strong> Además del código, el PR debe incluir: (1) métricas comparativas, (2) ejemplos de predicciones, (3) análisis de errores, (4) tiempo de inferencia.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6: GITIGNORE & LFS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'gitignore-lfs'" class="slide-content">
+        <h2>🚫 .gitignore &amp; Git LFS</h2>
+        <p class="slide-intro">
+          Git no debe almacenar datos masivos ni modelos entrenados — eso explota el repositorio.
+          <code class="inline-code">.gitignore</code> excluye archivos;
+          <strong>Git LFS</strong> permite versionar archivos grandes con punteros ligeros.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># ── .gitignore para proyectos ML ──────────────────────
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.env
+.env.*
+venv/
+.venv/
+
+# Datos (usa DVC o S3 para versionar datos)
+data/raw/
+data/processed/
+*.csv
+*.parquet
+*.json.gz
+
+# Modelos entrenados grandes
+models/*.pkl
+models/*.pt
+models/*.h5
+models/*.onnx
+checkpoints/
+
+# Experimentos y logs
+mlruns/
+wandb/
+.neptune/
+lightning_logs/
+*.log
+
+# Jupyter Notebooks — outputs (usa nbstripout)
+.ipynb_checkpoints/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# ── Git LFS para archivos grandes indispensables ──────
+# Instalar: https://git-lfs.github.com
+git lfs install
+git lfs track "*.pkl"         # Models pequeños con versionado
+git lfs track "data/curated/*.parquet"  # Dataset curado y estable
+git add .gitattributes        # lfs config va aquí
+git commit -m "chore: configure git-lfs for model artifacts"
+
+# Ver archivos bajo LFS
+git lfs ls-files
+
+# ── Verificar .gitignore ──────────────────────────────
+git check-ignore -v models/bert-finetuned.pt
+# → .gitignore:8:models/*.pt    models/bert-finetuned.pt</code></pre>
+        </div>
+
+        <div class="warning-box mt-4">
+          ⚠️ Si accidentalmente committeas un archivo grande, usa
+          <code class="inline-code">git filter-repo</code> (no <code class="inline-code">filter-branch</code>) para limpiarlo del historial completo antes de hacer push.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7: DVC INTRO
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'dvc-intro'" class="slide-content">
+        <h2>📦 DVC — Data Version Control</h2>
+        <p class="slide-intro">
+          <strong>DVC</strong> extiende Git para datos y modelos: los archivos grandes van a
+          S3/GCS/Azure Blob; Git solo guarda punteros (<code class="inline-code">.dvc</code> files).
+          Así tienes reproducibilidad completa sin inflar el repo.
+        </p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code># Instalación
+pip install dvc dvc-s3  # o dvc-gs, dvc-azure según tu cloud
+
+# ── Inicializar DVC en el repo existente ──────────────
+git init
+dvc init
+git add .dvc/
+git commit -m "chore: initialize DVC"
+
+# ── Conectar storage remoto ───────────────────────────
+dvc remote add -d myremote s3://mi-bucket/dvc-cache
+# Para local (pruebas):
+dvc remote add -d localremote /tmp/dvc-cache
+
+# ── Agregar datos bajo control DVC ────────────────────
+dvc add data/raw/dataset_2024.parquet
+# Genera: data/raw/dataset_2024.parquet.dvc
+# Agrega automáticamente data/raw/dataset_2024.parquet a .gitignore
+
+git add data/raw/dataset_2024.parquet.dvc data/.gitignore
+git commit -m "data: add raw dataset 2024 (12GB)"
+
+dvc push   # Sube datos al remote storage
+
+# ── Reproducir en otra máquina ────────────────────────
+git clone https://github.com/user/proyecto-ml.git
+cd proyecto-ml
+dvc pull   # Descarga los datos del remote
+
+# ── Pipeline reproducible ─────────────────────────────
+dvc run -n preprocess \
+  -d data/raw/dataset.parquet \
+  -d src/preprocess.py \
+  -o data/processed/clean.parquet \
+  python src/preprocess.py
+
+dvc repro         # Re-ejecuta solo lo que cambió
+dvc dag           # Visualiza el pipeline</code></pre>
+          <div class="output-block">
+            <span class="output-label">dvc dag</span>
+            <pre>+----------------------+
+| data/raw/dataset.dvc |
++----------------------+
+          *
+          *
+    +------------+
+    | preprocess |
+    +------------+
+          *
+     +-------+
+     | train |
+     +-------+</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>DVC vs Git LFS:</strong> Git LFS versiona archivos individualmente en Git.
+          DVC versiona pipelines completos (datos + código + modelos) con caché compartida y reproducibilidad de experimentos.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8: ML WORKFLOW
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'ml-workflow'" class="slide-content">
+        <h2>🧪 Workflow Git para Equipos ML</h2>
+        <p class="slide-intro">
+          Los equipos de ML exitosos adaptan GitFlow con convenciones propias.
+          La clave: <strong>trazabilidad entre commits, experimentos y métricas</strong>.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of workflowExamples; let ti = index"
+            class="tab-btn"
+            [class.active]="activeWorkflowTab === ti"
+            (click)="activeWorkflowTab = ti"
+          >{{ ex.label }}</button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block"><code>{{ workflowExamples[activeWorkflowTab].code }}</code></pre>
+          <div *ngIf="workflowExamples[activeWorkflowTab].output" class="output-block">
+            <span class="output-label">Output</span>
+            <pre>{{ workflowExamples[activeWorkflowTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box mt-4">
+          💡 <strong>Integra con MLflow/W&amp;B:</strong> Guarda el SHA del commit como parámetro del experimento —
+          <code class="inline-code">mlflow.log_param("git_sha", subprocess.check_output(["git","rev-parse","HEAD"]).decode().strip())</code>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9: CHALLENGE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Aplica Git en escenarios reales de ML. Elige tu nivel:</p>
+
+        <div class="challenge-tabs">
+          <button
+            *ngFor="let ch of challenges; let ci = index"
+            class="challenge-tab-btn"
+            [class.active]="selectedChallenge === ci"
+            (click)="selectedChallenge = ci"
+          >
+            <span class="text-lg">{{ ci === 0 ? '🟢' : ci === 1 ? '🟡' : '🔴' }}</span>
+            <span>{{ ch.difficulty }}</span>
+          </button>
+        </div>
+
+        <div class="challenge-card" [style.border-left-color]="challenges[selectedChallenge].difficultyColor.includes('green') ? '#4ade80' : challenges[selectedChallenge].difficultyColor.includes('yellow') ? '#facc15' : '#f87171'">
+          <div class="challenge-header">
+            <span class="badge" [ngClass]="challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
+          <div class="code-block-wrapper mb-3">
+            <pre class="code-block"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul>
+              <li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10: SUMMARY
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <h2>✅ Resumen — Git &amp; Version Control</h2>
+        <p class="slide-intro">Ahora tienes el control de versiones que un ML Engineer profesional usa:</p>
+
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-icon">🚀</span>
+            <div>
+              <strong>Git Básico</strong>
+              <p>init · add · commit · log · diff · stash · restore · revert</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🌿</span>
+            <div>
+              <strong>Branching</strong>
+              <p>switch · branch · merge · rebase · rebase -i · tags</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">☁️</span>
+            <div>
+              <strong>Colaboración</strong>
+              <p>push · pull · fetch · PR · GitHub CLI · code review en ML</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🚫</span>
+            <div>
+              <strong>.gitignore &amp; LFS</strong>
+              <p>Excluir datos masivos · Git LFS para artefactos · filter-repo</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📦</span>
+            <div>
+              <strong>DVC</strong>
+              <p>Versionado de datos · pipelines reproducibles · dvc repro</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🧪</span>
+            <div>
+              <strong>Workflow ML</strong>
+              <p>Ramas por experimento · commits descriptivos · tags de versión · pre-commit hooks</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-station-card mt-6">
+          <div class="next-station-label">🚉 Siguiente Estación</div>
+          <h3>{{ nextStation.name }}</h3>
+          <p>{{ nextStation.description }}</p>
+          <a [routerLink]="nextStation.route" class="next-station-btn">
+            Ver en el MetroMap <span>→</span>
+          </a>
+        </div>
+
+        <div class="tip-box mt-4">
+          <strong>📚 Recursos:</strong>
+          <span class="ml-2">
+            <a href="https://git-scm.com/book/es/v2"
+               target="_blank" rel="noopener noreferrer" class="resource-link">Pro Git Book (gratis)</a> ·
+            <a href="https://dvc.org/doc/start"
+               target="_blank" rel="noopener noreferrer" class="resource-link">DVC Get Started</a> ·
+            <a href="https://www.conventionalcommits.org/"
+               target="_blank" rel="noopener noreferrer" class="resource-link">Conventional Commits</a>
+          </span>
+        </div>
+      </div>
+
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
+</div>
