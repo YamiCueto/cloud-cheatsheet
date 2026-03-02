@@ -151,6 +151,10 @@ const routes: Routes = [
     path: 'metro-map-ai/l1-dsa',
     loadComponent: () => import('./metro-map-ai/l1-dsa/l1-dsa.component').then(m => m.L1DsaComponent)
   },
+  {
+    path: 'metro-map-ai/l1-linear-algebra',
+    loadComponent: () => import('./metro-map-ai/l1-linear-algebra/l1-linear-algebra.component').then(m => m.L1LinearAlgebraComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

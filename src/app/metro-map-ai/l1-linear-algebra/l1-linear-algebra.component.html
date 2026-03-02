@@ -1,0 +1,492 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+
+  <!-- ── NAVIGATION BAR ────────────────────────────────────────── -->
+  <nav class="slide-nav">
+    <button class="nav-btn" (click)="prev()" [disabled]="currentSlide === 0">‹</button>
+
+    <div class="slide-indicators">
+      <button
+        *ngFor="let s of slides; let i = index"
+        class="indicator-dot"
+        [class.active]="i === currentSlide"
+        (click)="goTo(i)">
+      </button>
+    </div>
+
+    <button class="nav-btn" (click)="next()" [disabled]="currentSlide === slides.length - 1">›</button>
+
+    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+  </nav>
+
+  <!-- ── PROGRESS BAR ──────────────────────────────────────────── -->
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" [style.width.%]="progressPct"></div>
+  </div>
+
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 1 — TITLE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="station-badge">🚉 ESTACIÓN 4 DE 9 · LÍNEA 1 — FOUNDATIONS</div>
+        <div class="title-icon">🧮</div>
+        <h1>Linear Algebra for ML</h1>
+        <p class="title-subtitle">El lenguaje matemático de cada capa, peso y gradiente en IA</p>
+
+        <div class="title-pills">
+          <span class="pill pill-blue">Vectores &amp; Normas</span>
+          <span class="pill pill-green">Matrices &amp; Ops</span>
+          <span class="pill pill-purple">Dot Product &amp; Attention</span>
+          <span class="pill pill-yellow">Eigenvalores &amp; SVD</span>
+          <span class="pill pill-red">PCA</span>
+          <span class="pill pill-orange">NN = Álgebra Lineal</span>
+        </div>
+
+        <div class="title-meta">
+          <div class="meta-item">
+            <span class="meta-icon">⏱️</span>
+            <span>~90 min</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🎯</span>
+            <span>10 slides · 3 retos</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🔗</span>
+            <span>Prerrequisito: DSA</span>
+          </div>
+        </div>
+
+        <div class="title-prereq-note">
+          💡 Sin álgebra lineal no hay redes neuronales. Cada forward pass, cada gradiente
+          y cada embedding es una operación matricial. Esta estación te da el lenguaje
+          que usan PyTorch, TensorFlow y NumPy internamente.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2 — WHY LINALG
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'why-linalg'" class="slide-content">
+        <h2>🧮 ¿Por qué Álgebra Lineal en IA?</h2>
+        <p class="slide-intro">
+          El álgebra lineal no es solo matemática abstracta — es la <strong>infraestructura
+          computacional de toda la IA moderna</strong>. Desde un perceptrón hasta GPT-4,
+          todo se reduce a multiplicaciones de matrices y operaciones vectoriales.
+        </p>
+
+        <div class="theory-grid">
+          <div *ngFor="let r of whyReasons" class="theory-card" [ngClass]="r.color">
+            <div class="theory-icon">{{ r.icon }}</div>
+            <h3>{{ r.title }}</h3>
+            <p>{{ r.description }}</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>⚡ Hecho clave:</strong>
+          <span class="ml-2">
+            Una GPU moderna como la H100 puede ejecutar
+            <strong>~3,958 TFLOPS</strong> de operaciones FP16.
+            Ese poder computacional se aprovecha <em>exclusivamente</em>
+            para multiplicaciones matriciales en paralelo.
+          </span>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 3 — VECTORS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'vectors'" class="slide-content">
+        <h2>🔢 Vectores — El átomo de los datos</h2>
+        <p class="slide-intro">
+          En ML cada muestra de tu dataset es un <strong>vector en ℝⁿ</strong>.
+          Las operaciones vectoriales — normas, proyecciones, productos escalares —
+          son las primitivas de todo modelo.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of vectorExamples; let i = index"
+            (click)="activeVectorTab = i"
+            class="tab-btn" [class.active]="activeVectorTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy</div>
+          <pre class="code-block"><code>{{ vectorExamples[activeVectorTab].code }}</code></pre>
+          <div *ngIf="vectorExamples[activeVectorTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ vectorExamples[activeVectorTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="vector-concepts">
+          <div class="concept-chip chip-blue">
+            <strong>L1 (Manhattan)</strong> — suma de valores absolutosRobusta a outliers · Lasso regularization
+          </div>
+          <div class="concept-chip chip-green">
+            <strong>L2 (Euclidiana)</strong> — raíz de suma de cuadradosKNN, clustering, Ridge regression
+          </div>
+          <div class="concept-chip chip-purple">
+            <strong>Cosine</strong> — ángulo entre vectoresIndependiente de magnitud · Embeddings NLP
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4 — MATRICES
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'matrices'" class="slide-content">
+        <h2>✖️ Matrices — Transformaciones lineales</h2>
+        <p class="slide-intro">
+          Una matriz <strong>transforma vectores</strong>. La capa densa de una red neuronal
+          es exactamente eso: W·x + b aplica una transformación lineal que rota, escala
+          y traslada el espacio de representación.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of matrixExamples; let i = index"
+            (click)="activeMatrixTab = i"
+            class="tab-btn" [class.active]="activeMatrixTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy</div>
+          <pre class="code-block"><code>{{ matrixExamples[activeMatrixTab].code }}</code></pre>
+          <div *ngIf="matrixExamples[activeMatrixTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ matrixExamples[activeMatrixTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="matrix-ops-row">
+          <div class="op-card">
+            <span class="op-symbol">@</span>
+            <strong>Matmul</strong>
+            <p>W @ x — capa densa</p>
+          </div>
+          <div class="op-card">
+            <span class="op-symbol">.T</span>
+            <strong>Transpuesta</strong>
+            <p>Intercambia filas↔columnas</p>
+          </div>
+          <div class="op-card">
+            <span class="op-symbol">A⁻¹</span>
+            <strong>Inversa</strong>
+            <p>Deshacer transformación</p>
+          </div>
+          <div class="op-card">
+            <span class="op-symbol">*</span>
+            <strong>Hadamard</strong>
+            <p>Element-wise · LSTM gates</p>
+          </div>
+          <div class="op-card">
+            <span class="op-symbol">tr</span>
+            <strong>Traza</strong>
+            <p>Suma diagonal · regularización</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5 — DOT PRODUCT
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'dot-product'" class="slide-content">
+        <h2>🔵 Dot Product, Proyecciones &amp; Distancias</h2>
+        <p class="slide-intro">
+          El producto punto <strong>a · b = ||a|| ||b|| cos(θ)</strong> es la operación
+          fundamental de la similitud en ML. Toda la magia del mecanismo de atención
+          (Transformer) se basa en dot products masivos entre matrices Q, K y V.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of dotExamples; let i = index"
+            (click)="activeDotTab = i"
+            class="tab-btn" [class.active]="activeDotTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy</div>
+          <pre class="code-block"><code>{{ dotExamples[activeDotTab].code }}</code></pre>
+          <div *ngIf="dotExamples[activeDotTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ dotExamples[activeDotTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="attention-formula-box">
+          <strong>🤖 Fórmula del Transformer:</strong>
+          <code class="formula-code">Attention(Q, K, V) = softmax( Q·Kᵀ / √d_k ) · V</code>
+          <span class="formula-note">Cada token asigna pesos a todos los demás tokens vía dot products escalados</span>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6 — DECOMPOSITIONS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'decompositions'" class="slide-content">
+        <h2>🔑 Eigenvalores &amp; SVD</h2>
+        <p class="slide-intro">
+          Las descomposiciones matriciales revelan la <strong>geometría oculta de los datos</strong>.
+          Eigendecomposición para matrices cuadradas simétricas (covarianza).
+          SVD para cualquier matriz — la base de PCA, recomendación y compresión.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of decompExamples; let i = index"
+            (click)="activeDecompTab = i"
+            class="tab-btn" [class.active]="activeDecompTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy</div>
+          <pre class="code-block"><code>{{ decompExamples[activeDecompTab].code }}</code></pre>
+          <div *ngIf="decompExamples[activeDecompTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ decompExamples[activeDecompTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="decomp-row">
+          <div class="decomp-card card-blue">
+            <strong>Eigendecomposición</strong>
+            <p>A = Q · Λ · Q⁻¹  (solo matrices cuadradas)</p>
+            <p class="card-use">→ PCA, análisis de estabilidad, Google PageRank</p>
+          </div>
+          <div class="decomp-card card-purple">
+            <strong>SVD</strong>
+            <p>A = U · Σ · Vᵀ  (cualquier matriz m×n)</p>
+            <p class="card-use">→ Compresión, recomendación, pseudoinversa, LSA</p>
+          </div>
+          <div class="decomp-card card-green">
+            <strong>Cholesky</strong>
+            <p>A = L · Lᵀ (matrices semidefinidas positivas)</p>
+            <p class="card-use">→ Muestreo Gaussiano, filtro de Kalman, GPs</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7 — PCA
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pca'" class="slide-content">
+        <h2>📉 PCA — Reducción de Dimensionalidad</h2>
+        <p class="slide-intro">
+          Principal Component Analysis transforma el espacio de features al sistema de
+          coordenadas que <strong>maximiza la varianza con el menor número de dimensiones</strong>.
+          Indispensable para visualizar, comprimir y acelerar el entrenamiento.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of pcaExamples; let i = index"
+            (click)="activePcaTab = i"
+            class="tab-btn" [class.active]="activePcaTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy / Scikit-learn</div>
+          <pre class="code-block"><code>{{ pcaExamples[activePcaTab].code }}</code></pre>
+          <div *ngIf="pcaExamples[activePcaTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ pcaExamples[activePcaTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="pca-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div><strong>Centrar</strong><p>X - mean(X, axis=0)</p></div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div><strong>Covarianza</strong><p>np.cov(X.T)</p></div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div><strong>Eigen</strong><p>np.linalg.eigh</p></div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-item">
+            <span class="step-num">4</span>
+            <div><strong>Ordenar</strong><p>argsort[::-1]</p></div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-item">
+            <span class="step-num">5</span>
+            <div><strong>Proyectar</strong><p>X_c @ W[:, :k]</p></div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <strong>⚠️ Siempre normaliza antes de PCA:</strong>
+          Features en distintas escalas (ej. edad=25, salario=50000) hacen que la varianza
+          de la variable grande domine. Usa <code class="inline-code">StandardScaler</code> antes.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8 — NN & LINALG
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'nn-linalg'" class="slide-content">
+        <h2>🧠 Redes Neuronales = Álgebra Lineal</h2>
+        <p class="slide-intro">
+          Cada operación en una red neuronal — forward pass, backpropagation, batch normalization —
+          es <strong>álgebra lineal aplicada</strong>. Entender esto te permite
+          leer el código de PyTorch/TensorFlow con claridad matemática.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of nnExamples; let i = index"
+            (click)="activeNnTab = i"
+            class="tab-btn" [class.active]="activeNnTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <div class="code-block-header">🐍 Python · NumPy (NN desde cero)</div>
+          <pre class="code-block"><code>{{ nnExamples[activeNnTab].code }}</code></pre>
+          <div *ngIf="nnExamples[activeNnTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ nnExamples[activeNnTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="nn-map">
+          <div class="nn-op op-forward">
+            <strong>Forward Pass</strong>
+            <p>z = W·x + b → activation(z)</p>
+          </div>
+          <div class="nn-op op-backward">
+            <strong>Backprop</strong>
+            <p>∂L/∂W via chain rule → Wᵀ · δ</p>
+          </div>
+          <div class="nn-op op-norm">
+            <strong>Batch Norm</strong>
+            <p>(x - μ) / √(σ² + ε) · γ + β</p>
+          </div>
+          <div class="nn-op op-grad">
+            <strong>Gradient Descent</strong>
+            <p>W ← W - α · ∂L/∂W</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9 — CHALLENGE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">
+          Implementa álgebra lineal desde cero. Desde similitud coseno hasta el mecanismo
+          completo de atención causal de GPT.
+        </p>
+
+        <div class="challenge-tabs">
+          <button
+            *ngFor="let ch of challenges; let i = index"
+            (click)="selectedChallenge = i"
+            class="challenge-tab-btn" [class.active]="selectedChallenge === i">
+            <span>{{ ch.difficulty === 'Principiante' ? '🟢' : ch.difficulty === 'Intermedio' ? '🟡' : '🔴' }}</span>
+            <span>{{ ch.difficulty }}</span>
+          </button>
+        </div>
+
+        <div class="challenge-card">
+          <div class="challenge-header">
+            <span class="difficulty-badge" [ngClass]="'badge-' + challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
+          <div class="code-block-wrapper mt-3">
+            <div class="code-block-header">📝 Starter Code</div>
+            <pre class="code-block">{{ challenges[selectedChallenge].starterCode }}</pre>
+          </div>
+
+          <div class="hints-box mt-3">
+            <strong>💡 Pistas:</strong>
+            <ul>
+              <li *ngFor="let h of challenges[selectedChallenge].hints">{{ h }}</li>
+            </ul>
+          </div>
+
+          <div class="code-block-wrapper mt-3">
+            <div class="code-block-header">✅ Output esperado</div>
+            <pre class="code-block">{{ challenges[selectedChallenge].expectedOutput }}</pre>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10 — SUMMARY
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content">
+        <h2>🎯 Resumen — Linear Algebra for ML</h2>
+        <p class="slide-intro">
+          Has completado la base matemática del álgebra lineal aplicada a IA.
+          Ahora puedes leer papers de ML y entender cada operación matricial.
+        </p>
+
+        <div class="summary-grid">
+          <div *ngFor="let item of summaryItems" class="summary-item">
+            <span class="summary-icon">{{ item.icon }}</span>
+            <div>
+              <strong>{{ item.title }}</strong>
+              <p>{{ item.description }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-station-card">
+          <div class="next-station-label">🚉 SIGUIENTE ESTACIÓN</div>
+          <h3>Probability &amp; Statistics</h3>
+          <p>
+            Con álgebra lineal dominada, el siguiente paso es entender las
+            distribuciones de probabilidad, inferencia bayesiana y estadística
+            que sustentan los modelos generativos y el aprendizaje por refuerzo.
+          </p>
+          <a routerLink="/metro-map-ai" class="next-station-btn">
+            Ver mapa de línea →
+          </a>
+        </div>
+
+        <div class="resource-links">
+          <strong>📚 Recursos recomendados:</strong>
+          <a rel="noopener noreferrer" href="https://numpy.org/doc/stable/reference/routines.linalg.html" target="_blank" class="resource-link">numpy.linalg docs</a>
+          <a rel="noopener noreferrer" href="https://www.3blue1brown.com/topics/linear-algebra" target="_blank" class="resource-link">3Blue1Brown — Essence of Linear Algebra</a>
+          <a rel="noopener noreferrer" href="https://mml-book.github.io/" target="_blank" class="resource-link">Mathematics for Machine Learning (gratis)</a>
+        </div>
+      </div>
+
+
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
+</div>

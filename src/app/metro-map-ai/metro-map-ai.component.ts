@@ -64,7 +64,7 @@ export class MetroMapAiComponent {
         { name: 'Python Programming Basics', status: 'pending', route: '/metro-map-ai/l1-python-basics' },
         { name: 'NumPy & Pandas', status: 'pending', route: '/metro-map-ai/l1-numpy-pandas' },
         { name: 'Data Structures & Algorithms', status: 'pending', route: '/metro-map-ai/l1-dsa' },
-        { name: 'Linear Algebra for ML', status: 'pending', route: '' },
+        { name: 'Linear Algebra for ML', status: 'pending', route: '/metro-map-ai/l1-linear-algebra' },
         { name: 'Probability & Statistics', status: 'pending', route: '' },
         { name: 'Calculus for Optimization', status: 'pending', route: '/metro-map-ai/l1-calculus' },
         { name: 'Data Cleaning & Visualization', status: 'pending', route: '' },
