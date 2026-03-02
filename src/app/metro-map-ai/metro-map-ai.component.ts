@@ -8,6 +8,7 @@ interface Station {
   name: string;
   description?: string;
   status: 'pending' | 'in-progress' | 'completed';
+  route?: string;  // ruta a la clase/diapositiva de ese tema
 }
 
 interface MetroLine {
@@ -60,7 +61,7 @@ export class MetroMapAiComponent {
       icon: 'foundation',
       expanded: true,
       stations: [
-        { name: 'Python Programming Basics', status: 'pending' },
+        { name: 'Python Programming Basics', status: 'pending', route: '/metro-map-ai/l1-python-basics' },
         { name: 'NumPy & Pandas', status: 'pending' },
         { name: 'Data Structures & Algorithms', status: 'pending' },
         { name: 'Linear Algebra for ML', status: 'pending' },

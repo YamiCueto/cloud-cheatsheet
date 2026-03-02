@@ -131,6 +131,10 @@ const routes: Routes = [
     path: 'metro-map-ai',
     loadComponent: () => import('./metro-map-ai/metro-map-ai.component').then(m => m.MetroMapAiComponent)
   },
+  {
+    path: 'metro-map-ai/l1-python-basics',
+    loadComponent: () => import('./metro-map-ai/l1-python-basics/l1-python-basics.component').then(m => m.L1PythonBasicsComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 

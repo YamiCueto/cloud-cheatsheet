@@ -71,7 +71,8 @@ export class App {
       '/clase12-dev-proyecto-final': 'Aprende IA / Clase 12 DEV: Proyecto Final Integrado',
       '/roadmaps': 'AWS Roadmaps',
       '/plan-dev-detallado': 'Aprende IA / Plan de DEV',
-      '/metro-map-ai': 'MetroMap to Master AI'
+      '/metro-map-ai': 'MetroMap to Master AI',
+      '/metro-map-ai/l1-python-basics': 'MetroMap AI / L1: Python Programming Basics'
     };
 
     return routeTitles[this.currentRoute] || 'Página actual';
@@ -153,6 +154,12 @@ export class App {
     // MetroMap AI
     else if (this.currentRoute === '/metro-map-ai') {
       breadcrumbs.push({ label: 'MetroMap to Master AI' });
+    }
+    else if (this.currentRoute.startsWith('/metro-map-ai/')) {
+      breadcrumbs.push({ label: 'MetroMap to Master AI', url: '/metro-map-ai' });
+      if (this.currentRoute === '/metro-map-ai/l1-python-basics') {
+        breadcrumbs.push({ label: 'L1: Python Programming Basics' });
+      }
     }
 
     return breadcrumbs;

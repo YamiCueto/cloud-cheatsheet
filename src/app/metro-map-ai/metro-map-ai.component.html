@@ -154,6 +154,15 @@
               {{ station.name }}
             </span>
 
+            <!-- Link to class (if available) -->
+            <a *ngIf="station.route"
+              [routerLink]="station.route"
+              class="flex-shrink-0 flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg bg-accent-orange/10 text-accent-orange border border-accent-orange/30 hover:bg-accent-orange hover:text-white transition-all duration-200 font-semibold whitespace-nowrap"
+              title="Ver clase">
+              <mat-icon class="!text-sm">play_lesson</mat-icon>
+              Ver clase
+            </a>
+
             <!-- Status badge -->
             <span class="text-xs px-2 py-0.5 rounded-full flex-shrink-0 font-medium"
               [ngClass]="{

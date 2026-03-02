@@ -1,0 +1,467 @@
+<div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
+
+  <!-- Back button -->
+  <div class="back-to-menu">
+    <a routerLink="/metro-map-ai" class="back-btn">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      <span>Volver al MetroMap AI</span>
+    </a>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
+    <div class="flex items-center gap-3">
+      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+      <!-- Dot navigation -->
+      <div class="flex gap-1.5">
+        <button *ngFor="let slide of slides; let i = index"
+          (click)="goToSlide(i)"
+          class="w-2.5 h-2.5 rounded-full transition-all duration-200"
+          [class.bg-white]="i === currentSlide"
+          [class.bg-white]="i === currentSlide"
+          [class.scale-125]="i === currentSlide"
+          [class.bg-white_40]="i !== currentSlide"
+          [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}">
+        </button>
+      </div>
+    </div>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="slide-wrapper">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 1: TITLE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'title'" class="slide-title">
+        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
+        <h1>Python Programming<br><span style="color: #f59e0b">Basics</span></h1>
+        <h2 class="subtitle">Estación 1 de 9 · Tu lenguaje nativo para la Inteligencia Artificial</h2>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="icon">⏱️</span>
+            <span class="label">Duración</span>
+            <span class="value">90 minutos</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">🎯</span>
+            <span class="label">Nivel</span>
+            <span class="value">Fundamentos</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">💡</span>
+            <span class="label">Slides</span>
+            <span class="value">10 secciones</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">🏆</span>
+            <span class="label">Retos</span>
+            <span class="value">3 desafíos prácticos</span>
+          </div>
+        </div>
+
+        <div class="agenda-preview">
+          <h3>📋 Agenda de hoy</h3>
+          <div class="agenda-grid">
+            <span>🐍 ¿Por qué Python para IA?</span>
+            <span>📊 Variables y tipos de datos</span>
+            <span>🔀 Control de flujo</span>
+            <span>📦 Funciones avanzadas</span>
+            <span>🗂️ Estructuras de datos</span>
+            <span>🏗️ POO básica</span>
+            <span>⚙️ Módulos y entorno virtual</span>
+            <span>🏋️ 3 Retos prácticos</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2: WHY PYTHON
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'why-python'" class="slide-content">
+        <h2>🐍 ¿Por qué Python para IA?</h2>
+        <p class="slide-intro">Python no es solo una opción — es <strong>el estándar de facto</strong> en Machine Learning, Deep Learning y toda la industria de IA.</p>
+
+        <div class="theory-grid">
+          <div *ngFor="let reason of whyPythonReasons" class="theory-card" [ngClass]="reason.color">
+            <div class="theory-icon">{{ reason.icon }}</div>
+            <h3>{{ reason.title }}</h3>
+            <p>{{ reason.description }}</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>🤔 ¿Y los demás lenguajes?</strong>
+          <span class="ml-2">R (estadística pura), Julia (velocidad numérica), JavaScript (browser/mobile AI) — útiles en nichos.
+          Python domina por ecosistema, comunidad y versatilidad completa.</span>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 3: VARIABLES & TYPES
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'variables-types'" class="slide-content">
+        <h2>📊 Variables y Tipos de Datos</h2>
+        <p class="slide-intro">Python es <strong>tipado dinámico</strong> — no declaras el tipo, Python lo infiere. Desde Python 3.5+ puedes agregar <em>type hints</em> opcionales.</p>
+
+        <!-- Tabs -->
+        <div class="code-tabs">
+          <button *ngFor="let ex of dataTypes; let i = index"
+            (click)="activeDataTypeTab = i"
+            class="tab-btn" [class.active]="activeDataTypeTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ dataTypes[activeDataTypeTab].code }}</code></pre>
+          <div *ngIf="dataTypes[activeDataTypeTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ dataTypes[activeDataTypeTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 Type Hints en IA:</strong> Úsalos para hacerlo legible:
+          <code class="inline-code">def normalizar(datos: list[float]) -> list[float]:</code>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4: CONTROL FLOW
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'control-flow'" class="slide-content">
+        <h2>🔀 Control de Flujo</h2>
+        <p class="slide-intro">Los bucles y condicionales son la base de cualquier algoritmo, desde un simple clasificador hasta un loop de entrenamiento de épocas.</p>
+
+        <div class="code-tabs">
+          <button *ngFor="let ex of controlFlowExamples; let i = index"
+            (click)="activeControlFlowTab = i"
+            class="tab-btn" [class.active]="activeControlFlowTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ controlFlowExamples[activeControlFlowTab].code }}</code></pre>
+          <div *ngIf="controlFlowExamples[activeControlFlowTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ controlFlowExamples[activeControlFlowTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <strong>⚠️ Indentación en Python:</strong> Python usa espacios (4 espacios PEP8) para definir bloques — ¡no llaves! Un error de indentación es un error de sintaxis.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5: FUNCTIONS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'functions'" class="slide-content">
+        <h2>📦 Funciones — El Bloque Constructivo de IA</h2>
+        <p class="slide-intro">En IA vas a escribir <strong>muchísimas funciones</strong>: de preprocesamiento, métricas, data augmentation, pérdidas personalizadas. Dominarlas es esencial.</p>
+
+        <div class="code-tabs">
+          <button *ngFor="let ex of functionExamples; let i = index"
+            (click)="activeFunctionTab = i"
+            class="tab-btn" [class.active]="activeFunctionTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ functionExamples[activeFunctionTab].code }}</code></pre>
+          <div *ngIf="functionExamples[activeFunctionTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ functionExamples[activeFunctionTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 Principio DRY:</strong> <em>Don't Repeat Yourself.</em> Si copias y pegas código 3 veces → conviértelo en función. En pipelines de ML esto es crítico para mantenibilidad.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6: DATA STRUCTURES
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'data-structures'" class="slide-content">
+        <h2>🗂️ Estructuras de Datos</h2>
+        <p class="slide-intro">Son la base de cómo manipularás datos en IA. Antes de NumPy arrays, entiendes listas. Antes de DataFrames, entiendes diccionarios.</p>
+
+        <div class="code-tabs">
+          <button *ngFor="let ex of dataStructureExamples; let i = index"
+            (click)="activeDataStructureTab = i"
+            class="tab-btn" [class.active]="activeDataStructureTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ dataStructureExamples[activeDataStructureTab].code }}</code></pre>
+          <div *ngIf="dataStructureExamples[activeDataStructureTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ dataStructureExamples[activeDataStructureTab].output }}</pre>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="mini-card">
+            <strong>Lista []</strong>
+            <p>Ordenada, mutable, acepta duplicados. Para datos secuenciales.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Diccionario &#123;&#125;</strong>
+            <p>Clave-valor, acceso O(1). Para configuraciones y resultados.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Tupla ()</strong>
+            <p>Inmutable. Para coordenadas, dimensiones, retornos múltiples.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Set &#123;&#125;</strong>
+            <p>Sin duplicados. Para etiquetas únicas, operaciones de conjuntos.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7: OOP BASICS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'oop-basics'" class="slide-content">
+        <h2>🏗️ Programación Orientada a Objetos</h2>
+        <p class="slide-intro">PyTorch, Scikit-learn, Keras — <strong>todos están construidos con POO</strong>. Entender clases te permite extenderlos, crear modelos custom y pipelines profesionales.</p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ oopExample.code }}</code></pre>
+          <div class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ oopExample.output }}</pre>
+          </div>
+        </div>
+
+        <div class="oop-concepts-grid">
+          <div class="oop-concept">
+            <span class="oop-icon">🧱</span>
+            <strong>Encapsulamiento</strong>
+            <p>Datos y comportamiento juntos en una clase.</p>
+          </div>
+          <div class="oop-concept">
+            <span class="oop-icon">🧬</span>
+            <strong>Herencia</strong>
+            <p><code>class CNN(ModeloIA)</code> — reutiliza código del padre.</p>
+          </div>
+          <div class="oop-concept">
+            <span class="oop-icon">🎭</span>
+            <strong>Polimorfismo</strong>
+            <p>Mismo método, comportamiento diferente por clase.</p>
+          </div>
+          <div class="oop-concept">
+            <span class="oop-icon">🔒</span>
+            <strong>Abstracción</strong>
+            <p>Ocultar complejidad, exponer interfaz simple.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8: MODULES & ENVIRONMENTS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'modules-env'" class="slide-content">
+        <h2>⚙️ Módulos, Paquetes y Entorno Virtual</h2>
+        <p class="slide-intro">Un entorno virtual (<code>venv</code>) aísla las dependencias de cada proyecto. Es <strong>obligatorio en IA</strong> — distintos proyectos necesitan versiones diferentes de NumPy, PyTorch, etc.</p>
+
+        <div class="code-block-wrapper">
+          <pre class="code-block bash"><code>{{ modulesExample.code }}</code></pre>
+        </div>
+
+        <div class="env-workflow">
+          <h3>🔄 Flujo de trabajo estándar para proyectos IA</h3>
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Crear entorno</strong>
+                <code>python -m venv venv_ia</code>
+              </div>
+            </div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Activar</strong>
+                <code>source venv_ia/bin/activate</code>
+              </div>
+            </div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Instalar deps</strong>
+                <code>pip install -r requirements.txt</code>
+              </div>
+            </div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Desarrollar</strong>
+                <code>jupyter notebook</code>
+              </div>
+            </div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">
+              <span class="step-num">5</span>
+              <div>
+                <strong>Guardar deps</strong>
+                <code>pip freeze > requirements.txt</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <strong>🚫 Nunca uses pip install sin entorno virtual activo</strong> — contaminarás las librerías del sistema y tendrás conflictos entre proyectos.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9: CHALLENGE
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
+        <h2>🏋️ Retos Prácticos</h2>
+        <p class="slide-intro">Pon a prueba lo aprendido. Selecciona tu nivel y resuelve el desafío en tu IDE favorito.</p>
+
+        <!-- Difficulty Selector -->
+        <div class="challenge-tabs">
+          <button *ngFor="let ch of challenges; let i = index"
+            (click)="selectedChallenge = i"
+            class="challenge-tab-btn"
+            [class.active]="selectedChallenge === i"
+            [ngClass]="selectedChallenge === i ? '' : 'opacity-70'">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">
+              {{ ch.difficulty }}
+            </span>
+            <span>{{ ch.title }}</span>
+          </button>
+        </div>
+
+        <!-- Challenge content -->
+        <div class="challenge-card" [ngClass]="challenges[selectedChallenge].color">
+          <div class="challenge-header">
+            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
+            <h3>{{ challenges[selectedChallenge].title }}</h3>
+          </div>
+
+          <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
+          <div class="hints-box">
+            <strong>💡 Pistas:</strong>
+            <ul>
+              <li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li>
+            </ul>
+          </div>
+
+          <div class="code-block-wrapper mt-4">
+            <div class="code-block-header">📝 Código de inicio</div>
+            <pre class="code-block python"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
+          </div>
+
+          <div class="output-block mt-3">
+            <span class="output-label">🎯 Output esperado</span>
+            <pre>{{ challenges[selectedChallenge].expectedOutput }}</pre>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10: SUMMARY
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
+        <div class="workshop-badge" style="background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3)">
+          ✅ ESTACIÓN COMPLETADA — LÍNEA 1 · FOUNDATIONS STATION
+        </div>
+        <h2>🎉 Resumen: Python Programming Basics</h2>
+
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-icon">📊</span>
+            <div>
+              <strong>Variables y Tipos</strong>
+              <p>int, float, str, bool, None. Tipado dinámico + type hints opcionales.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🔀</span>
+            <div>
+              <strong>Control de Flujo</strong>
+              <p>if/elif/else, for/range/enumerate, while, break/continue, list comprehensions.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📦</span>
+            <div>
+              <strong>Funciones</strong>
+              <p>def, parámetros default, *args/**kwargs, lambda, map/filter, decoradores.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🗂️</span>
+            <div>
+              <strong>Estructuras de Datos</strong>
+              <p>list, dict, tuple, set — cuándo usar cada una en contexto de IA.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🏗️</span>
+            <div>
+              <strong>POO Básica</strong>
+              <p>class, __init__, herencia, encapsulamiento — base de PyTorch y Scikit-learn.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">⚙️</span>
+            <div>
+              <strong>Entorno Virtual</strong>
+              <p>venv, pip, requirements.txt — aislamiento profesional de dependencias.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-station-card">
+          <div class="next-station-label">🚉 Próxima estación en Línea 1</div>
+          <h3>NumPy &amp; Pandas</h3>
+          <p>El duo esencial para manipulación de datos numéricos y tabulares en IA.
+          Arrays multidimensionales, broadcasting, DataFrames y operaciones vectorizadas.</p>
+          <a routerLink="/metro-map-ai" class="next-station-btn">
+            Ver en el MetroMap <span>→</span>
+          </a>
+        </div>
+
+        <div class="tip-box mt-6">
+          <strong>📚 Recursos recomendados:</strong>
+          <span class="ml-2">
+            <a href="https://docs.python.org/es/3/" target="_blank" class="resource-link">Docs oficiales Python</a> ·
+            <a href="https://www.learnpython.org/es/" target="_blank" class="resource-link">Learn Python interactivo</a> ·
+            <a href="https://kaggle.com/learn/python" target="_blank" class="resource-link">Kaggle Python Course (gratis)</a>
+          </span>
+        </div>
+      </div>
+
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
+</div>

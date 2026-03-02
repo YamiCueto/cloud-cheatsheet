@@ -1,0 +1,462 @@
+/* ── Slide Intro ──────────────────────────────── */
+.slide-intro {
+  color: #4b5563;
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  max-width: 860px;
+}
+
+/* ── Agenda Grid (title slide) ────────────────── */
+.agenda-preview {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  max-width: 800px;
+  width: 100%;
+}
+
+.agenda-preview h3 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.5rem 1rem;
+}
+
+.agenda-grid span {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── Code Tabs ────────────────────────────────── */
+.code-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.tab-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-bottom: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  background: rgba(255,255,255,0.18);
+  color: white;
+}
+
+.tab-btn.active {
+  background: #1e1e2e;
+  color: #e2e8f0;
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ── Code Block ───────────────────────────────── */
+.code-block-wrapper {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0 10px 10px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.code-block-header {
+  background: #2d2d3d;
+  color: #a0aec0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.code-block {
+  background: #1e1e2e;
+  color: #e2e8f0;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.code-block.bash {
+  color: #a8ff78;
+}
+
+.output-block {
+  background: #0d1117;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 0.75rem 1.5rem;
+}
+
+.output-block pre {
+  color: #4ade80;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0;
+  white-space: pre-wrap;
+}
+
+.output-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.inline-code {
+  background: rgba(0,0,0,0.2);
+  color: #fbbf24;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85em;
+}
+
+/* ── Comparison Row (data-structures) ─────────── */
+.comparison-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.mini-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.mini-card strong {
+  color: #f9fafb;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.mini-card p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── OOP Concepts Grid ────────────────────────── */
+.oop-concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.oop-concept {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.oop-icon {
+  font-size: 1.5rem;
+}
+
+.oop-concept strong {
+  color: #f9fafb;
+  font-size: 0.9rem;
+}
+
+.oop-concept p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.oop-concept code {
+  font-family: monospace;
+  color: #fbbf24;
+  font-size: 0.78rem;
+}
+
+/* ── Env Workflow ─────────────────────────────── */
+.env-workflow {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.env-workflow h3 {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.workflow-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.workflow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  flex: 1;
+  min-width: 140px;
+}
+
+.step-num {
+  background: #f59e0b;
+  color: white;
+  font-weight: 900;
+  font-size: 0.75rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.workflow-step strong {
+  color: #f9fafb;
+  font-size: 0.82rem;
+  display: block;
+}
+
+.workflow-step code {
+  color: #86efac;
+  font-family: monospace;
+  font-size: 0.72rem;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.workflow-arrow {
+  color: rgba(255,255,255,0.3);
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* ── Challenge Slide ──────────────────────────── */
+.challenge-slide { padding-bottom: 1rem; }
+
+.challenge-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.challenge-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.challenge-tab-btn:hover,
+.challenge-tab-btn.active {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.challenge-card {
+  background: rgba(255,255,255,0.06);
+  border-left: 4px solid;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.challenge-header h3 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.challenge-description {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+.hints-box {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.hints-box strong { color: #fbbf24; font-size: 0.85rem; }
+
+.hints-box ul {
+  margin: 0.35rem 0 0 1rem;
+  padding: 0;
+}
+
+.hints-box li {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+
+/* ── Summary Slide ────────────────────────────── */
+.summary-slide { gap: 1rem; }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.summary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+
+.summary-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.summary-item strong {
+  color: #f9fafb;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.summary-item p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Next Station Card ────────────────────────── */
+.next-station-card {
+  background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(245,158,11,0.06));
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.next-station-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f59e0b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+
+.next-station-card h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+}
+
+.next-station-card p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.next-station-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f59e0b;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.next-station-btn:hover {
+  background: #d97706;
+  transform: translateX(2px);
+}
+
+.resource-link {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.resource-link:hover {
+  color: #bfdbfe;
+}
+
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-3 { margin-top: 0.75rem; }
