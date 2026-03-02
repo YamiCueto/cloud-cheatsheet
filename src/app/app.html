@@ -15,6 +15,10 @@
 				<mat-icon>dashboard</mat-icon>
 				<span *ngIf="!sidebarCollapsed" class="font-medium">Dashboard</span>
 			</a>
+			<a routerLink="/metro-map-ai" routerLinkActive="bg-accent-orange !text-white" class="hover:bg-dark-card text-gray-300 hover:text-white flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200">
+				<mat-icon>map</mat-icon>
+				<span *ngIf="!sidebarCollapsed" class="font-medium">MetroMap IA</span>
+			</a>
 			<div>
 				<div>
 					<button (click)="toggleRoadmaps()" class="w-full text-left hover:bg-dark-card text-gray-300 hover:text-white font-medium flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 focus:outline-none">
@@ -194,6 +198,12 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-5-9-5-9 5 9 5z" />
 						</svg>
 						Plan de Estudio IA
+					</a>
+					<a routerLink="/metro-map-ai" class="hover:underline flex items-center gap-2">
+						<svg class="w-4 h-4 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6.618a2 2 0 011.553-1.945L9 3m0 17v-17m0 17l6-3m-6-14l6 3m0 11l5.447 2.724A2 2 0 0021 17.382V8.618a2 2 0 00-1.553-1.945L15 6m0 11V6" />
+						</svg>
+						MetroMap IA
 					</a>
 				</nav>
 			</div>

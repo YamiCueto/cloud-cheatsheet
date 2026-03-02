@@ -1,0 +1,187 @@
+<div class="min-h-screen bg-dark-bg pb-12">
+
+  <!-- Hero Header -->
+  <div class="bg-gradient-to-r from-gray-900 via-dark-card to-gray-900 border-b border-dark-border px-6 py-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center gap-4 mb-3">
+        <div class="w-12 h-12 rounded-xl bg-accent-orange flex items-center justify-center shadow-lg">
+          <mat-icon class="text-white !text-2xl">map</mat-icon>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-white">MetroMap to Master AI</h1>
+          <p class="text-gray-400 text-sm mt-0.5">Tu hoja de ruta completa para dominar la Inteligencia Artificial</p>
+        </div>
+      </div>
+
+      <!-- Progress summary -->
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-dark-card border border-dark-border rounded-xl px-5 py-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-accent-orange/10 flex items-center justify-center">
+            <mat-icon class="text-accent-orange">route</mat-icon>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">{{ totalStations }}</p>
+            <p class="text-xs text-gray-400">Total de estaciones</p>
+          </div>
+        </div>
+        <div class="bg-dark-card border border-dark-border rounded-xl px-5 py-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+            <mat-icon class="text-green-400">check_circle</mat-icon>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">{{ completedStations }}</p>
+            <p class="text-xs text-gray-400">Completadas</p>
+          </div>
+        </div>
+        <div class="bg-dark-card border border-dark-border rounded-xl px-5 py-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+            <mat-icon class="text-yellow-400">pending</mat-icon>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">{{ inProgressStations }}</p>
+            <p class="text-xs text-gray-400">En progreso</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global progress bar -->
+      <div class="mt-5">
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-gray-400">Progreso global</span>
+          <span class="text-accent-orange font-semibold">{{ progressPercent }}%</span>
+        </div>
+        <div class="w-full bg-dark-sidebar rounded-full h-2.5">
+          <div class="bg-accent-orange h-2.5 rounded-full transition-all duration-500"
+            [style.width]="progressPercent + '%'"></div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex gap-3 mt-5">
+        <button (click)="expandAll()"
+          class="px-4 py-2 text-sm bg-dark-card border border-dark-border text-gray-300 rounded-lg hover:border-accent-orange hover:text-accent-orange transition-all">
+          <mat-icon class="!text-base align-middle mr-1">unfold_more</mat-icon>Expandir todo
+        </button>
+        <button (click)="collapseAll()"
+          class="px-4 py-2 text-sm bg-dark-card border border-dark-border text-gray-300 rounded-lg hover:border-accent-orange hover:text-accent-orange transition-all">
+          <mat-icon class="!text-base align-middle mr-1">unfold_less</mat-icon>Colapsar todo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metro Lines -->
+  <div class="max-w-5xl mx-auto px-6 mt-8 space-y-5">
+    <div *ngFor="let line of lines"
+      class="bg-dark-card border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg"
+      [ngClass]="line.borderColor">
+
+      <!-- Line Header -->
+      <button (click)="toggleLine(line)"
+        class="w-full flex items-center gap-4 px-6 py-5 focus:outline-none text-left transition-colors hover:bg-white/5">
+
+        <!-- Line number badge -->
+        <div class="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+          [ngClass]="line.dotColor">
+          {{ line.number }}
+        </div>
+
+        <!-- Line info -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <mat-icon class="!text-xl" [ngClass]="line.textColor">{{ line.icon }}</mat-icon>
+            <span class="font-bold text-white text-lg">Línea {{ line.number }}: {{ line.title }}</span>
+            <span class="text-xs px-2 py-0.5 rounded-full font-semibold"
+              [ngClass]="[line.bgColor, line.textColor]">
+              {{ line.stations.length }} estaciones
+            </span>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 italic">"{{ line.tagline }}"</p>
+        </div>
+
+        <!-- Progress mini bar -->
+        <div class="flex-shrink-0 w-24 text-right hidden sm:block">
+          <p class="text-xs text-gray-500 mb-1">
+            {{ lineCompleted(line) }} / {{ line.stations.length }}
+          </p>
+          <div class="w-full bg-dark-sidebar rounded-full h-1.5">
+            <div class="h-1.5 rounded-full transition-all duration-300"
+              [ngClass]="line.dotColor"
+              [style.width]="lineProgress(line) + '%'">
+            </div>
+          </div>
+        </div>
+
+        <!-- Chevron -->
+        <mat-icon class="text-gray-500 transition-transform duration-300 flex-shrink-0"
+          [class.rotate-180]="line.expanded">expand_more</mat-icon>
+      </button>
+
+      <!-- Stations list -->
+      <div *ngIf="line.expanded" @slideDown>
+        <div class="border-t border-dark-border">
+          <!-- Station item -->
+          <div *ngFor="let station of line.stations; let i = index; let last = last"
+            class="flex items-center gap-4 px-6 py-3 transition-colors hover:bg-white/5"
+            [class.border-b]="!last"
+            [class.border-dark-border]="!last">
+
+            <!-- Station dot & connector -->
+            <div class="flex flex-col items-center self-stretch flex-shrink-0">
+              <button (click)="toggleStatus(station)" title="Cambiar estado"
+                class="w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accent-orange cursor-pointer hover:scale-110"
+                [ngClass]="{
+                  'bg-transparent border-gray-600 hover:border-gray-400': station.status === 'pending',
+                  'bg-yellow-400/20 border-yellow-400': station.status === 'in-progress',
+                  'bg-green-500 border-green-500': station.status === 'completed'
+                }">
+                <mat-icon class="!text-sm text-white" *ngIf="station.status === 'completed'">check</mat-icon>
+                <mat-icon class="!text-sm text-yellow-400" *ngIf="station.status === 'in-progress'">schedule</mat-icon>
+              </button>
+              <div *ngIf="!last" class="w-0.5 flex-1 bg-dark-border mt-1"></div>
+            </div>
+
+            <!-- Station index -->
+            <span class="text-xs text-gray-600 font-mono flex-shrink-0 w-5 text-right">{{ i + 1 }}</span>
+
+            <!-- Station name -->
+            <span class="text-sm flex-1"
+              [ngClass]="{
+                'text-gray-300': station.status === 'pending',
+                'text-yellow-300 font-medium': station.status === 'in-progress',
+                'text-green-400 line-through': station.status === 'completed'
+              }">
+              {{ station.name }}
+            </span>
+
+            <!-- Status badge -->
+            <span class="text-xs px-2 py-0.5 rounded-full flex-shrink-0 font-medium"
+              [ngClass]="{
+                'bg-gray-700 text-gray-400': station.status === 'pending',
+                'bg-yellow-400/20 text-yellow-300': station.status === 'in-progress',
+                'bg-green-500/20 text-green-400': station.status === 'completed'
+              }">
+              {{ station.status === 'pending' ? 'Pendiente' : station.status === 'in-progress' ? 'En curso' : 'Completado' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Line footer hint -->
+        <div class="px-6 py-3 bg-dark-sidebar/50 border-t border-dark-border">
+          <p class="text-xs text-gray-500">
+            <mat-icon class="!text-xs align-middle">info</mat-icon>
+            Haz clic en el círculo de cada estación para cambiar su estado: Pendiente → En curso → Completado
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Source credit -->
+  <div class="max-w-5xl mx-auto px-6 mt-8 text-center">
+    <p class="text-gray-600 text-xs">
+      Basado en el <span class="text-accent-orange">MetroMap to Master AI</span> de
+      <a href="https://genai.works" target="_blank" rel="noopener" class="text-blue-400 hover:underline">GenAI.works</a>
+    </p>
+  </div>
+</div>

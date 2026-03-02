@@ -70,7 +70,8 @@ export class App {
       '/clase11-dev-lambda-serverless': 'Aprende IA / Clase 11 DEV: Lambda Serverless',
       '/clase12-dev-proyecto-final': 'Aprende IA / Clase 12 DEV: Proyecto Final Integrado',
       '/roadmaps': 'AWS Roadmaps',
-      '/plan-dev-detallado': 'Aprende IA / Plan de DEV'
+      '/plan-dev-detallado': 'Aprende IA / Plan de DEV',
+      '/metro-map-ai': 'MetroMap to Master AI'
     };
 
     return routeTitles[this.currentRoute] || 'Página actual';
@@ -148,6 +149,10 @@ export class App {
     // Roadmaps hub
     else if (this.currentRoute === '/roadmaps') {
       breadcrumbs.push({ label: 'AWS Roadmaps' });
+    }
+    // MetroMap AI
+    else if (this.currentRoute === '/metro-map-ai') {
+      breadcrumbs.push({ label: 'MetroMap to Master AI' });
     }
 
     return breadcrumbs;

@@ -127,6 +127,10 @@ const routes: Routes = [
     path: 'clase12-dev-proyecto-final',
     loadComponent: () => import('./clase12-dev-proyecto-final/clase12-dev-proyecto-final.component').then(m => m.Clase12DevProyectoFinalComponent)
   },
+  {
+    path: 'metro-map-ai',
+    loadComponent: () => import('./metro-map-ai/metro-map-ai.component').then(m => m.MetroMapAiComponent)
+  },
   { path: '**', redirectTo: '' }
 ];
 
