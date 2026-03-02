@@ -1,66 +1,79 @@
 <div class="presentation-container" (keydown)="onKeydown($event)" tabindex="0">
 
-  <!-- Back button -->
+  <!-- ── BACK BUTTON ── -->
   <div class="back-to-menu">
     <a routerLink="/metro-map-ai" class="back-btn">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-      </svg>
-      <span>Volver al MetroMap AI</span>
+      ← Volver al MetroMap
     </a>
   </div>
 
-  <!-- Navigation Controls -->
+  <!-- ── CONTROLS ── -->
   <div class="controls">
-    <button (click)="prevSlide()" [disabled]="currentSlide === 0" class="control-btn">← Anterior</button>
-    <div class="flex items-center gap-3">
-      <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
-      <div class="flex gap-1.5">
-        <button *ngFor="let slide of slides; let i = index"
-          (click)="goToSlide(i)"
-          class="w-2.5 h-2.5 rounded-full transition-all duration-200"
-          [class.scale-125]="i === currentSlide"
-          [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}">
-        </button>
-      </div>
-    </div>
-    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1" class="control-btn">Siguiente →</button>
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0">← Anterior</button>
+    <span class="slide-counter">{{ currentSlide + 1 }} / {{ slides.length }}</span>
+    <button
+      *ngFor="let slide of slides; let i = index"
+      (click)="goToSlide(i)"
+      class="dot-btn"
+      [ngStyle]="{'background': i === currentSlide ? 'white' : 'rgba(255,255,255,0.35)'}">
+    </button>
+    <button (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1">Siguiente →</button>
   </div>
 
-  <!-- Slide Container -->
+  <!-- ── SLIDES WRAPPER ── -->
   <div class="slide-wrapper">
     <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
 
-      <!-- SLIDE 1: TITLE -->
+      <!-- ══════════════════════════════════════════
+           SLIDE 1: TITLE
+      ══════════════════════════════════════════ -->
       <div *ngIf="slide.type === 'title'" class="slide-title">
-        <div class="workshop-badge">🗺️ METROMAP AI — LÍNEA 1: FOUNDATIONS STATION</div>
-        <h1>NumPy <span style="color:#f59e0b">&amp;</span> Pandas</h1>
-        <h2 class="subtitle">Estación 2 de 9 · El duo esencial para manipulación de datos en IA</h2>
-        <div class="info-grid">
-          <div class="info-item"><span class="icon">⏱️</span><span class="label">Duración</span><span class="value">90 min</span></div>
-          <div class="info-item"><span class="icon">🎯</span><span class="label">Nivel</span><span class="value">Fundamentos</span></div>
-          <div class="info-item"><span class="icon">💡</span><span class="label">Slides</span><span class="value">10 secciones</span></div>
-          <div class="info-item"><span class="icon">🏆</span><span class="label">Retos</span><span class="value">3 desafíos</span></div>
+        <div class="station-badge">🚉 ESTACIÓN 2 DE 9 · LÍNEA 1 — FOUNDATIONS</div>
+        <div class="title-icon">🔢</div>
+        <h1>NumPy &amp; Pandas</h1>
+        <p class="title-subtitle">El dúo esencial para manipulación de datos en IA</p>
+
+        <div class="title-pills">
+          <span class="pill pill-blue">ndarray</span>
+          <span class="pill pill-yellow">Broadcasting</span>
+          <span class="pill pill-green">DataFrame</span>
+          <span class="pill pill-purple">GroupBy</span>
+          <span class="pill pill-red">Feature Engineering</span>
         </div>
-        <div class="agenda-preview">
-          <h3>📋 Agenda de hoy</h3>
-          <div class="agenda-grid">
-            <span>⚡ ¿Por qué NumPy y Pandas?</span>
-            <span>🔨 ndarray: creación e indexing</span>
-            <span>🧮 Operaciones vectorizadas & broadcasting</span>
-            <span>📋 Series y DataFrames</span>
-            <span>📖 Carga y selección de datos</span>
-            <span>🧹 Limpieza y transformaciones</span>
-            <span>📊 GroupBy y Merge</span>
-            <span>🏋️ 3 Retos prácticos</span>
+
+        <div class="title-meta">
+          <div class="meta-item">
+            <span class="meta-icon">⏱️</span>
+            <span>~90 min</span>
           </div>
+          <div class="meta-item">
+            <span class="meta-icon">🎯</span>
+            <span>10 slides · 3 retos</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🔗</span>
+            <span>Prerrequisito: Python Basics</span>
+          </div>
+        </div>
+
+        <div class="title-prereq-note">
+          💡 Esta estación asume que dominas Python básico (listas, funciones, loops).
+          Si no, revisa la <a routerLink="/metro-map-ai/l1-python-basics" class="inline-link">Estación 1 → Python Basics</a>.
         </div>
       </div>
 
-      <!-- SLIDE 2: WHY NUMPY & PANDAS -->
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 2: WHY NUMPY & PANDAS
+      ══════════════════════════════════════════ -->
       <div *ngIf="slide.type === 'why-numpy-pandas'" class="slide-content">
-        <h2>⚡ ¿Por qué NumPy y Pandas para IA?</h2>
-        <p class="slide-intro">Sin NumPy no hay álgebra lineal eficiente. Sin Pandas no hay análisis de datos. Son los <strong>cimientos del stack de IA</strong> en Python.</p>
+        <h2>🔢 ¿Por qué NumPy &amp; Pandas?</h2>
+        <p class="slide-intro">
+          NumPy y Pandas son el <strong>backbone de la ciencia de datos en Python</strong>.
+          Antes de entrenar cualquier modelo necesitas limpiar, transformar y entender tus datos —
+          eso se hace con estas dos librerías.
+        </p>
+
         <div class="theory-grid">
           <div *ngFor="let r of whyReasons" class="theory-card" [ngClass]="r.color">
             <div class="theory-icon">{{ r.icon }}</div>
@@ -68,215 +81,334 @@
             <p>{{ r.description }}</p>
           </div>
         </div>
+
         <div class="highlight-box">
-          <strong>🔑 Regla de oro:</strong>
-          <span class="ml-2">Si iteras sobre un array con un <code class="inline-code">for</code> en NumPy, estás haciendo algo mal. Siempre vectoriza.</span>
+          <strong>📐 NumPy vs Pandas en una línea:</strong>
+          <span class="ml-2">
+            <strong>NumPy</strong> = matrices numéricas multidimensionales + álgebra lineal.
+            <strong>Pandas</strong> = tablas heterogéneas (strings, fechas, números) con etiquetas.
+          </span>
         </div>
       </div>
 
-      <!-- SLIDE 3: NDARRAY BASICS -->
-      <div *ngIf="slide.type === 'ndarray-basics'" class="slide-content">
-        <h2>🔨 NDArray: El tensor de NumPy</h2>
-        <p class="slide-intro">El <strong>ndarray</strong> (N-dimensional array) es la estructura central de NumPy. Piénsalo como un tensor: 1D=vector, 2D=matriz, 3D=cubo de datos (imágenes RGB), 4D=batch de imágenes.</p>
-        <div class="code-tabs">
-          <button *ngFor="let ex of ndarrayExamples; let i = index" (click)="activeNdarrayTab = i" class="tab-btn" [class.active]="activeNdarrayTab === i">{{ ex.label }}</button>
-        </div>
-        <div class="code-block-wrapper">
-          <pre class="code-block python"><code>{{ ndarrayExamples[activeNdarrayTab].code }}</code></pre>
-          <div *ngIf="ndarrayExamples[activeNdarrayTab].output" class="output-block">
-            <span class="output-label">▶ Output</span>
-            <pre>{{ ndarrayExamples[activeNdarrayTab].output }}</pre>
-          </div>
-        </div>
-        <div class="tip-box">
-          <strong>💡 Analogía ML:</strong> En PyTorch/TensorFlow los "tensores" son exactamente ndarrays con soporte para GPU y autograd. Dominar NumPy = entender tensores de deep learning.
-        </div>
-      </div>
 
-      <!-- SLIDE 4: ARRAY OPS -->
-      <div *ngIf="slide.type === 'array-ops'" class="slide-content">
-        <h2>🧮 Operaciones Vectorizadas y Broadcasting</h2>
-        <p class="slide-intro"><strong>Vectorización</strong> = aplicar operaciones a arrays enteros sin for-loops. <strong>Broadcasting</strong> = operaciones automáticas entre arrays de different shapes. Juntos, eliminan loops y aceleran código 10-100x.</p>
-        <div class="code-tabs">
-          <button *ngFor="let ex of arrayOpsExamples; let i = index" (click)="activeOpsTab = i" class="tab-btn" [class.active]="activeOpsTab === i">{{ ex.label }}</button>
-        </div>
-        <div class="code-block-wrapper">
-          <pre class="code-block python"><code>{{ arrayOpsExamples[activeOpsTab].code }}</code></pre>
-          <div *ngIf="arrayOpsExamples[activeOpsTab].output" class="output-block">
-            <span class="output-label">▶ Output</span>
-            <pre>{{ arrayOpsExamples[activeOpsTab].output }}</pre>
-          </div>
-        </div>
-        <div class="warning-box">
-          <strong>⚠️ Broadcasting Rules:</strong> Para que funcione, las dimensiones deben ser iguales, o una de ellas debe ser 1. De derecha a izquierda: (3,4) + (4,) → OK; (3,4) + (3,) → ERROR.
-        </div>
-      </div>
+      <!-- ══════════════════════════════════════════
+           SLIDE 3: NUMPY ARRAYS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'numpy-arrays'" class="slide-content">
+        <h2>🧱 NumPy Arrays — El ndarray</h2>
+        <p class="slide-intro">
+          El <code class="inline-code">ndarray</code> (N-dimensional array) es la estructura de datos
+          central de NumPy. Es una cuadrícula de valores del <strong>mismo tipo</strong>,
+          indexada por enteros. Los tensores de PyTorch y TensorFlow son variantes de este concepto.
+        </p>
 
-      <!-- SLIDE 5: PANDAS SERIES & DF -->
-      <div *ngIf="slide.type === 'pandas-series-df'" class="slide-content">
-        <h2>📋 Pandas: Series y DataFrame</h2>
-        <p class="slide-intro">Un <strong>DataFrame</strong> es una tabla 2D con columnas etiquetadas y un índice. Es la estructura más usada para análisis de datos — imagínatelo como un Excel programático con superpoderes.</p>
         <div class="code-tabs">
-          <button *ngFor="let ex of pandasExamples; let i = index" (click)="activePandasTab = i" class="tab-btn" [class.active]="activePandasTab === i">{{ ex.label }}</button>
+          <button
+            *ngFor="let ex of arrayExamples; let i = index"
+            (click)="activeArrayTab = i"
+            class="tab-btn" [class.active]="activeArrayTab === i">
+            {{ ex.label }}
+          </button>
         </div>
         <div class="code-block-wrapper">
-          <pre class="code-block python"><code>{{ pandasExamples[activePandasTab].code }}</code></pre>
-          <div *ngIf="pandasExamples[activePandasTab].output" class="output-block">
+          <pre class="code-block python"><code>{{ arrayExamples[activeArrayTab].code }}</code></pre>
+          <div *ngIf="arrayExamples[activeArrayTab].output" class="output-block">
             <span class="output-label">▶ Output</span>
-            <pre>{{ pandasExamples[activePandasTab].output }}</pre>
+            <pre>{{ arrayExamples[activeArrayTab].output }}</pre>
           </div>
         </div>
+
         <div class="comparison-row">
-          <div class="mini-card"><strong>df.iloc[i, j]</strong><p>Selección por <em>posición</em> (enteros). Como indexar una lista.</p></div>
-          <div class="mini-card"><strong>df.loc[idx, col]</strong><p>Selección por <em>etiqueta/condición</em>. Más legible y seguro.</p></div>
-          <div class="mini-card"><strong>df.at / df.iat</strong><p>Acceso a un <em>solo valor</em>. Mucho más rápido para celdas únicas.</p></div>
-          <div class="mini-card"><strong>df.query()</strong><p>String SQL-style: <code>df.query("score &gt; 0.9")</code>. Muy legible.</p></div>
+          <div class="mini-card">
+            <strong>1D array</strong>
+            <p><code>[1, 2, 3]</code> → shape <code>(3,)</code> — vector</p>
+          </div>
+          <div class="mini-card">
+            <strong>2D array</strong>
+            <p><code>[[1,2],[3,4]]</code> → shape <code>(2, 2)</code> — matriz</p>
+          </div>
+          <div class="mini-card">
+            <strong>3D array</strong>
+            <p>shape <code>(batch, H, W)</code> — batch de imágenes</p>
+          </div>
+          <div class="mini-card">
+            <strong>4D array</strong>
+            <p>shape <code>(b, H, W, C)</code> — batch RGB con canales</p>
+          </div>
         </div>
       </div>
 
-      <!-- SLIDE 6: DATA MANIPULATION -->
-      <div *ngIf="slide.type === 'data-manipulation'" class="slide-content">
-        <h2>🧹 Limpieza y Transformaciones</h2>
-        <p class="slide-intro">El <strong>80% del tiempo</strong> de un data scientist se gasta aquí. Datos sucios = modelos inútiles. "Garbage in, garbage out."</p>
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 4: NUMPY OPERATIONS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'numpy-operations'" class="slide-content">
+        <h2>⚡ Operaciones NumPy</h2>
+        <p class="slide-intro">
+          El poder de NumPy está en que <strong>no necesitas bucles</strong> para operar sobre arrays.
+          Las operaciones se aplican a todos los elementos simultáneamente en código C optimizado.
+        </p>
+
         <div class="code-tabs">
-          <button *ngFor="let ex of manipExamples; let i = index" (click)="activeManipTab = i" class="tab-btn" [class.active]="activeManipTab === i">{{ ex.label }}</button>
+          <button
+            *ngFor="let ex of numpyOpsExamples; let i = index"
+            (click)="activeOpsTab = i"
+            class="tab-btn" [class.active]="activeOpsTab === i">
+            {{ ex.label }}
+          </button>
         </div>
         <div class="code-block-wrapper">
-          <pre class="code-block python"><code>{{ manipExamples[activeManipTab].code }}</code></pre>
-          <div *ngIf="manipExamples[activeManipTab].output" class="output-block">
+          <pre class="code-block python"><code>{{ numpyOpsExamples[activeOpsTab].code }}</code></pre>
+          <div *ngIf="numpyOpsExamples[activeOpsTab].output" class="output-block">
             <span class="output-label">▶ Output</span>
-            <pre>{{ manipExamples[activeManipTab].output }}</pre>
+            <pre>{{ numpyOpsExamples[activeOpsTab].output }}</pre>
           </div>
         </div>
+
         <div class="tip-box">
-          <strong>💡 Method chaining:</strong> Encadena operaciones para pipelines legibles:
-          <code class="inline-code">df.dropna().fillna(0).rename(columns={...}).reset_index()</code>
+          <strong>💡 Broadcasting en la práctica:</strong>
+          La normalización Z-score <code class="inline-code">(X - mu) / sigma</code> es broadcasting
+          puro — <code class="inline-code">mu</code> y <code class="inline-code">sigma</code>  son
+          vectores de forma <code class="inline-code">(4,)</code> que se "estiran" sobre las 100 filas de X automáticamente.
         </div>
       </div>
 
-      <!-- SLIDE 7: GROUPBY & MERGE -->
-      <div *ngIf="slide.type === 'groupby-merge'" class="slide-content">
-        <h2>📊 GroupBy y Merge</h2>
-        <p class="slide-intro"><strong>GroupBy</strong> agrupa datos por categorías — como SQL <code class="inline-code">GROUP BY</code>. <strong>Merge</strong> une DataFrames por claves comunes — como SQL <code class="inline-code">JOIN</code>. Esenciales para feature engineering.</p>
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 5: PANDAS INTRO
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pandas-intro'" class="slide-content">
+        <h2>🐼 Pandas — Series &amp; DataFrame</h2>
+        <p class="slide-intro">
+          Pandas introduce dos estructuras de datos etiquetadas:
+          <strong>Series</strong> (1D con índice) y <strong>DataFrame</strong> (2D tabla con columnas + índice).
+          Piensa en un DataFrame como una hoja de Excel programable y ultrarrápida.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of pandasIntroExamples; let i = index"
+            (click)="activePandasIntroTab = i"
+            class="tab-btn" [class.active]="activePandasIntroTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
         <div class="code-block-wrapper">
-          <pre class="code-block python"><code>import pandas as pd
-
-# ── GroupBy ────────────────────────────────────────
-ventas = pd.DataFrame({
-    'region': ['Norte', 'Sur', 'Norte', 'Centro', 'Sur', 'Norte'],
-    'producto': ['A', 'B', 'A', 'C', 'A', 'B'],
-    'monto': [1200, 850, 1400, 600, 920, 1100]
-})
-
-# Agg con múltiples funciones
-resumen = ventas.groupby('region')['monto'].agg(['sum', 'mean', 'count'])
-print(resumen)
-
-# GroupBy múltiples columnas
-pivot = ventas.groupby(['region', 'producto'])['monto'].sum().unstack(fill_value=0)
-print(pivot)
-
-# ── Merge (JOIN) ───────────────────────────────────
-clientes = pd.DataFrame({'id': [1, 2, 3], 'nombre': ['Ana', 'Luis', 'María']})
-pedidos  = pd.DataFrame({'cliente_id': [1, 1, 2, 3], 'pedido': ['P1', 'P2', 'P3', 'P4']})
-
-# Inner join
-resultado = clientes.merge(pedidos, left_on='id', right_on='cliente_id')
-print(resultado[['nombre', 'pedido']])</code></pre>
-          <div class="output-block">
+          <pre class="code-block python"><code>{{ pandasIntroExamples[activePandasIntroTab].code }}</code></pre>
+          <div *ngIf="pandasIntroExamples[activePandasIntroTab].output" class="output-block">
             <span class="output-label">▶ Output</span>
-            <pre>         sum    mean  count
-Norte   3700  1233.3      3
-Sur     1770   885.0      2
-Centro   600   600.0      1
-
-  nombre pedido
-0    Ana     P1
-1    Ana     P2
-2   Luis     P3
-3  María     P4</pre>
+            <pre>{{ pandasIntroExamples[activePandasIntroTab].output }}</pre>
           </div>
         </div>
+
+        <div class="warning-box">
+          <strong>⚠️ loc vs iloc — regla de oro:</strong>
+          <code class="inline-code">loc</code> usa <strong>etiquetas</strong> (inclusive en extremos),
+          <code class="inline-code">iloc</code> usa <strong>posiciones enteras</strong> (excluye el extremo derecho como Python).
+          Confundirlos es uno de los bugs más comunes.
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 6: PANDAS OPERATIONS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pandas-operations'" class="slide-content">
+        <h2>🔧 Operaciones con DataFrames</h2>
+        <p class="slide-intro">
+          Las operaciones más frecuentes en EDA y preparación de datos: filtrar, ordenar,
+          agregar por grupos y combinar múltiples fuentes de datos.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of pandasOpsExamples; let i = index"
+            (click)="activePandasOpsTab = i"
+            class="tab-btn" [class.active]="activePandasOpsTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
+        <div class="code-block-wrapper">
+          <pre class="code-block python"><code>{{ pandasOpsExamples[activePandasOpsTab].code }}</code></pre>
+          <div *ngIf="pandasOpsExamples[activePandasOpsTab].output" class="output-block">
+            <span class="output-label">▶ Output</span>
+            <pre>{{ pandasOpsExamples[activePandasOpsTab].output }}</pre>
+          </div>
+        </div>
+
         <div class="tip-box">
-          <strong>💡 Types de merge:</strong> <code class="inline-code">how='inner'</code> (intersección), <code class="inline-code">how='left'</code> (todos del izquierdo), <code class="inline-code">how='outer'</code> (unión completa).
+          <strong>💡 GroupBy mental model:</strong>
+          Divide el DataFrame en grupos → aplica función → combina resultados.
+          El método <code class="inline-code">agg()</code> con nombres personalizados es el patrón
+          más limpio y legible para producción.
         </div>
       </div>
 
-      <!-- SLIDE 8: PERFORMANCE TIPS -->
-      <div *ngIf="slide.type === 'performance-tips'" class="slide-content">
-        <h2>⚡ Tips de Rendimiento</h2>
-        <p class="slide-intro">Cuando el dataset tiene millones de filas, la forma en que escribes el código importa mucho. Aprende a perfilar y optimizar.</p>
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 7: PANDAS CLEANING
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'pandas-cleaning'" class="slide-content">
+        <h2>🧹 Limpieza de Datos</h2>
+        <p class="slide-intro">
+          En proyectos reales el <strong>80% del tiempo</strong> se gasta en limpieza.
+          Datos nulos, outliers, tipos incorrectos y duplicados son los enemigos silenciosos
+          que arruinan los modelos de IA.
+        </p>
+
+        <div class="code-tabs">
+          <button
+            *ngFor="let ex of cleaningExamples; let i = index"
+            (click)="activeCleaningTab = i"
+            class="tab-btn" [class.active]="activeCleaningTab === i">
+            {{ ex.label }}
+          </button>
+        </div>
         <div class="code-block-wrapper">
-          <pre class="code-block python"><code>import numpy as np
-import pandas as pd
-import time
-
-# ── 1. NUNCA uses loops en NumPy ──────────────────
-arr = np.random.randn(1_000_000)
-
-t0 = time.time()
-resultado_loop = [x**2 for x in arr]
-print(f"Loop Python: {time.time()-t0:.3f}s")
-
-t0 = time.time()
-resultado_np = arr**2                # vectorizado
-print(f"NumPy vectorizado: {time.time()-t0:.3f}s")
-# Loop: ~0.25s | NumPy: ~0.003s → 83x más rápido!
-
-# ── 2. Usa tipos adecuados (menos memoria) ────────
-df_grande = pd.DataFrame({'cat': ['A','B','C'] * 100_000})
-print(f"object dtype: {df_grande.memory_usage(deep=True).sum()/1024:.1f}KB")
-df_grande['cat'] = df_grande['cat'].astype('category')
-print(f"category dtype: {df_grande.memory_usage(deep=True).sum()/1024:.1f}KB")
-
-# ── 3. Prefiere operaciones sobre apply() ─────────
-df = pd.DataFrame({'x': range(100_000)})
-# Lento:  df['y'] = df['x'].apply(lambda x: x**2)
-# Rápido: df['y'] = df['x'] ** 2
-
-# ── 4. Usa chunksize para datos massivos ──────────
-# for chunk in pd.read_csv('big.csv', chunksize=10_000):
-#     process(chunk)</code></pre>
-          <div class="output-block">
+          <pre class="code-block python"><code>{{ cleaningExamples[activeCleaningTab].code }}</code></pre>
+          <div *ngIf="cleaningExamples[activeCleaningTab].output" class="output-block">
             <span class="output-label">▶ Output</span>
-            <pre>Loop Python: 0.247s
-NumPy vectorizado: 0.003s
-object dtype: 2867.8KB
-category dtype: 131.4KB</pre>
+            <pre>{{ cleaningExamples[activeCleaningTab].output }}</pre>
           </div>
         </div>
-        <div class="concepts-grid" style="margin-top:1rem">
-          <div class="concept-card"><span class="concept-icon">🚀</span><strong>Vectoriza todo</strong><p>Nunca for-loops sobre arrays NumPy o columnas Pandas.</p></div>
-          <div class="concept-card"><span class="concept-icon">💾</span><strong>Tipos correctos</strong><p>int8 vs int64, float32 vs float64, category vs object.</p></div>
-          <div class="concept-card"><span class="concept-icon">🔧</span><strong>inplace=True</strong><p>Evita copias innecesarias en operaciones en grandes DataFrames.</p></div>
-          <div class="concept-card"><span class="concept-icon">📦</span><strong>Chunks</strong><p>read_csv con chunksize para archivos que no caben en RAM.</p></div>
+
+        <div class="cleaning-strategies">
+          <h3>🗺️ Estrategias para valores nulos</h3>
+          <div class="comparison-row">
+            <div class="mini-card">
+              <strong>dropna()</strong>
+              <p>Eliminar. Solo si son &lt;5% y aleatorios (MCAR).</p>
+            </div>
+            <div class="mini-card">
+              <strong>fillna(mediana)</strong>
+              <p>Para numéricas sesgadas (ingresos, precios).</p>
+            </div>
+            <div class="mini-card">
+              <strong>fillna(moda)</strong>
+              <p>Para categóricas como ciudad o producto.</p>
+            </div>
+            <div class="mini-card">
+              <strong>ffill/bfill</strong>
+              <p>Series temporales — propagar el valor anterior/siguiente.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- SLIDE 9: CHALLENGE -->
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 8: PERFORMANCE TIPS
+      ══════════════════════════════════════════ -->
+      <div *ngIf="slide.type === 'performance'" class="slide-content">
+        <h2>🚀 Performance: Vectorización vs Bucles</h2>
+        <p class="slide-intro">
+          El error más frecuente de principiantes en Data Science: usar bucles for/apply
+          donde una operación vectorizada haría el trabajo 100x más rápido.
+        </p>
+
+        <div class="perf-grid">
+          <div>
+            <h3 class="perf-title">⚡ NumPy: bucle vs vectorizado</h3>
+            <div class="code-block-wrapper">
+              <pre class="code-block python"><code>{{ performanceLoopCode }}</code></pre>
+              <div class="output-block">
+                <span class="output-label">▶ Output</span>
+                <pre>{{ performanceLoopOutput }}</pre>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="perf-title">🐼 Pandas: apply() vs vectorizado</h3>
+            <div class="code-block-wrapper">
+              <pre class="code-block python"><code>{{ performancePandasCode }}</code></pre>
+              <div class="output-block">
+                <span class="output-label">▶ Output</span>
+                <pre>{{ performancePandasOutput }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="perf-rules">
+          <h3>📏 Reglas de oro de performance</h3>
+          <div class="rules-grid">
+            <div class="rule-item rule-do">
+              <span class="rule-badge do">✅ Preferir</span>
+              <p>Operaciones vectorizadas: <code class="inline-code">df['col'] * 2</code></p>
+            </div>
+            <div class="rule-item rule-do">
+              <span class="rule-badge do">✅ Preferir</span>
+              <p><code class="inline-code">np.where()</code> sobre <code class="inline-code">apply(lambda...)</code></p>
+            </div>
+            <div class="rule-item rule-do">
+              <span class="rule-badge do">✅ Preferir</span>
+              <p><code class="inline-code">astype(np.int16)</code> para reducir memoria</p>
+            </div>
+            <div class="rule-item rule-dont">
+              <span class="rule-badge dont">❌ Evitar</span>
+              <p><code class="inline-code">for i, row in df.iterrows():</code> — muy lento</p>
+            </div>
+            <div class="rule-item rule-dont">
+              <span class="rule-badge dont">❌ Evitar</span>
+              <p><code class="inline-code">apply()</code> en columnas numéricas</p>
+            </div>
+            <div class="rule-item rule-dont">
+              <span class="rule-badge dont">❌ Evitar</span>
+              <p>Cargar todo el CSV si el dataset es &gt;1 GB — usa <code class="inline-code">chunksize</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 9: CHALLENGE
+      ══════════════════════════════════════════ -->
       <div *ngIf="slide.type === 'challenge'" class="slide-content challenge-slide">
         <h2>🏋️ Retos Prácticos</h2>
-        <p class="slide-intro">Pon en práctica NumPy y Pandas. Selecciona tu nivel.</p>
+        <p class="slide-intro">
+          Pon a prueba lo aprendido. Selecciona tu nivel y resuelve el desafío en tu IDE favorito.
+        </p>
+
+        <!-- Difficulty Selector -->
         <div class="challenge-tabs">
-          <button *ngFor="let ch of challenges; let i = index" (click)="selectedChallenge = i" class="challenge-tab-btn" [class.active]="selectedChallenge === i" [ngClass]="selectedChallenge === i ? '' : 'opacity-70'">
-            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">{{ ch.difficulty }}</span>
+          <button
+            *ngFor="let ch of challenges; let i = index"
+            (click)="selectedChallenge = i"
+            class="challenge-tab-btn"
+            [class.active]="selectedChallenge === i">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" [ngClass]="ch.difficultyColor">
+              {{ ch.difficulty }}
+            </span>
             <span>{{ ch.title }}</span>
           </button>
         </div>
+
+        <!-- Challenge Card -->
         <div class="challenge-card" [ngClass]="challenges[selectedChallenge].color">
           <div class="challenge-header">
-            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">{{ challenges[selectedChallenge].difficulty }}</span>
+            <span class="text-sm font-bold px-3 py-1 rounded-full" [ngClass]="challenges[selectedChallenge].difficultyColor">
+              {{ challenges[selectedChallenge].difficulty }}
+            </span>
             <h3>{{ challenges[selectedChallenge].title }}</h3>
           </div>
+
           <p class="challenge-description">{{ challenges[selectedChallenge].description }}</p>
+
           <div class="hints-box">
             <strong>💡 Pistas:</strong>
-            <ul><li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li></ul>
+            <ul>
+              <li *ngFor="let hint of challenges[selectedChallenge].hints">{{ hint }}</li>
+            </ul>
           </div>
+
           <div class="code-block-wrapper mt-4">
             <div class="code-block-header">📝 Código de inicio</div>
             <pre class="code-block python"><code>{{ challenges[selectedChallenge].starterCode }}</code></pre>
           </div>
+
           <div class="output-block mt-3">
             <span class="output-label">🎯 Output esperado</span>
             <pre>{{ challenges[selectedChallenge].expectedOutput }}</pre>
@@ -284,36 +416,83 @@ category dtype: 131.4KB</pre>
         </div>
       </div>
 
-      <!-- SLIDE 10: SUMMARY -->
+
+      <!-- ══════════════════════════════════════════
+           SLIDE 10: SUMMARY
+      ══════════════════════════════════════════ -->
       <div *ngIf="slide.type === 'summary'" class="slide-content summary-slide">
-        <div class="workshop-badge" style="background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3)">
-          ✅ ESTACIÓN 2 COMPLETADA — LÍNEA 1 · FOUNDATIONS STATION
+        <div class="workshop-badge" style="background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3)">
+          ✅ ESTACIÓN COMPLETADA — LÍNEA 1 · ESTACIÓN 2 DE 9
         </div>
         <h2>🎉 Resumen: NumPy &amp; Pandas</h2>
+
         <div class="summary-grid">
-          <div class="summary-item"><span class="summary-icon">🔨</span><div><strong>NDArray</strong><p>Arrays N-dimensionales, shapes, reshape, indexing booleano.</p></div></div>
-          <div class="summary-item"><span class="summary-icon">📡</span><div><strong>Broadcasting</strong><p>Operaciones entre arrays de formas compatibles sin loops.</p></div></div>
-          <div class="summary-item"><span class="summary-icon">🧮</span><div><strong>Álgebra Lineal</strong><p>matmul (@), det, inv, eig — base de redes neuronales.</p></div></div>
-          <div class="summary-item"><span class="summary-icon">📋</span><div><strong>DataFrames</strong><p>Tablas 2D: carga, selección con loc/iloc, tipos, describe().</p></div></div>
-          <div class="summary-item"><span class="summary-icon">🧹</span><div><strong>Limpieza</strong><p>dropna, fillna, duplicados, apply, map, type casting.</p></div></div>
-          <div class="summary-item"><span class="summary-icon">📊</span><div><strong>GroupBy & Merge</strong><p>Agregaciones por grupo, joins tipo SQL entre DataFrames.</p></div></div>
+          <div class="summary-item">
+            <span class="summary-icon">🧱</span>
+            <div>
+              <strong>ndarray</strong>
+              <p>Array N-dimensional tipado, shapes, dtypes, reshape, indexing y boolean mask.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">⚡</span>
+            <div>
+              <strong>Vectorización &amp; Broadcasting</strong>
+              <p>Operaciones sin for loops. Broadcasting automático por reglas de dimensiones.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🔢</span>
+            <div>
+              <strong>Álgebra Lineal</strong>
+              <p>dot, matmul (@), SVD, inv — la base matemática de las redes neuronales.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">📊</span>
+            <div>
+              <strong>DataFrame &amp; Series</strong>
+              <p>Estructuras etiquetadas. loc/iloc. Filtrado booleano. Creación desde dict/CSV.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🔧</span>
+            <div>
+              <strong>GroupBy, Merge &amp; Pivot</strong>
+              <p>Agrupación con agg(), joins tipo SQL con merge(), y pivot_table().</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-icon">🧹</span>
+            <div>
+              <strong>Limpieza &amp; Feature Eng</strong>
+              <p>isna, fillna, drop_duplicates, outliers IQR, encoding, normalización Z-score.</p>
+            </div>
+          </div>
         </div>
+
         <div class="next-station-card">
           <div class="next-station-label">🚉 Próxima estación en Línea 1</div>
-          <h3>{{ nextStation.name }}</h3>
-          <p>{{ nextStation.description }}</p>
-          <a [routerLink]="nextStation.route" class="next-station-btn">Ver en el MetroMap <span>→</span></a>
+          <h3>Data Structures &amp; Algorithms</h3>
+          <p>
+            Estructuras de datos fundamentales (listas enlazadas, árboles, grafos) y algoritmos
+            de búsqueda y ordenamiento que potencian la eficiencia de tus pipelines de IA.
+          </p>
+          <a routerLink="/metro-map-ai" class="next-station-btn">
+            Ver en el MetroMap <span>→</span>
+          </a>
         </div>
+
         <div class="tip-box mt-6">
-          <strong>📚 Recursos:</strong>
+          <strong>📚 Recursos recomendados:</strong>
           <span class="ml-2">
-            <a rel="noopener noreferrer" href="https://numpy.org/doc/stable/" target="_blank" class="resource-link">NumPy Docs</a> ·
-            <a rel="noopener noreferrer" href="https://pandas.pydata.org/docs/" target="_blank" class="resource-link">Pandas Docs</a> ·
-            <a rel="noopener noreferrer" href="https://kaggle.com/learn/pandas" target="_blank" class="resource-link">Kaggle Pandas (gratis)</a>
+            <a rel="noopener noreferrer" href="https://numpy.org/doc/stable/user/quickstart.html" target="_blank" class="resource-link">NumPy Quickstart</a> ·
+            <a rel="noopener noreferrer" href="https://pandas.pydata.org/docs/user_guide/10min.html" target="_blank" class="resource-link">Pandas en 10 minutos</a> ·
+            <a rel="noopener noreferrer" href="https://kaggle.com/learn/pandas" target="_blank" class="resource-link">Kaggle Pandas Course (gratis)</a>
           </span>
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- end .slide -->
+  </div><!-- end .slide-wrapper -->
 </div>

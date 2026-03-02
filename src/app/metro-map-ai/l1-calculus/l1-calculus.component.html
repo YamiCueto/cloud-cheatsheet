@@ -87,7 +87,7 @@ for name, f, df in [('sigmoid', sigmoid, d_sigmoid), ('tanh', tanh, d_tanh)]:
     num  = derivada_numerica(f, x_test)
     anal = df(x_test)
     max_err = np.abs(num - anal).max()
-    print(f"{name}: error máx entre numérica y analítica = {max_err:.2e}")
+    print(f"&#123;name&#125;: error máx entre numérica y analítica = &#123;max_err:.2e&#125;")
 
 # Reglas básicas
 print("\n=== Reglas de derivación ===")
@@ -153,7 +153,7 @@ for epoch in range(10):
     w -= lr * dw
     b -= lr * db
     if epoch == 0 or epoch == 9:
-        print(f"Epoch {epoch}: L={L:.6f}, w={w:.4f}, b={b:.4f}")</code></pre>
+        print(f"Epoch &#123;epoch&#125;: L=&#123;L:.6f&#125;, w=&#123;w:.4f&#125;, b=&#123;b:.4f&#125;")</code></pre>
           <div class="output-block"><span class="output-label">▶ Output</span><pre>Epoch 0: L=0.006243, w=0.5089, b=0.1044
 Epoch 9: L=0.000041, w=0.5723, b=0.1362</pre></div>
         </div>
@@ -181,10 +181,10 @@ def grad_f(params):
 # Visualización del paisaje de pérdidas
 point = np.array([3.0, 4.0])
 g = grad_f(point)
-print(f"f({point}) = {f(point)}")
-print(f"∇f({point}) = {g}  (apunta al máximo)")
-print(f"-∇f({point}) = {-g}  (dirección de descenso)")
-print(f"||∇f|| = {np.linalg.norm(g):.3f}  (magnitud del gradiente)")
+print(f"f(&#123;point&#125;) = &#123;f(point)&#125;")
+print(f"∇f(&#123;point&#125;) = &#123;g&#125;  (apunta al máximo)")
+print(f"-∇f(&#123;point&#125;) = &#123;-g&#125;  (dirección de descenso)")
+print(f"||∇f|| = &#123;np.linalg.norm(g):.3f&#125;  (magnitud del gradiente)")
 
 # ── Gradiente numérico (gradient checking) ────────
 def grad_numerico(f, params, h=1e-5):
@@ -199,7 +199,7 @@ def grad_numerico(f, params, h=1e-5):
 grad_anal = grad_f(point)
 grad_num  = grad_numerico(f, point.astype(float))
 error_rel = np.linalg.norm(grad_anal - grad_num) / (np.linalg.norm(grad_anal) + 1e-8)
-print(f"\nGradient check error relativo: {error_rel:.2e}  ({'OK ✓' if error_rel < 1e-4 else 'FALLO ✗'})")</code></pre>
+print(f"\nGradient check error relativo: &#123;error_rel:.2e&#125;  (&#123;'OK ✓' if error_rel &lt; 1e-4 else 'FALLO ✗'&#125;)")</code></pre>
           <div class="output-block"><span class="output-label">▶ Output</span><pre>f([3. 4.]) = 25.0
 ∇f([3. 4.]) = [6. 8.]
 -∇f([3. 4.]) = [-6. -8.]
@@ -232,7 +232,7 @@ w_bgd = np.zeros(3)
 for epoch in range(100):
     loss, grad = mse_grad(X, y, w_bgd)
     w_bgd -= 0.01 * grad
-print(f"BGD: w={w_bgd.round(3)}, loss={loss:.6f}")
+print(f"BGD: w=&#123;w_bgd.round(3)&#125;, loss=&#123;loss:.6f&#125;")
 
 # ── SGD: 1 muestra a la vez ───────────────────────
 w_sgd = np.zeros(3)
@@ -241,7 +241,7 @@ for epoch in range(10):
     for i in idx:
         loss, grad = mse_grad(X[[i]], y[[i]], w_sgd)
         w_sgd -= 0.01 * grad
-print(f"SGD: w={w_sgd.round(3)}")
+print(f"SGD: w=&#123;w_sgd.round(3)&#125;")
 
 # ── Mini-batch GD (el más usado) ──────────────────
 w_mgd = np.zeros(3)
@@ -252,7 +252,7 @@ for epoch in range(10):
         b = idx[start:start+batch_size]
         loss, grad = mse_grad(X[b], y[b], w_mgd)
         w_mgd -= 0.01 * grad
-print(f"Mini-batch: w={w_mgd.round(3)}")</code></pre>
+print(f"Mini-batch: w=&#123;w_mgd.round(3)&#125;")</code></pre>
           <div class="output-block"><span class="output-label">▶ Output</span><pre>BGD:       w=[ 2.001 -1.000  0.499], loss=0.004989
 SGD:       w=[ 1.998 -0.999  0.501]
 Mini-batch w=[ 2.000 -1.000  0.500]</pre></div>
@@ -296,7 +296,7 @@ schedulers = [
 
 for name, sched in schedulers:
     lrs = [sched.get_lr(e) for e in [0, 10, 30, 50, 99]]
-    print(f"{name:20s}: {[f'{lr:.4f}' for lr in lrs]}")
+    print(f"&#123;name:20s&#125;: &#123;[f'&#123;lr:.4f&#125;' for lr in lrs]&#125;")
 </code></pre>
           <div class="output-block"><span class="output-label">▶ Output</span><pre>Step LR             : ['0.1000', '0.1000', '0.0100', '0.0010', '0.0001']
 Cosine Anneal       : ['0.1000', '0.0951', '0.0655', '0.0050', '0.0000']
@@ -331,12 +331,12 @@ X = torch.randn(100, 10)
 y = torch.randn(100, 1)
 criterion = nn.MSELoss()
 
-optimizers = {
+optimizers = &#123;
     'SGD':      optim.SGD(model.parameters(), lr=0.01),
     'Momentum': optim.SGD(model.parameters(), lr=0.01, momentum=0.9),
     'Adam':     optim.Adam(model.parameters(), lr=1e-3),
     'AdamW':    optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2),
-}
+&#125;
 
 # Usa AdamW para transformers, Adam/SGD+Momentum para CNNs</code></pre>
         </div>
