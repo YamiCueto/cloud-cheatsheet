@@ -36,6 +36,10 @@ const routes: Routes = [
     loadComponent: () => import('./study-plan/study-plan.component').then(m => m.StudyPlanComponent)
   },
   {
+    path: 'creador-clase',
+    loadComponent: () => import('./creador-clase/creador-clase.component').then(m => m.CreadorClaseComponent)
+  },
+  {
     path: 'plan-detalle',
     loadComponent: () => import('./plan-detalle/plan-detalle').then(m => m.PlanDetalle)
   },

@@ -1,0 +1,130 @@
+<section class="creator-page">
+  <header class="hero">
+    <p class="eyebrow">Plantilla reutilizable para GitHub Pages</p>
+    <h1>Modo Creador de Clase</h1>
+    <p>
+      Convierte una idea en una propuesta lista para PR usando marcos de discovery, PRD y roadmap.
+    </p>
+  </header>
+
+  <div class="stepper">
+    <button
+      *ngFor="let step of stepNames; let idx = index"
+      type="button"
+      (click)="goTo(idx + 1)"
+      [class.active]="currentStep === idx + 1"
+      [class.done]="currentStep > idx + 1"
+    >
+      <span class="number">{{ idx + 1 }}</span>
+      <span>{{ step }}</span>
+    </button>
+  </div>
+
+  <div class="progress-rail" aria-hidden="true">
+    <div class="progress-fill" [style.width.%]="progressPercent"></div>
+  </div>
+
+  <article class="panel" *ngIf="currentStep === 1">
+    <h2>Paso 1: Problema (Discovery)</h2>
+    <label>Titulo de la clase
+      <input [(ngModel)]="draft.titulo" placeholder="Ej: QA API Testing con IA Generativa" />
+    </label>
+
+    <label>Track
+      <select [(ngModel)]="draft.track">
+        <option value="QA">QA</option>
+        <option value="DEV">DEV</option>
+        <option value="MIXTO">MIXTO</option>
+      </select>
+    </label>
+
+    <label>Problema principal
+      <textarea [(ngModel)]="draft.problema" rows="3" placeholder="Que problema real resuelve esta clase"></textarea>
+    </label>
+
+    <label>Dolor actual
+      <textarea [(ngModel)]="draft.dolorActual" rows="3" placeholder="Que esta fallando hoy para los estudiantes/equipo"></textarea>
+    </label>
+
+    <label>Hipotesis principal
+      <textarea [(ngModel)]="draft.hipotesisPrincipal" rows="3" placeholder="Si enseñamos X, entonces mejorara Y"></textarea>
+    </label>
+  </article>
+
+  <article class="panel" *ngIf="currentStep === 2">
+    <h2>Paso 2: Audiencia (Value Proposition)</h2>
+    <label>Audiencia objetivo
+      <textarea [(ngModel)]="draft.audiencia" rows="3" placeholder="Perfil del estudiante o equipo"></textarea>
+    </label>
+
+    <label>Nivel sugerido
+      <input [(ngModel)]="draft.nivel" placeholder="Ej: Junior con bases en testing manual" />
+    </label>
+
+    <label>Contexto de uso
+      <textarea [(ngModel)]="draft.contextoUso" rows="3" placeholder="En que tipo de proyecto o escenario se aplicara"></textarea>
+    </label>
+  </article>
+
+  <article class="panel" *ngIf="currentStep === 3">
+    <h2>Paso 3: Objetivos (PRD + Roadmap)</h2>
+    <label>Objetivos de aprendizaje (uno por linea)
+      <textarea [(ngModel)]="draft.objetivosAprendizaje" rows="5" placeholder="Escribe objetivos medibles"></textarea>
+    </label>
+
+    <label>Entregables esperados (uno por linea)
+      <textarea [(ngModel)]="draft.entregables" rows="4" placeholder="Ej: checklist, repo demo, test suite"></textarea>
+    </label>
+
+    <label>Roadmap 4 semanas (uno por linea)
+      <textarea [(ngModel)]="draft.roadmap4Semanas" rows="5" placeholder="Semana 1..., Semana 2..., etc."></textarea>
+    </label>
+  </article>
+
+  <article class="panel" *ngIf="currentStep === 4">
+    <h2>Paso 4: Evaluacion (Acceptance + Test Scenarios)</h2>
+    <label>Criterios de aceptacion (uno por linea)
+      <textarea [(ngModel)]="draft.criteriosAceptacion" rows="4" placeholder="Que condiciones deben cumplirse"></textarea>
+    </label>
+
+    <label>Evidencia de evaluacion (uno por linea)
+      <textarea [(ngModel)]="draft.evidenciaEvaluacion" rows="4" placeholder="Que evidencia entregara el estudiante"></textarea>
+    </label>
+
+    <label>Rubrica basica (uno por linea)
+      <textarea [(ngModel)]="draft.rubricBasica" rows="4" placeholder="Como se califica o valida el resultado"></textarea>
+    </label>
+
+    <label>Recursos sugeridos (uno por linea)
+      <textarea [(ngModel)]="draft.recursosSugeridos" rows="4" placeholder="Links, docs, videos, labs"></textarea>
+    </label>
+  </article>
+
+  <div class="wizard-actions">
+    <button type="button" class="btn ghost" (click)="goPrev()" [disabled]="currentStep === 1">Anterior</button>
+    <button type="button" class="btn solid" (click)="goNext()" [disabled]="currentStep === totalSteps">Siguiente</button>
+  </div>
+
+  <section class="output">
+    <div class="output-head">
+      <h2>Salida .md lista para PR</h2>
+      <p>{{ suggestedFileName }}</p>
+    </div>
+
+    <label for="markdownOutput">Vista previa del Markdown</label>
+    <textarea
+      id="markdownOutput"
+      class="markdown-preview"
+      [value]="markdownOutput"
+      readonly
+      rows="18"
+      aria-label="Vista previa del markdown generado"
+      title="Vista previa del markdown generado"
+    ></textarea>
+
+    <div class="output-actions">
+      <button type="button" class="btn solid" (click)="copyMarkdown()">Copiar Markdown</button>
+      <button type="button" class="btn ghost" (click)="downloadMarkdown()">Descargar .md</button>
+    </div>
+  </section>
+</section>

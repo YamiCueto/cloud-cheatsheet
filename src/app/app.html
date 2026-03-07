@@ -54,6 +54,10 @@
 						<mat-icon class="text-gray-500" [class.rotate-90]="aprendeIAOpen" *ngIf="!sidebarCollapsed">chevron_right</mat-icon>
 					</button>
 					<nav *ngIf="aprendeIAOpen" class="ml-3 mt-1 flex flex-col gap-1">
+					<a routerLink="/creador-clase" routerLinkActive="bg-accent-orange/10 text-accent-orange" class="hover:bg-dark-card text-gray-400 hover:text-white flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm">
+						<mat-icon class="text-gray-400">auto_fix_high</mat-icon>
+						<span *ngIf="!sidebarCollapsed">Creador de Clase</span>
+					</a>
 					<a routerLink="/study-plan" routerLinkActive="bg-accent-orange/10 text-accent-orange" class="hover:bg-dark-card text-gray-400 hover:text-white flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm">
 						<mat-icon class="text-gray-400">home</mat-icon>
 						<span *ngIf="!sidebarCollapsed">Inicio</span>
@@ -198,6 +202,12 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-5-9-5-9 5 9 5z" />
 						</svg>
 						Plan de Estudio IA
+					</a>
+					<a routerLink="/creador-clase" class="hover:underline flex items-center gap-2">
+						<svg class="w-4 h-4 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6m13 6a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2h14z" />
+						</svg>
+						Creador de Clase
 					</a>
 					<a routerLink="/metro-map-ai" class="hover:underline flex items-center gap-2">
 						<svg class="w-4 h-4 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

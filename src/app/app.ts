@@ -47,6 +47,7 @@ export class App {
       '/roadmap/developer': 'AWS Roadmaps / Developer',
       '/roadmap/sysops': 'AWS Roadmaps / SysOps',
       '/study-plan': 'Aprende IA / Plan de Estudio',
+      '/creador-clase': 'Aprende IA / Creador de Clase',
       '/plan-detalle': 'Aprende IA / Plan de QA',
       '/clase1-ia-generativa': 'Aprende IA / Clase 1: IA Generativa',
       '/clase2-taller-test-cases': 'Aprende IA / Clase 2: Test Cases',
@@ -105,11 +106,14 @@ export class App {
     }
     // Aprende IA
     else if (this.currentRoute.startsWith('/study-plan') ||
+             this.currentRoute.startsWith('/creador-clase') ||
              this.currentRoute.startsWith('/plan-detalle') ||
              this.currentRoute.startsWith('/clase')) {
       breadcrumbs.push({ label: 'Aprende IA', url: '/study-plan' });
 
-      if (this.currentRoute === '/plan-detalle') {
+      if (this.currentRoute === '/creador-clase') {
+        breadcrumbs.push({ label: 'Creador de Clase' });
+      } else if (this.currentRoute === '/plan-detalle') {
         breadcrumbs.push({ label: 'Plan de QA' });
       } else if (this.currentRoute === '/plan-dev-detallado') {
         breadcrumbs.push({ label: 'Plan de DEV' });
